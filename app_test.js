@@ -5,6 +5,6 @@ import Menu from './Menu';
 import StudentCard from './app/student/StudentCard';
 
 ReactDOM.render(
-  <StudentCard />,
+  <StudentCard name="Yusuf" status="Active"/>,
   document.getElementById('app')
 );

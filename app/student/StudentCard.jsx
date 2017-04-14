@@ -1,42 +1,38 @@
+
 import React, { Component } from 'react';
 import Card from 'antd/lib/card';
 import Tag from 'antd/lib/tag';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
 
-export default class StudentCard extends Component {
-
-  constructor(){
-    super();
-    this.state = {
-      name: 'Hello',
-      status: 'Active'
-    }
-  }
-  render() {
-
-    var statusTag = <Tag color="#2db7f5">{this.state.status}</Tag>;
-    return (
-      <Card style={{ width: 300 }}>
-        <table style={{ width: 300 }}>
-          <tbody>
-            <tr>
-              <td style={{ width: 150 }}>
-                <img src="assets/images/avatar.png"></img>
-              </td>
-              <td style={{ width: 150 }}>
-
-              </td>
-            </tr>
-          <tr>
-            <td style={{ width: 150 }}>
-              Status
-            </td>
-            <td style={{ width: 150 }}>
-              <Tag color="#2db7f5">{this.state.status}</Tag>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </Card>
-    );
-  }
+const StudentCard = ({name, newStambuk, oldStambuk, level, status}) => {
+  return (
+    <Card className="student-card" style={{ width: 300 }}>
+      <Row>
+        <Col span={24}><img src="assets/images/avatar.png"/></Col>
+      </Row>
+      <Row>
+        <Col span={12}><label>Name</label></Col>
+        <Col span={12}><label>{name}</label></Col>
+      </Row>
+      <Row>
+        <Col span={12}><label>Stambuk Lama</label></Col>
+        <Col span={12}><label>{oldStambuk}</label></Col>
+      </Row>
+      <Row>
+        <Col span={12}><label>Stambuk Baru</label></Col>
+        <Col span={12}><label>{newStambuk}</label></Col>
+      </Row>
+      <Row>
+        <Col span={12}><label>Tingkat</label></Col>
+        <Col span={12}><label>{level}</label></Col>
+      </Row>
+      <Row>
+        <Col span={12}><label>Status</label></Col>
+        <Col span={12}><Tag color="#2db7f5">{status}</Tag></Col>
+      </Row>
+    </Card>
+  );
 }
+
+export default StudentCard;
