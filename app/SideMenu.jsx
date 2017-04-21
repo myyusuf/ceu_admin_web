@@ -13,22 +13,25 @@ const SideMenu = () => {
 
   return (
     <Menu className="side-menu"
+        height={300}
         onClick={handleClick}
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"
       >
-        <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-          <MenuItemGroup key="g1" title="Item 1">
-            <Menu.Item key="1">Option 1</Menu.Item>
-            <Menu.Item key="2">Option 2</Menu.Item>
-          </MenuItemGroup>
-          <MenuItemGroup key="g2" title="Item 2">
-            <Menu.Item key="3">Option 3</Menu.Item>
-            <Menu.Item key="4">Option 4</Menu.Item>
-          </MenuItemGroup>
+        <Menu.Item key="dashboard"><Icon type="dot-chart" />Dashboard</Menu.Item>
+        <SubMenu key="mahasiswa" title={<span><Icon type="user" /><span>Mahasiswa</span></span>}>
+          <Menu.Item key="daftarSiswa">Daftar Siswa</Menu.Item>
         </SubMenu>
-        <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
+        <SubMenu key="jadwal" title={<span><Icon type="idcard" /><span>Jadwal</span></span>}>
+          <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
+          <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
+        </SubMenu>
+        <SubMenu key="laporan" title={<span><Icon type="contacts" /><span>Laporan</span></span>}>
+          <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
+          <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
+        </SubMenu>
+        <SubMenu key="settings" title={<span><Icon type="appstore" /><span>Settings</span></span>}>
           <Menu.Item key="5">Option 5</Menu.Item>
           <Menu.Item key="6">Option 6</Menu.Item>
           <SubMenu key="sub3" title="Submenu">
@@ -36,11 +39,9 @@ const SideMenu = () => {
             <Menu.Item key="8">Option 8</Menu.Item>
           </SubMenu>
         </SubMenu>
-        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
-          <Menu.Item key="9">Option 9</Menu.Item>
-          <Menu.Item key="10">Option 10</Menu.Item>
-          <Menu.Item key="11">Option 11</Menu.Item>
-          <Menu.Item key="12">Option 12</Menu.Item>
+        <SubMenu key="help" title={<span><Icon type="question-circle-o" /><span>Help</span></span>}>
+          <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
+          <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
         </SubMenu>
       </Menu>
   );
