@@ -5,6 +5,8 @@ const { Header, Footer, Sider, Content } = Layout;
 
 import LoginInfo from './user/LoginInfo';
 import SideMenu from './SideMenu';
+import WorkspaceTitle from './WorkspaceTitle';
+import Dashboard from './dashboard/Dashboard';
 
 const Workspace = () => {
   return (
@@ -21,7 +23,8 @@ const Workspace = () => {
           <SideMenu />
         </Sider>
         <Content>
-
+          <WorkspaceTitle />
+          <Dashboard />
         </Content>
       </Layout>
       <Footer>
