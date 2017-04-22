@@ -4,8 +4,9 @@ import Card from 'antd/lib/card';
 import Tag from 'antd/lib/tag';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
+import Button from 'antd/lib/button';
 
-const StudentCard = ({ name, newStambuk, oldStambuk, level, status }) => {
+const StudentCard = ({ name, newStambuk, oldStambuk, level, status, onDetailsClick }) => {
   return (
     <Card className="student-card">
       <Row>
@@ -31,6 +32,14 @@ const StudentCard = ({ name, newStambuk, oldStambuk, level, status }) => {
         <Col span={12}><span className="field-caption">Status</span></Col>
         <Col span={12}><Tag color="#2db7f5">{status}</Tag></Col>
       </Row>
+      <Row>
+        <Col span={12} />
+        <Col span={12}>
+          <Button type="dashed" onClick={() => { onDetailsClick(name); }}>
+            Details
+          </Button>
+        </Col>
+      </Row>
     </Card>
   );
 };
@@ -41,6 +50,7 @@ StudentCard.propTypes = {
   oldStambuk: React.PropTypes.string.isRequired,
   level: React.PropTypes.string.isRequired,
   status: React.PropTypes.string.isRequired,
+  onDetailsClick: React.PropTypes.any,
 };
 
 export default StudentCard;

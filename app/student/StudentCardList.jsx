@@ -26,7 +26,6 @@ export default class StudentCardList extends Component {
       },
     })
     .then((response) => {
-      console.log(response);
       this.setState({
         students: response.data.data,
       });
@@ -36,13 +35,18 @@ export default class StudentCardList extends Component {
     });
   }
 
+  sayHello(nama) {
+    console.log(nama);
+  }
+
   render() {
     const cardList = [];
     const students = this.state.students;
     for (let i = 0; i < this.state.students.length; i += 1) {
       const student = students[i];
-      console.log(student);
-      cardList.push(<Col span={8}><StudentCard name={student.nama} /></Col>);
+      cardList.push(<Col key={i} span={8}>
+        <StudentCard name={student.nama} onDetailsClick={this.sayHello} />
+      </Col>);
     }
 
     return (
