@@ -18,10 +18,17 @@ export default class StudentCardList extends Component {
   }
 
   getStudents() {
-    axios.get('/students')
+    axios.get('/students', {
+      params: {
+        pagesize: 10,
+        pagenum: 0,
+        level: 1,
+      },
+    })
     .then((response) => {
+      console.log(response);
       this.setState({
-        students: [],
+        students: response.data.data,
       });
     })
     .catch((error) => {
@@ -30,11 +37,17 @@ export default class StudentCardList extends Component {
   }
 
   render() {
+    const cardList = [];
+    const students = this.state.students;
+    for (let i = 0; i < this.state.students.length; i += 1) {
+      const student = students[i];
+      console.log(student);
+      cardList.push(<Col span={8}><StudentCard name={student.nama} /></Col>);
+    }
+
     return (
       <Row gutter={20}>
-        <Col span={8}><StudentCard /></Col>
-        <Col span={8}><StudentCard /></Col>
-        <Col span={8}><StudentCard /></Col>
+        {cardList}
       </Row>
     );
   }

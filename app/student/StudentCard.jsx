@@ -12,7 +12,7 @@ const StudentCard = ({ name, newStambuk, oldStambuk, level, status }) => {
         <Col span={24}><img src="assets/images/avatar.png" alt="Avatar" /></Col>
       </Row>
       <Row>
-        <Col span={12}><span className="field-caption">Name</span></Col>
+        <Col span={12}><span className="field-caption">Nama</span></Col>
         <Col span={12}><span>{name}</span></Col>
       </Row>
       <Row>
