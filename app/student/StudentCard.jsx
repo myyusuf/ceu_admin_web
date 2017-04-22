@@ -1,38 +1,46 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import Card from 'antd/lib/card';
 import Tag from 'antd/lib/tag';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 
-const StudentCard = ({name, newStambuk, oldStambuk, level, status}) => {
+const StudentCard = ({ name, newStambuk, oldStambuk, level, status }) => {
   return (
-    <Card className="student-card" style={{ width: 300 }}>
+    <Card className="student-card">
       <Row>
-        <Col span={24}><img src="assets/images/avatar.png"/></Col>
+        <Col span={24}><img src="assets/images/avatar.png" alt="Avatar" /></Col>
       </Row>
       <Row>
-        <Col span={12}><label>Name</label></Col>
-        <Col span={12}><label>{name}</label></Col>
+        <Col span={12}><span className="field-caption">Name</span></Col>
+        <Col span={12}><span>{name}</span></Col>
       </Row>
       <Row>
-        <Col span={12}><label>Stambuk Lama</label></Col>
-        <Col span={12}><label>{oldStambuk}</label></Col>
+        <Col span={12}><span className="field-caption">Stambuk Lama</span></Col>
+        <Col span={12}><span>{oldStambuk}</span></Col>
       </Row>
       <Row>
-        <Col span={12}><label>Stambuk Baru</label></Col>
-        <Col span={12}><label>{newStambuk}</label></Col>
+        <Col span={12}><span className="field-caption">Stambuk Baru</span></Col>
+        <Col span={12}><span>{newStambuk}</span></Col>
       </Row>
       <Row>
-        <Col span={12}><label>Tingkat</label></Col>
-        <Col span={12}><label>{level}</label></Col>
+        <Col span={12}><span className="field-caption">Tingkat</span></Col>
+        <Col span={12}><span>{level}</span></Col>
       </Row>
       <Row>
-        <Col span={12}><label>Status</label></Col>
+        <Col span={12}><span className="field-caption">Status</span></Col>
         <Col span={12}><Tag color="#2db7f5">{status}</Tag></Col>
       </Row>
     </Card>
   );
-}
+};
+
+StudentCard.propTypes = {
+  name: React.PropTypes.string.isRequired,
+  newStambuk: React.PropTypes.string.isRequired,
+  oldStambuk: React.PropTypes.string.isRequired,
+  level: React.PropTypes.string.isRequired,
+  status: React.PropTypes.string.isRequired,
+};
 
 export default StudentCard;

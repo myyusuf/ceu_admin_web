@@ -27,9 +27,7 @@ const Workspace = () => {
           <Dashboard />
         </Content>
       </Layout>
-      <Footer>
-
-      </Footer>
+      
     </Layout>
   );
 }

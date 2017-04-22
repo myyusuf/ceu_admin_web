@@ -12,8 +12,7 @@ export default class StudentCard extends Component {
     }
   }
   render() {
-
-    var statusTag = <Tag color="#2db7f5">{this.state.status}</Tag>;
+    const statusTag = <Tag color="#2db7f5">{this.state.status}</Tag>;
     return (
       <Card style={{ width: 300 }}>
         <table style={{ width: 300 }}>
