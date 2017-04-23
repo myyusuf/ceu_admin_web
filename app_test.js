@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Form from 'antd/lib/form';
+import LocaleProvider from 'antd/lib/locale-provider';
+import enUS from 'antd/lib/locale-provider/en_US';
 
 import StudentCard from './app/student/StudentCard';
 import StudentCardList from './app/student/StudentCardList';
@@ -15,7 +17,7 @@ ReactDOM.render(
   // <StudentCard name="Yusuf" status="Active" />,
   // <StudentCardList />,
   // <TakenDivisionList />,
-  <WrappedForm />,
+  <LocaleProvider locale={enUS}><WrappedForm /></LocaleProvider>,
   // <Workspace />,
   document.getElementById('app'),
 );
