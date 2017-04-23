@@ -41,12 +41,33 @@ export default class StudentCardList extends Component {
 
   render() {
     const cardList = [];
+    const colsPerRow = 3;
+    let colList = [];
     const students = this.state.students;
+
     for (let i = 0; i < this.state.students.length; i += 1) {
       const student = students[i];
-      cardList.push(<Col key={i} span={8}>
-        <StudentCard name={student.nama} onDetailsClick={this.sayHello} />
+
+      colList.push(<Col key={i} span={8}>
+        <StudentCard key={i} student={student} onDetailsClick={this.sayHello} />
       </Col>);
+
+      if (((i + 1) % colsPerRow) === 0) {
+        cardList.push(
+          <Row key={i} gutter={20}>
+            {colList}
+          </Row>,
+        );
+        colList = [];
+      }
+    }
+
+    if (colList.length > 0) {
+      cardList.push(
+        <Row key="lastRow" gutter={20}>
+          {colList}
+        </Row>,
+      );
     }
 
     return (
