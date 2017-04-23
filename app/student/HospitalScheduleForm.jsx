@@ -126,12 +126,25 @@ export default class TakenDivisionForm extends Component {
           {...formItemLayout}
           label={(
             <span>
-             Tanggal Realisasi RS 1
+             Tanggal Mulai RS 1
             </span>
            )}
         >
-          {getFieldDecorator('hospitalRealRangeDate1', {})(
-            <RangePicker onChange={onChange} />,
+          {getFieldDecorator('hospitalRealStartDate1', {})(
+            <DatePicker onChange={onChange} />,
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label={(
+            <span>
+             Tanggal Selesai RS 1
+            </span>
+           )}
+        >
+          {getFieldDecorator('hospitalRealEndDate1', {})(
+            <DatePicker onChange={onChange} />,
           )}
         </FormItem>
 
@@ -152,12 +165,25 @@ export default class TakenDivisionForm extends Component {
           {...formItemLayout}
           label={(
             <span>
-             Tanggal Realisasi RS 2
+             Tanggal Mulai RS 2
             </span>
            )}
         >
-          {getFieldDecorator('hospitalRealRangeDate2', {})(
-            <RangePicker onChange={onChange} />,
+          {getFieldDecorator('hospitalRealStartDate2', {})(
+            <DatePicker onChange={onChange} />,
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label={(
+            <span>
+             Tanggal Selesai RS 2
+            </span>
+           )}
+        >
+          {getFieldDecorator('hospitalRealEndDate2', {})(
+            <DatePicker onChange={onChange} />,
           )}
         </FormItem>
 
@@ -206,12 +232,25 @@ export default class TakenDivisionForm extends Component {
           {...formItemLayout}
           label={(
             <span>
-             Tanggal Realisasi Klinik
+             Tanggal Mulai Klinik
             </span>
            )}
         >
-          {getFieldDecorator('klinikRealRangeDate', {})(
-            <RangePicker onChange={onChange} />,
+          {getFieldDecorator('clinicRealStartDate', {})(
+            <DatePicker onChange={onChange} />,
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label={(
+            <span>
+             Tanggal Selesai Klinik
+            </span>
+           )}
+        >
+          {getFieldDecorator('clinicRealEndDate', {})(
+            <DatePicker onChange={onChange} />,
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>

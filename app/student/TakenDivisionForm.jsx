@@ -30,13 +30,13 @@ export default class TakenDivisionForm extends Component {
 
   componentDidMount() {
     this.props.form.setFieldsValue({
-      bagian: 'Hi..',
+      bagian: 'value',
     });
   }
 
   handlePick() {
     this.props.form.setFieldsValue({
-      bagian: 'Hi..',
+      bagian: 'value',
     });
   }
 
@@ -97,7 +97,7 @@ export default class TakenDivisionForm extends Component {
            )}
         >
            {getFieldDecorator('bagian', {})(
-             <Input />
+             <Input disabled />
            )}
          </FormItem>
 
@@ -134,12 +134,25 @@ export default class TakenDivisionForm extends Component {
            {...formItemLayout}
            label={(
              <span>
-              Tanggal Realisasi
+              Tanggal Mulai
              </span>
             )}
          >
-           {getFieldDecorator('realRangeDate', {})(
-             <RangePicker onChange={onChange} />
+           {getFieldDecorator('realStartDate', {})(
+             <DatePicker onChange={onChange} />
+           )}
+         </FormItem>
+
+         <FormItem
+           {...formItemLayout}
+           label={(
+             <span>
+              Tanggal Selesai
+             </span>
+            )}
+         >
+           {getFieldDecorator('endStartDate', {})(
+             <DatePicker onChange={onChange} />
            )}
          </FormItem>
 
