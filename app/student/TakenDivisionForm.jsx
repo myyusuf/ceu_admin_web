@@ -88,198 +88,68 @@ export default class TakenDivisionForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
 
-        <Tabs defaultActiveKey="1" >
-          <TabPane tab="Detail Rotasi" key="1">
+        <FormItem
+         {...formItemLayout}
+           label={(
+             <span>
+               Bagian
+             </span>
+           )}
+        >
+           {getFieldDecorator('bagian', {})(
+             <Input />
+           )}
+         </FormItem>
 
-            <FormItem
-             {...formItemLayout}
-               label={(
-                 <span>
-                   Bagian
-                 </span>
-               )}
-            >
-               {getFieldDecorator('bagian', {})(
-                 <Input />
-               )}
-             </FormItem>
+         <FormItem
+           {...formItemLayout}
+           label={(
+             <span>
+              Judul
+             </span>
+            )}
+           hasFeedback
+         >
+           {getFieldDecorator('judul', {
+             rules: [{ required: true, message: 'Judul harus diisi!', whitespace: true }],
+           })(
+             <Input />
+           )}
+         </FormItem>
 
-             <FormItem
-               {...formItemLayout}
-               label={(
-                 <span>
-                  Judul
-                 </span>
-                )}
-               hasFeedback
-             >
-               {getFieldDecorator('judul', {
-                 rules: [{ required: true, message: 'Judul harus diisi!', whitespace: true }],
-               })(
-                 <Input />
-               )}
-             </FormItem>
+         <FormItem
+           {...formItemLayout}
+           label={(
+             <span>
+              Tanggal Rencana
+             </span>
+            )}
+         >
+           {getFieldDecorator('planRangeDate', {})(
+             <RangePicker onChange={onChange} />
+           )}
+         </FormItem>
 
-             <FormItem
-               {...formItemLayout}
-               label={(
-                 <span>
-                  Tanggal Rencana
-                 </span>
-                )}
-             >
-               {getFieldDecorator('planRangeDate', {})(
-                 <RangePicker onChange={onChange} />
-               )}
-             </FormItem>
+         <FormItem
+           {...formItemLayout}
+           label={(
+             <span>
+              Tanggal Realisasi
+             </span>
+            )}
+         >
+           {getFieldDecorator('realRangeDate', {})(
+             <RangePicker onChange={onChange} />
+           )}
+         </FormItem>
 
-             <FormItem
-               {...formItemLayout}
-               label={(
-                 <span>
-                  Tanggal Realisasi
-                 </span>
-                )}
-             >
-               {getFieldDecorator('realRangeDate', {})(
-                 <RangePicker onChange={onChange} />
-               )}
-             </FormItem>
-          </TabPane>
-          <TabPane tab="Jadwal Rumah Sakit" key="2">
-            <FormItem
-             {...formItemLayout}
-               label={(
-                 <span>
-                   Rumah Sakit&nbsp;
-                   <Tooltip title="Isi rumah sakit dengan memilih.">
-                     <Icon type="question-circle-o" />
-                   </Tooltip>
-                 </span>
-               )}
-             hasFeedback>
-               {getFieldDecorator('rumahSakit', {})(
-                 <div>
-                   <Col span={18}><Input /></Col>
-                   <Col span={6}>
-                     <Button
-                       type="dashed"
-                       size="large"
-                       onClick={this.handlePick} style={{ marginLeft: 10 }}
-                     >
-                      Pilih
-                     </Button>
-                   </Col>
-                 </div>,
-               )}
-            </FormItem>
-
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                 Tanggal Rencana RS 1
-                </span>
-               )}
-            >
-              {getFieldDecorator('hospitalPlanRangeDate1', {})(
-                <RangePicker onChange={onChange} />
-              )}
-            </FormItem>
-
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                 Tanggal Realisasi RS 1
-                </span>
-               )}
-            >
-              {getFieldDecorator('hospitalRealRangeDate1', {})(
-                <RangePicker onChange={onChange} />
-              )}
-            </FormItem>
-
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                 Tanggal Rencana RS 2
-                </span>
-               )}
-            >
-              {getFieldDecorator('hospitalPlanRangeDate2', {})(
-                <RangePicker onChange={onChange} />
-              )}
-            </FormItem>
-
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                 Tanggal Realisasi RS 2
-                </span>
-               )}
-            >
-              {getFieldDecorator('hospitalRealRangeDate2', {})(
-                <RangePicker onChange={onChange} />
-              )}
-            </FormItem>
-
-            <FormItem
-             {...formItemLayout}
-               label={(
-                 <span>
-                   Klinik&nbsp;
-                   <Tooltip title="Isi klinik dengan memilih.">
-                     <Icon type="question-circle-o" />
-                   </Tooltip>
-                 </span>
-               )}
-             hasFeedback>
-               {getFieldDecorator('klinik', {})(
-                 <div>
-                   <Col span={18}><Input /></Col>
-                   <Col span={6}>
-                     <Button
-                       type="dashed"
-                       size="large"
-                       onClick={this.handlePick} style={{ marginLeft: 10 }}
-                     >
-                      Pilih
-                     </Button>
-                   </Col>
-                 </div>,
-               )}
-            </FormItem>
-
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                 Tanggal Rencana Klinik
-                </span>
-               )}
-            >
-              {getFieldDecorator('klinikPlanRangeDate', {})(
-                <RangePicker onChange={onChange} />
-              )}
-            </FormItem>
-
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                 Tanggal Realisasi Klinik
-                </span>
-               )}
-            >
-              {getFieldDecorator('klinikRealRangeDate', {})(
-                <RangePicker onChange={onChange} />
-              )}
-            </FormItem>
-          </TabPane>
-        </Tabs>
+         <FormItem {...tailFormItemLayout} >
+            {getFieldDecorator('lastRotation', {
+              valuePropName: 'checked',
+            })(
+              <Checkbox>Rotasi Akhir</Checkbox>
+            )}
+          </FormItem>
          <FormItem {...tailFormItemLayout}>
            <Button type="primary" htmlType="submit" size="large">Save</Button>
          </FormItem>
