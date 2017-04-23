@@ -6,11 +6,13 @@ import StudentCard from './StudentCard';
 
 export default class StudentCardList extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       students: [],
     };
+
+    this.showDetails = this.showDetails.bind(this);
   }
 
   componentDidMount() {
@@ -35,8 +37,10 @@ export default class StudentCardList extends Component {
     });
   }
 
-  sayHello(nama) {
-    console.log(nama);
+  showDetails(student) {
+    if (this.props.onShowDetails) {
+      this.onShowDetails(student);
+    }
   }
 
   render() {
@@ -49,7 +53,7 @@ export default class StudentCardList extends Component {
       const student = students[i];
 
       colList.push(<Col key={i} span={8}>
-        <StudentCard key={i} student={student} onDetailsClick={this.sayHello} />
+        <StudentCard key={i} student={student} onDetailsClick={this.showDetails} />
       </Col>);
 
       if (((i + 1) % colsPerRow) === 0) {
@@ -77,3 +81,7 @@ export default class StudentCardList extends Component {
     );
   }
 }
+
+StudentCardList.propTypes = {
+  onShowDetails: React.PropTypes.any,
+};

@@ -35,7 +35,7 @@ const StudentCard = ({ student, onDetailsClick }) => {
       <Row>
         <Col span={12} />
         <Col span={12}>
-          <Button type="dashed" onClick={() => { onDetailsClick(student.nama); }}>
+          <Button type="dashed" onClick={() => { onDetailsClick(student); }}>
             Details
           </Button>
         </Col>
