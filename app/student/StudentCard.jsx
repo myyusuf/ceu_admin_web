@@ -13,7 +13,7 @@ const StudentCard = ({ student, onDetailsClick }) => {
         <Col span={24}><img src="assets/images/avatar.png" alt="Avatar" /></Col>
       </Row>
       <Row>
-        <Col span={12}><span className="field-caption">Nam</span></Col>
+        <Col span={12}><span className="field-caption">Nama</span></Col>
         <Col span={12}><span>{student.nama}</span></Col>
       </Row>
       <Row>

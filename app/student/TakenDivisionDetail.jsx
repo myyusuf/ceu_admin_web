@@ -5,6 +5,7 @@ import TakenDivisionForm from './TakenDivisionForm';
 import HospitalScheduleForm from './HospitalScheduleForm';
 import DivisionScoreForm from './DivisionScoreForm';
 import DivisionProblemForm from './DivisionProblemForm';
+import DivisionLetterForm from './DivisionLetterForm';
 
 const TabPane = Tabs.TabPane;
 
@@ -39,6 +40,9 @@ export default class TakenDivisionDetail extends Component {
         </TabPane>
         <TabPane tab="Masalah" key="4">
           <DivisionProblemForm />
+        </TabPane>
+        <TabPane tab="Surat Keterangan" key="5">
+          <DivisionLetterForm />
         </TabPane>
       </Tabs>
     );

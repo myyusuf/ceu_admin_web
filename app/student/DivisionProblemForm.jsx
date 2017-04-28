@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import Table from 'antd/lib/table';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import InputNumber from 'antd/lib/input-number';
+import Input from 'antd/lib/input';
+import Button from 'antd/lib/button';
 import axios from 'axios';
 
 export default class DivisionProblemForm extends Component {
@@ -14,7 +19,7 @@ export default class DivisionProblemForm extends Component {
           dataIndex: 'kode',
           key: 'kode',
         }, {
-          title: 'Name',
+          title: 'Keterangan',
           dataIndex: 'name',
           key: 'name',
         },
@@ -59,12 +64,42 @@ export default class DivisionProblemForm extends Component {
     };
 
     return (
-      <Table
-        rowKey="kode"
-        rowSelection={rowSelection}
-        columns={this.state.columns}
-        dataSource={this.state.problems}
-      />
+      <div>
+        <Row>
+          <Col span={24}>
+            <Table
+              pagination={false}
+              rowKey="kode"
+              rowSelection={rowSelection}
+              columns={this.state.columns}
+              dataSource={this.state.problems}
+            />
+          </Col>
+        </Row>
+        <Row style={{margin: 10}}>
+          <Col span={12}>
+            Jumlah mengulang Post-Test
+          </Col>
+          <Col span={12}>
+            <InputNumber />
+          </Col>
+        </Row>
+        <Row style={{margin: 10}}>
+          <Col span={12}>
+            Deskripsi Masalah
+          </Col>
+          <Col span={12}>
+            <Input type="textarea" />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} />
+          <Col span={12}>
+            <Button type="primary">Save</Button>
+          </Col>
+        </Row>
+      </div>
+
     );
   }
 }
