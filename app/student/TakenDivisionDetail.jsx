@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Tabs from 'antd/lib/tabs';
-import axios from 'axios';
 import Form from 'antd/lib/form';
 import TakenDivisionForm from './TakenDivisionForm';
 import HospitalScheduleForm from './HospitalScheduleForm';
 import DivisionScoreForm from './DivisionScoreForm';
+import DivisionProblemForm from './DivisionProblemForm';
 
 const TabPane = Tabs.TabPane;
 
 const WrappedTakenDivisionForm = Form.create()(TakenDivisionForm);
 const WrappedHospitalScheduleForm = Form.create()(HospitalScheduleForm);
-const WrappedDivisionScoreFormForm = Form.create()(DivisionScoreForm);
+const WrappedDivisionScoreForm = Form.create()(DivisionScoreForm);
 
 export default class TakenDivisionDetail extends Component {
 
@@ -35,7 +35,10 @@ export default class TakenDivisionDetail extends Component {
           <WrappedHospitalScheduleForm />
         </TabPane>
         <TabPane tab="Data Nilai" key="3">
-          <WrappedDivisionScoreFormForm />
+          <WrappedDivisionScoreForm />
+        </TabPane>
+        <TabPane tab="Masalah" key="4">
+          <DivisionProblemForm />
         </TabPane>
       </Tabs>
     );
