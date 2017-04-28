@@ -7,6 +7,7 @@ export default class DivisionProblemForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedRowKeys: ['MB1'],
       columns: [
         {
           title: 'Kode',
@@ -39,10 +40,12 @@ export default class DivisionProblemForm extends Component {
   }
 
   render() {
+    const { selectedRowKeys } = this.state;
     const rowSelection = {
-      selectedRowKeys: ['MB1'],
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      selectedRowKeys,
+      onChange: (newSelectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${newSelectedRowKeys}`, 'selectedRows: ', selectedRows);
+        this.setState({ selectedRowKeys: newSelectedRowKeys });
       },
       onSelect: (record, selected, selectedRows) => {
         console.log(record, selected, selectedRows);
@@ -51,7 +54,6 @@ export default class DivisionProblemForm extends Component {
         console.log(selected, selectedRows, changeRows);
       },
       getCheckboxProps: record => ({
-        value: 'checked',
         // disabled: record.name === 'Disabled User',    // Column configuration not to be checked
       }),
     };
