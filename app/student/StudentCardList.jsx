@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Button from 'antd/lib/button';
+import Radio from 'antd/lib/radio';
+import Input from 'antd/lib/input';
+import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
 import StudentCard from './StudentCard';
 
@@ -11,9 +14,11 @@ export default class StudentCardList extends Component {
     super(props);
     this.state = {
       students: [],
+      searchFilter: 'aktif',
     };
 
     this.showDetails = this.showDetails.bind(this);
+    this.handleSizeChange = this.handleSizeChange.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +47,10 @@ export default class StudentCardList extends Component {
     if (this.props.onShowDetails) {
       this.onShowDetails(student);
     }
+  }
+
+  handleSizeChange(e) {
+    this.setState({ searchFilter: e.target.value });
   }
 
   render() {
@@ -75,9 +84,27 @@ export default class StudentCardList extends Component {
       );
     }
 
+    const searchFilter = this.state.searchFilter;
+
     return (
       <div className="student-card-list">
         <div className="card-list-header">
+          <Input
+            className="search-text"
+            placeholder="Nama atau Stambuk"
+          />
+          <Button shape="circle" icon="search" className="search-button" />
+          <Button shape="circle" type="primary" icon="download" className="download-button" />
+          <div className="filter-button">
+            <Radio.Group value={searchFilter} onChange={this.handleSizeChange}>
+              <Radio.Button value="aktif" icon="plus">Aktif</Radio.Button>
+              <Radio.Button value="bermasalah">Bermasalah</Radio.Button>
+              <Radio.Button value="lulus">Lulus</Radio.Button>
+            </Radio.Group>
+          </div>
+          <div className="pagination">
+            <Pagination simple defaultCurrent={1} total={50} />
+          </div>
           <Button type="primary" icon="plus" className="add-button">
             Tambah Siswa
           </Button>
