@@ -2,12 +2,14 @@
 import React from 'react';
 import Menu from 'antd/lib/menu';
 import Icon from 'antd/lib/icon';
+// import { Link } from 'react-router-dom';
 
 const SubMenu = Menu.SubMenu;
 
 const SideMenu = () => {
   const handleClick = (e) => {
-    console.log('click ', e);
+    // console.log(`click : ${e.key}`);
+    window.location.href = `#${e.key}`;
   };
 
   return (
@@ -20,7 +22,7 @@ const SideMenu = () => {
       mode="inline"
     >
       <Menu.Item key="dashboard"><Icon type="dot-chart" />Dashboard</Menu.Item>
-      <Menu.Item key="mahasiswa"><Icon type="user" />Mahasiswa</Menu.Item>
+      <Menu.Item key="student"><Icon type="user" />Mahasiswa</Menu.Item>
       <SubMenu key="jadwal" title={<span><Icon type="idcard" /><span>Jadwal</span></span>}>
         <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
         <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
