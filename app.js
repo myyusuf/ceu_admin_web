@@ -4,10 +4,13 @@ import ReactDOM from 'react-dom';
 import LocaleProvider from 'antd/lib/locale-provider';
 import enUS from 'antd/lib/locale-provider/en_US';
 
+import StudentCardList from './app/student/StudentCardList';
+import Dashboard from './app/dashboard/Dashboard';
+
 import {
   HashRouter,
   Route,
-  Link
+  Link,
 } from 'react-router-dom';
 
 
@@ -20,7 +23,10 @@ import Workspace from './app/workspace/Workspace';
 
 ReactDOM.render(
   <HashRouter>
-    <Route path="/" component={Workspace} />
+    <Workspace>
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/student" component={StudentCardList} />
+    </Workspace>
   </HashRouter>,
   document.getElementById('app')
 );
