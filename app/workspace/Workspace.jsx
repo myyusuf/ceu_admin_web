@@ -5,6 +5,7 @@ const Workspace = () => {
   return (
     <div className="workspace-header">
       <img className="logo" src="assets/images/small_logo.png" alt="Logo" />
+      <span className="app-name">CEU</span>
       <nav>
         <ul>
           <a href="#"><li>Home</li></a>
