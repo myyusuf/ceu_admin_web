@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
+import Button from 'antd/lib/button';
 import axios from 'axios';
 import StudentCard from './StudentCard';
 
@@ -75,9 +76,18 @@ export default class StudentCardList extends Component {
     }
 
     return (
-      <Row gutter={20}>
-        {cardList}
-      </Row>
+      <div className="student-card-list">
+        <div className="card-list-header">
+          <Button type="primary" icon="plus" className="add-button">
+            Tambah Siswa
+          </Button>
+        </div>
+        <div className="card-list-content">
+          <Row gutter={20}>
+            {cardList}
+          </Row>
+        </div>
+      </div>
     );
   }
 }
