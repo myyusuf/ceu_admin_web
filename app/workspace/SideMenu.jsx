@@ -20,9 +20,7 @@ const SideMenu = () => {
       mode="inline"
     >
       <Menu.Item key="dashboard"><Icon type="dot-chart" />Dashboard</Menu.Item>
-      <SubMenu key="mahasiswa" title={<span><Icon type="user" /><span>Mahasiswa</span></span>}>
-        <Menu.Item key="daftarSiswa">Daftar Siswa</Menu.Item>
-      </SubMenu>
+      <Menu.Item key="mahasiswa"><Icon type="user" />Mahasiswa</Menu.Item>
       <SubMenu key="jadwal" title={<span><Icon type="idcard" /><span>Jadwal</span></span>}>
         <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
         <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
