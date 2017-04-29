@@ -17,7 +17,7 @@ const { RangePicker } = DatePicker;
 
 const FormItem = Form.Item;
 
-export default class TakenDivisionForm extends Component {
+export default class TakenDepartmentForm extends Component {
 
   constructor(props) {
     super(props);

@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import Tabs from 'antd/lib/tabs';
 import Form from 'antd/lib/form';
-import TakenDivisionForm from './TakenDivisionForm';
+import TakenDepartmentForm from './TakenDepartmentForm';
 import HospitalScheduleForm from './HospitalScheduleForm';
-import DivisionScoreForm from './DivisionScoreForm';
-import DivisionProblemForm from './DivisionProblemForm';
-import DivisionLetterForm from './DivisionLetterForm';
+import DepartmentScoreForm from './DepartmentScoreForm';
+import DepartmentProblemForm from './DepartmentProblemForm';
+import DepartmentLetterForm from './DepartmentLetterForm';
 
 const TabPane = Tabs.TabPane;
 
-const WrappedTakenDivisionForm = Form.create()(TakenDivisionForm);
+const WrappedTakenDepartmentForm = Form.create()(TakenDepartmentForm);
 const WrappedHospitalScheduleForm = Form.create()(HospitalScheduleForm);
-const WrappedDivisionScoreForm = Form.create()(DivisionScoreForm);
+const WrappedDepartmentScoreForm = Form.create()(DepartmentScoreForm);
 
-export default class TakenDivisionDetail extends Component {
+export default class TakenDepartmentDetail extends Component {
 
   constructor(props) {
     super(props);
@@ -30,19 +30,19 @@ export default class TakenDivisionDetail extends Component {
     return (
       <Tabs defaultActiveKey="1">
         <TabPane tab="Detail" key="1">
-          <WrappedTakenDivisionForm />
+          <WrappedTakenDepartmentForm />
         </TabPane>
         <TabPane tab="Jadwal Rumah Sakit" key="2">
           <WrappedHospitalScheduleForm />
         </TabPane>
         <TabPane tab="Data Nilai" key="3">
-          <WrappedDivisionScoreForm />
+          <WrappedDepartmentScoreForm />
         </TabPane>
         <TabPane tab="Masalah" key="4">
-          <DivisionProblemForm />
+          <DepartmentProblemForm />
         </TabPane>
         <TabPane tab="Surat Keterangan" key="5">
-          <DivisionLetterForm />
+          <DepartmentLetterForm />
         </TabPane>
       </Tabs>
     );

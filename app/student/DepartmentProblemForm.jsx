@@ -7,7 +7,7 @@ import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
 import axios from 'axios';
 
-export default class DivisionProblemForm extends Component {
+export default class DepartmentProblemForm extends Component {
 
   constructor(props) {
     super(props);
@@ -29,11 +29,11 @@ export default class DivisionProblemForm extends Component {
   }
 
   componentDidMount() {
-    this.getTakenDivisionProblems();
+    this.getTakenDepartmentProblems();
   }
 
-  getTakenDivisionProblems() {
-    axios.get('/takendivisionproblems', {})
+  getTakenDepartmentProblems() {
+    axios.get('/takendepartmentproblems', {})
     .then((response) => {
       this.setState({
         problems: response.data,

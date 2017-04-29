@@ -5,7 +5,7 @@ import Col from 'antd/lib/col';
 import Button from 'antd/lib/button';
 import axios from 'axios';
 
-export default class TakenDivisionList extends Component {
+export default class TakenDepartmentList extends Component {
 
   constructor(props) {
     super(props);
@@ -25,17 +25,17 @@ export default class TakenDivisionList extends Component {
           key: 'address',
         },
       ],
-      takenDivisions: [],
+      takenDepartments: [],
     };
 
     this.showDetails = this.showDetails.bind(this);
   }
 
   componentDidMount() {
-    this.getTakenDivisions();
+    this.getTakenDepartments();
   }
 
-  getTakenDivisions() {
+  getTakenDepartments() {
     // axios.get('/students', {
     //   params: {
     //     pagesize: 10,
@@ -70,13 +70,13 @@ export default class TakenDivisionList extends Component {
     }];
 
     this.setState({
-      takenDivisions: data,
+      takenDepartments: data,
     });
   }
 
-  showDetails(takenDivision) {
+  showDetails(takenDepartment) {
     if (this.props.onShowDetails) {
-      this.onShowDetails(takenDivision);
+      this.onShowDetails(takenDepartment);
     }
   }
 
@@ -92,7 +92,7 @@ export default class TakenDivisionList extends Component {
         </Row>
         <Row>
           <Col span={24}>
-            <Table columns={this.state.columns} dataSource={this.state.takenDivisions} />
+            <Table columns={this.state.columns} dataSource={this.state.takenDepartments} />
           </Col>
         </Row>
       </div>

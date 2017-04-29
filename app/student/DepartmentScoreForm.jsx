@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const FormItem = Form.Item;
 
-export default class DivisionScoreForm extends Component {
+export default class DepartmentScoreForm extends Component {
 
   constructor(props) {
     super(props);
