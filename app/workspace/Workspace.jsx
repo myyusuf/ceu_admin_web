@@ -8,9 +8,7 @@ const Workspace = () => {
       <span className="app-name">CEU</span>
       <nav>
         <ul>
-          <a href="#"><li>Home</li></a>
-          <a href="#"><li>About</li></a>
-          <a href="#"><li>Contact</li></a>
+          <li><img src="assets/images/icons/settings.png" alt="menu" /></li>
         </ul>
       </nav>
     </div>
