@@ -5,9 +5,18 @@ import SideMenu from './SideMenu';
 import LoginInfo from '../user/LoginInfo';
 
 const Workspace = ({ children }) => {
+
+  const location = window.location.href;
+  let pageTitle = '';
+
+  if (location.indexOf('dashboard') > 0) {
+    pageTitle = 'Dashboard';
+  } else if (location.indexOf('student') > 0) {
+    pageTitle = 'Student';
+  }
   return (
     <div>
-      <Header pageTitle="Dashboard" />
+      <Header pageTitle={pageTitle} />
       <div className="workspace-left-menu">
         <LoginInfo name="Yusuf" roleName="Administrator" />
         <SideMenu />

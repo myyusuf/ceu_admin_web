@@ -5,6 +5,7 @@ import LocaleProvider from 'antd/lib/locale-provider';
 import enUS from 'antd/lib/locale-provider/en_US';
 
 import StudentCardList from './app/student/StudentCardList';
+import StudentDetail from './app/student/StudentDetail';
 import Dashboard from './app/dashboard/Dashboard';
 
 import {
@@ -26,6 +27,7 @@ ReactDOM.render(
     <Workspace>
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/student" component={StudentCardList} />
+      <Route path="/studentdetail/:studentId" component={StudentDetail} />
     </Workspace>
   </HashRouter>,
   document.getElementById('app')
