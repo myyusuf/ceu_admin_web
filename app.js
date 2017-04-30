@@ -24,11 +24,13 @@ import Workspace from './app/workspace/Workspace';
 
 ReactDOM.render(
   <HashRouter>
-    <Workspace>
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/student" component={StudentCardList} />
-      <Route path="/studentdetail/:studentId" component={StudentDetail} />
-    </Workspace>
+    <LocaleProvider locale={enUS}>
+      <Workspace>
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/student" component={StudentCardList} />
+        <Route path="/studentdetail/:studentId" component={StudentDetail} />
+      </Workspace>
+    </LocaleProvider>
   </HashRouter>,
   document.getElementById('app')
 );

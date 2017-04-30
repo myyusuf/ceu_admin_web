@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
-import Button from 'antd/lib/button';
 import Radio from 'antd/lib/radio';
-import Select from 'antd/lib/select';
-import Input from 'antd/lib/input';
-import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
-import StudentCard from './StudentCard';
 import StudentInfo from './StudentInfo';
-
-const Option = Select.Option;
+import TakenDepartmentDetail from './TakenDepartmentDetail';
 
 export default class StudentDetail extends Component {
 
@@ -24,6 +16,10 @@ export default class StudentDetail extends Component {
 
     if (location.indexOf('info') > 0) {
       selectedDetail = '1';
+    } else if (location.indexOf('departments') > 0) {
+      selectedDetail = '2';
+    } else {
+      selectedDetail = '3';
     }
 
     this.state = {
@@ -42,8 +38,10 @@ export default class StudentDetail extends Component {
   onSelectDetailChange(e) {
     if (e.target.value === '1') {
       window.location.href = `#${this.props.match.url}/info`;
-    }else{
+    } else if (e.target.value === '2') {
       window.location.href = `#${this.props.match.url}/departments`;
+    } else {
+      window.location.href = `#${this.props.match.url}/mppd`;
     }
     this.setState({ selectedDetail: e.target.value });
   }
@@ -82,8 +80,9 @@ export default class StudentDetail extends Component {
           </div>
           <div className="detail-select">
             <Radio.Group value={selectedDetail} onChange={this.onSelectDetailChange}>
-              <Radio.Button value="1">Bagian Diambil</Radio.Button>
-              <Radio.Button value="2">Nilai MPPD</Radio.Button>
+              <Radio.Button value="1">Info</Radio.Button>
+              <Radio.Button value="2">Bagian Diambil</Radio.Button>
+              <Radio.Button value="3">Nilai MPPD</Radio.Button>
             </Radio.Group>
           </div>
         </div>
@@ -91,6 +90,9 @@ export default class StudentDetail extends Component {
           <Switch>
             <Route path={`${this.props.match.url}/info`}>
               <StudentInfo student={this.state.student} />
+            </Route>
+            <Route path={`${this.props.match.url}/departments`}>
+              <TakenDepartmentDetail />
             </Route>
           </Switch>
         </div>

@@ -33,16 +33,24 @@ export default class TakenDepartmentDetail extends Component {
           <WrappedTakenDepartmentForm />
         </TabPane>
         <TabPane tab="Jadwal Rumah Sakit" key="2">
-          <WrappedHospitalScheduleForm />
+          <div className="tab-container">
+            <WrappedHospitalScheduleForm />
+          </div>
         </TabPane>
         <TabPane tab="Data Nilai" key="3">
-          <WrappedDepartmentScoreForm />
+          <div className="tab-container">
+            <WrappedDepartmentScoreForm />
+          </div>
         </TabPane>
         <TabPane tab="Masalah" key="4">
-          <DepartmentProblemForm />
+          <div className="tab-container">
+            <DepartmentProblemForm />
+          </div>
         </TabPane>
         <TabPane tab="Surat Keterangan" key="5">
-          <DepartmentLetterForm />
+          <div className="tab-container">
+            <DepartmentLetterForm />
+          </div>
         </TabPane>
       </Tabs>
     );

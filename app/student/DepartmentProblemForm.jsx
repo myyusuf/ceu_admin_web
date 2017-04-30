@@ -64,10 +64,11 @@ export default class DepartmentProblemForm extends Component {
     };
 
     return (
-      <div>
+      <div style={{ paddingBottom: 10 }}>
         <Row>
           <Col span={24}>
             <Table
+              size="small"
               pagination={false}
               rowKey="kode"
               rowSelection={rowSelection}
@@ -76,8 +77,8 @@ export default class DepartmentProblemForm extends Component {
             />
           </Col>
         </Row>
-        <Row style={{margin: 10}}>
-          <Col span={12}>
+        <Row style={{ margin: 10 }}>
+          <Col span={6}>
             Jumlah mengulang Post-Test
           </Col>
           <Col span={12}>
@@ -85,7 +86,7 @@ export default class DepartmentProblemForm extends Component {
           </Col>
         </Row>
         <Row style={{margin: 10}}>
-          <Col span={12}>
+          <Col span={6}>
             Deskripsi Masalah
           </Col>
           <Col span={12}>
@@ -93,7 +94,7 @@ export default class DepartmentProblemForm extends Component {
           </Col>
         </Row>
         <Row>
-          <Col span={12} />
+          <Col span={6} />
           <Col span={12}>
             <Button type="primary">Save</Button>
           </Col>
