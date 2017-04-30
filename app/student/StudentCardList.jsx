@@ -51,7 +51,7 @@ export default class StudentCardList extends Component {
     //   this.onShowDetails(student);
     // }
 
-    window.location.href = `#/studentdetail/${student.id}`;
+    window.location.href = `#/studentdetail/${student.id}/info`;
   }
 
   handleSizeChange(e) {

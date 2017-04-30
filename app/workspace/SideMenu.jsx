@@ -16,6 +16,7 @@ const SideMenu = () => {
     <Menu
       className="side-menu"
       height={300}
+      style={{ border: 0 }}
       onClick={handleClick}
       defaultSelectedKeys={['1']}
       defaultOpenKeys={['sub1']}

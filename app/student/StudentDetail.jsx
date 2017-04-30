@@ -3,7 +3,7 @@ import Radio from 'antd/lib/radio';
 import axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
 import StudentInfo from './StudentInfo';
-import TakenDepartmentDetail from './TakenDepartmentDetail';
+import TakenDepartment from './TakenDepartment';
 
 export default class StudentDetail extends Component {
 
@@ -92,7 +92,7 @@ export default class StudentDetail extends Component {
               <StudentInfo student={this.state.student} />
             </Route>
             <Route path={`${this.props.match.url}/departments`}>
-              <TakenDepartmentDetail />
+              <TakenDepartment />
             </Route>
           </Switch>
         </div>
