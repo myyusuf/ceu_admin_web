@@ -23,7 +23,7 @@ export default class StudentDetail extends Component {
     }
 
     this.state = {
-      student: {},
+      student: null,
       studentId: this.props.match.params.studentId,
       selectedDetail,
     };
@@ -62,13 +62,26 @@ export default class StudentDetail extends Component {
   }
 
   render() {
-    const student = this.state.student;
+    const student = this.state.student || {};
     let stambuk = '';
     if (student.stambuk_lama && student.stambuk_baru) {
       stambuk = `${student.stambuk_lama} - ${student.stambuk_baru}`;
     }
 
     const selectedDetail = this.state.selectedDetail;
+    let children = <div />;
+    if (this.state.student !== null) {
+      children = (
+        <Switch>
+          <Route path={`${this.props.match.url}/info`}>
+            <StudentInfo student={this.state.student} />
+          </Route>
+          <Route path={`${this.props.match.url}/departments`}>
+            <TakenDepartment student={this.state.student} />
+          </Route>
+        </Switch>
+      )
+    }
 
     return (
       <div className="student-detail">
@@ -87,14 +100,7 @@ export default class StudentDetail extends Component {
           </div>
         </div>
         <div className="content">
-          <Switch>
-            <Route path={`${this.props.match.url}/info`}>
-              <StudentInfo student={this.state.student} />
-            </Route>
-            <Route path={`${this.props.match.url}/departments`}>
-              <TakenDepartment />
-            </Route>
-          </Switch>
+          {children}
         </div>
       </div>
     );

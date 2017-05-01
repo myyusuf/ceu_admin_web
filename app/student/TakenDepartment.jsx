@@ -9,7 +9,7 @@ export default class TakenDepartment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      student: props.student,
+      student: this.props.student,
       takenDepartments: [],
       selectedLevel: '1',
       columns: [
@@ -37,13 +37,15 @@ export default class TakenDepartment extends Component {
   }
 
   getDepartments() {
-    const url = `/takendepartments/${this.state.student}`;
+    const url = `/takendepartments/${this.state.student.id}`;
+    console.log(url);
     axios.get(url, {
       params: {},
     })
     .then((response) => {
+      console.dir(response);
       this.setState({
-        takenDepartments: response.data.data,
+        takenDepartments: response.data,
       });
     })
     .catch((error) => {
@@ -64,6 +66,12 @@ export default class TakenDepartment extends Component {
                   <Radio.Button value="2"> 2 </Radio.Button>
                 </Radio.Group>
               </li>
+              <li>
+                <Button shape="circle" icon="reload" />
+              </li>
+              <li>
+                <Button shape="circle" type="primary" icon="download" />
+              </li>
             </ul>
           </div>
           <Button type="primary" icon="plus" className="add-button">
@@ -71,13 +79,19 @@ export default class TakenDepartment extends Component {
           </Button>
         </div>
         <div className="content">
-          <Table
-            size="medium"
-            pagination={false}
-            rowKey="kode"
-            columns={this.state.columns}
-            dataSource={this.state.takenDepartments}
-          />
+          <div className="left">
+            <Table
+              size="medium"
+              pagination={false}
+              rowKey="judul"
+              columns={this.state.columns}
+              dataSource={this.state.takenDepartments}
+            />
+          </div>
+          <div className="right">
+
+          </div>
+
         </div>
       </div>
     );
