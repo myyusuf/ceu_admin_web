@@ -9,7 +9,6 @@ import DepartmentLetterForm from './DepartmentLetterForm';
 
 const TabPane = Tabs.TabPane;
 
-const WrappedTakenDepartmentForm = Form.create()(TakenDepartmentForm);
 const WrappedHospitalScheduleForm = Form.create()(HospitalScheduleForm);
 const WrappedDepartmentScoreForm = Form.create()(DepartmentScoreForm);
 
@@ -27,10 +26,13 @@ export default class TakenDepartmentDetail extends Component {
   }
 
   render() {
+    console.log('this.props.takenDepartment : ', this.props.takenDepartment);
     return (
       <Tabs defaultActiveKey="1">
         <TabPane tab="Detail" key="1">
-          <WrappedTakenDepartmentForm />
+          <TakenDepartmentForm
+            takenDepartment={this.props.takenDepartment}
+          />
         </TabPane>
         <TabPane tab="Jadwal Rumah Sakit" key="2">
           <div className="tab-container">

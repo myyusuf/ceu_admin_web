@@ -4,13 +4,27 @@ import Radio from 'antd/lib/radio';
 import Table from 'antd/lib/table';
 import axios from 'axios';
 
+import TakenDepartmentDetail from './TakenDepartmentDetail';
+
 export default class TakenDepartment extends Component {
 
   constructor(props) {
     super(props);
+
+    const rowSelection = {
+      type: 'radio',
+      onChange: (selectedRowKeys, selectedRows) => {
+        // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      },
+      onSelect: (record, selected, selectedRows) => {
+        this.onTakenDepartmentSelected(record);
+      },
+    };
+
     this.state = {
       student: this.props.student,
       takenDepartments: [],
+      selectedTakenDepartment: null,
       selectedLevel: '1',
       columns: [
         {
@@ -23,9 +37,11 @@ export default class TakenDepartment extends Component {
           key: 'judul',
         },
       ],
+      rowSelection,
     };
 
     this.onSelectLevelChange = this.onSelectLevelChange.bind(this);
+    this.onTakenDepartmentSelected = this.onTakenDepartmentSelected.bind(this);
   }
 
   componentDidMount() {
@@ -36,14 +52,18 @@ export default class TakenDepartment extends Component {
     this.setState({ selectedLevel: e.target.value });
   }
 
+  onTakenDepartmentSelected(record) {
+    this.setState({
+      selectedTakenDepartment: record,
+    });
+  }
+
   getDepartments() {
     const url = `/takendepartments/${this.state.student.id}`;
-    console.log(url);
     axios.get(url, {
       params: {},
     })
     .then((response) => {
-      console.dir(response);
       this.setState({
         takenDepartments: response.data,
       });
@@ -55,6 +75,17 @@ export default class TakenDepartment extends Component {
 
   render() {
     const selectedLevel = this.state.selectedLevel;
+
+    let takenDepartmentDetail = <div>Select Department</div>;
+
+    if (this.state.selectedTakenDepartment !== null) {
+      takenDepartmentDetail = (
+        <TakenDepartmentDetail
+          takenDepartment={this.state.selectedTakenDepartment}
+        />
+      );
+    }
+
     return (
       <div className="taken-department">
         <div className="header">
@@ -86,10 +117,11 @@ export default class TakenDepartment extends Component {
               rowKey="judul"
               columns={this.state.columns}
               dataSource={this.state.takenDepartments}
+              rowSelection={this.state.rowSelection}
             />
           </div>
           <div className="right">
-
+            {takenDepartmentDetail}
           </div>
 
         </div>
