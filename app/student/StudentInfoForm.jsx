@@ -62,6 +62,17 @@ export default class StudentInfoForm extends Component {
       },
     };
 
+    const formItemLayoutHorizontal2 = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 6, offset: 2 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
+
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -80,7 +91,7 @@ export default class StudentInfoForm extends Component {
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 24 },
+        sm: { span: 22, offset: 2 },
       },
     };
 
@@ -91,15 +102,15 @@ export default class StudentInfoForm extends Component {
           offset: 0,
         },
         sm: {
-          span: 14,
-          offset: 6,
+          span: 16,
+          offset: 4,
         },
       },
     };
 
     return (
       <Form onSubmit={this.handleSubmit} className="student-info-form" layout="vertical">
-        <Row gutter={20}>
+        <Row gutter={0}>
           <Col span={12}>
             <FormItem
               {...formItemLayoutHorizontal}
@@ -115,7 +126,7 @@ export default class StudentInfoForm extends Component {
           </Col>
           <Col span={12}>
             <FormItem
-              {...formItemLayoutHorizontal}
+              {...formItemLayoutHorizontal2}
               required
               label={(
                 <span>
@@ -142,7 +153,7 @@ export default class StudentInfoForm extends Component {
             </FormItem>
           </Col>
         </Row>
-        <Row gutter={20}>
+        <Row gutter={0}>
           <Col span={12}>
             <FormItem
               {...formItemLayoutHorizontal}
@@ -181,6 +192,90 @@ export default class StudentInfoForm extends Component {
             </FormItem>
           </Col>
         </Row>
+        <Row>
+          <Col span={24}>
+            <FormItem
+              {...formItemLayout}
+              label={(
+                <span>
+                  Alamat
+                </span>
+               )}
+            >
+              <Input />
+            </FormItem>
+          </Col>
+        </Row>
+
+        <Row gutter={0}>
+          <Col span={12}>
+            <FormItem
+              {...formItemLayoutHorizontal}
+              label={(
+                <span>
+                  Telepon
+                </span>
+               )}
+            >
+              <Input />
+            </FormItem>
+          </Col>
+          <Col span={12}>
+            <FormItem
+              {...formItemLayoutHorizontal2}
+              label={(
+                <span>
+                  Handphone
+                </span>
+               )}
+            >
+              <Input />
+            </FormItem>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={24}>
+            <FormItem
+              {...formItemLayout}
+              label={(
+                <span>
+                  Email
+                </span>
+               )}
+            >
+              <Input />
+            </FormItem>
+          </Col>
+        </Row>
+
+        <Row gutter={0}>
+          <Col span={12}>
+            <FormItem
+              {...formItemLayoutHorizontal}
+              label={(
+                <span>
+                  Tahun Masuk
+                </span>
+               )}
+            >
+              <Input />
+            </FormItem>
+          </Col>
+          <Col span={12}>
+            <FormItem
+              {...formItemLayoutHorizontal2}
+              label={(
+                <span>
+                  Tahun Keluar
+                </span>
+               )}
+            >
+              <Input />
+            </FormItem>
+          </Col>
+        </Row>
+
         <Row>
           <Col span={24}>
             <FormItem {...tailFormItemLayout}>
