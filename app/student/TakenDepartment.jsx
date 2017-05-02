@@ -103,6 +103,9 @@ export default class TakenDepartment extends Component {
               <li>
                 <Button shape="circle" type="primary" icon="download" />
               </li>
+              <li>
+                <Button style={{ marginLeft: 20 }} icon="menu-unfold">Chart</Button>
+              </li>
             </ul>
           </div>
           <Button type="primary" icon="plus" className="add-button">

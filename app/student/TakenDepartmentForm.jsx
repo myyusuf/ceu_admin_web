@@ -71,7 +71,7 @@ export default class TakenDepartmentForm extends Component {
     };
 
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form">
+      <Form onSubmit={this.handleSubmit} className="taken-department-form">
         <FormItem
           {...formItemLayout}
           label={(
