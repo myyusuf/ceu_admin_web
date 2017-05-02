@@ -7,10 +7,10 @@ import Checkbox from 'antd/lib/checkbox';
 import Button from 'antd/lib/button';
 import axios from 'axios';
 import DatePicker from 'antd/lib/date-picker';
-
-const { RangePicker } = DatePicker;
+import Radio from 'antd/lib/radio';
 
 const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
 
 export default class StudentInfoForm extends Component {
 
@@ -103,6 +103,7 @@ export default class StudentInfoForm extends Component {
           <Col span={12}>
             <FormItem
               {...formItemLayoutHorizontal}
+              required
               label={(
                 <span>
                   Stambuk Lama
@@ -115,6 +116,7 @@ export default class StudentInfoForm extends Component {
           <Col span={12}>
             <FormItem
               {...formItemLayoutHorizontal}
+              required
               label={(
                 <span>
                   Stambuk Baru
@@ -129,6 +131,7 @@ export default class StudentInfoForm extends Component {
           <Col span={24}>
             <FormItem
               {...formItemLayout}
+              required
               label={(
                 <span>
                   Nama
@@ -156,7 +159,25 @@ export default class StudentInfoForm extends Component {
             <FormItem
               {...formItemLayout2}
             >
-              <Input />
+              <DatePicker onChange={onChange} />
+            </FormItem>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <FormItem
+              {...formItemLayout}
+              required
+              label={(
+                <span>
+                  Jenis Kelamin
+                </span>
+               )}
+            >
+              <RadioGroup onChange={this.onChange} >
+                <Radio value={'M'}>Laki-laki</Radio>
+                <Radio value={'F'}>Perempuan</Radio>
+              </RadioGroup>
             </FormItem>
           </Col>
         </Row>
