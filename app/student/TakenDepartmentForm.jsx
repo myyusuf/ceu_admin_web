@@ -118,6 +118,7 @@ export default class TakenDepartmentForm extends Component {
 
         <FormItem
           {...formItemLayout}
+          style={{ marginBottom: 8 }}
           label={(
             <span>
               Tanggal Selesai
@@ -127,8 +128,11 @@ export default class TakenDepartmentForm extends Component {
           <DatePicker onChange={onChange} />
         </FormItem>
 
-        <FormItem {...tailFormItemLayout}>
+        <FormItem {...tailFormItemLayout} style={{ marginBottom: 5 }}>
           <Checkbox>Rotasi Akhir</Checkbox>
+        </FormItem>
+        <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
+          <Checkbox>Selesai</Checkbox>
         </FormItem>
 
         <FormItem {...tailFormItemLayout}>

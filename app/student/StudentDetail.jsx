@@ -96,6 +96,7 @@ export default class StudentDetail extends Component {
               <Radio.Button value="1">Info</Radio.Button>
               <Radio.Button value="2">Bagian Diambil</Radio.Button>
               <Radio.Button value="3">Nilai MPPD</Radio.Button>
+              <Radio.Button value="4">Masalah</Radio.Button>
             </Radio.Group>
           </div>
         </div>
