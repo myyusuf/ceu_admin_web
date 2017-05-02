@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Radio from 'antd/lib/radio';
 import axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
-import StudentInfo from './StudentInfo';
+import StudentInfoForm from './StudentInfoForm';
 import TakenDepartment from './TakenDepartment';
 
 export default class StudentDetail extends Component {
@@ -74,7 +74,7 @@ export default class StudentDetail extends Component {
       children = (
         <Switch>
           <Route path={`${this.props.match.url}/info`}>
-            <StudentInfo student={this.state.student} />
+            <StudentInfoForm student={this.state.student} />
           </Route>
           <Route path={`${this.props.match.url}/departments`}>
             <TakenDepartment student={this.state.student} />

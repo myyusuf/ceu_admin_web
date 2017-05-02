@@ -35,6 +35,14 @@ const StudentCard = ({ student, onDetailsClick }) => {
         <Col span={12}><Tag color="#2db7f5">Aktif</Tag></Col>
       </Row>
       <Row>
+        <Col span={12}><span className="field-caption">Bagian</span></Col>
+        <Col span={12}><Tag color="#2db7f5">Interna</Tag></Col>
+      </Row>
+      <Row>
+        <Col span={12}><span className="field-caption">Status Bagian</span></Col>
+        <Col span={12}><Tag color="#FFB300">Approval</Tag></Col>
+      </Row>
+      <Row>
         <Col span={24}><div className="row-delimiter" /></Col>
       </Row>
       <Row>
