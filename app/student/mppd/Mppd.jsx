@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tabs from 'antd/lib/tabs';
+import PreKompre from './PreKompre';
 
 const TabPane = Tabs.TabPane;
 
@@ -20,8 +21,7 @@ export default class Mppd extends Component {
     return (
       <Tabs defaultActiveKey="1">
         <TabPane tab="Pre Kompre" key="1">
-          <div className="tab-container">
-          </div>
+          <PreKompre />
         </TabPane>
         <TabPane tab="Mid Kompre" key="2">
           <div className="tab-container">
