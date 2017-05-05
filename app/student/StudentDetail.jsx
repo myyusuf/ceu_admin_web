@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
 import StudentInfoForm from './StudentInfoForm';
 import TakenDepartment from './TakenDepartment';
+import Mppd from './mppd/Mppd';
 
 export default class StudentDetail extends Component {
 
@@ -18,8 +19,10 @@ export default class StudentDetail extends Component {
       selectedDetail = '1';
     } else if (location.indexOf('departments') > 0) {
       selectedDetail = '2';
-    } else {
+    } else if (location.indexOf('mppd') > 0) {
       selectedDetail = '3';
+    } else {
+      selectedDetail = '4';
     }
 
     this.state = {
@@ -40,8 +43,10 @@ export default class StudentDetail extends Component {
       window.location.href = `#${this.props.match.url}/info`;
     } else if (e.target.value === '2') {
       window.location.href = `#${this.props.match.url}/departments`;
-    } else {
+    } else if (e.target.value === '3') {
       window.location.href = `#${this.props.match.url}/mppd`;
+    } else {
+      window.location.href = `#${this.props.match.url}/problem`;
     }
     this.setState({ selectedDetail: e.target.value });
   }
@@ -78,6 +83,9 @@ export default class StudentDetail extends Component {
           </Route>
           <Route path={`${this.props.match.url}/departments`}>
             <TakenDepartment student={this.state.student} />
+          </Route>
+          <Route path={`${this.props.match.url}/mppd`}>
+            <Mppd student={this.state.student} />
           </Route>
         </Switch>
       )

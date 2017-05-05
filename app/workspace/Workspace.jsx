@@ -13,6 +13,8 @@ const Workspace = ({ children }) => {
     pageTitle = 'Dashboard';
   } else if (location.indexOf('student') > 0) {
     pageTitle = 'Student';
+  } else if (location.indexOf('hospital') > 0) {
+    pageTitle = 'Hospital';
   }
   return (
     <div>

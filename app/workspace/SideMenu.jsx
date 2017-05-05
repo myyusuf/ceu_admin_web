@@ -24,6 +24,7 @@ const SideMenu = () => {
     >
       <Menu.Item key="dashboard"><Icon type="dot-chart" />Dashboard</Menu.Item>
       <Menu.Item key="student"><Icon type="user" />Mahasiswa</Menu.Item>
+      <Menu.Item key="hospital"><Icon type="user" />Rumah Sakit</Menu.Item>
       <SubMenu key="jadwal" title={<span><Icon type="idcard" /><span>Jadwal</span></span>}>
         <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
         <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
