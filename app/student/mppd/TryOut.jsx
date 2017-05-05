@@ -4,7 +4,7 @@ import Radio from 'antd/lib/radio';
 import Button from 'antd/lib/button';
 import axios from 'axios';
 
-export default class PreKompre extends Component {
+export default class TryOut extends Component {
 
   constructor(props) {
     super(props);
@@ -34,7 +34,7 @@ export default class PreKompre extends Component {
   }
 
   getTakenDepartmentProblems() {
-    axios.get('/student/mppd/prekompre', {})
+    axios.get('/student/mppd/tryout', {})
     .then((response) => {
       this.setState({
         problems: response.data,

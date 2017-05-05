@@ -4,7 +4,7 @@ import Radio from 'antd/lib/radio';
 import Button from 'antd/lib/button';
 import axios from 'axios';
 
-export default class PreKompre extends Component {
+export default class FinalMppd extends Component {
 
   constructor(props) {
     super(props);
@@ -16,9 +16,13 @@ export default class PreKompre extends Component {
           dataIndex: 'tanggal',
           key: 'tanggal',
         }, {
-          title: 'Nilai',
-          dataIndex: 'nilai',
-          key: 'nilai',
+          title: 'Nilai CBT',
+          dataIndex: 'nilai_cbt',
+          key: 'nilai_cbt',
+        }, {
+          title: 'Nilai OSCE',
+          dataIndex: 'nilai_osce',
+          key: 'nilai_osce',
         },
       ],
       problems: [],
@@ -34,7 +38,7 @@ export default class PreKompre extends Component {
   }
 
   getTakenDepartmentProblems() {
-    axios.get('/student/mppd/prekompre', {})
+    axios.get('/student/mppd/finalmppd', {})
     .then((response) => {
       this.setState({
         problems: response.data,

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import Tabs from 'antd/lib/tabs';
 import PreKompre from './PreKompre';
+import MidKompre from './MidKompre';
+import FinalKompre from './FinalKompre';
+import TryOut from './TryOut';
+import FinalMppd from './FinalMppd';
 
 const TabPane = Tabs.TabPane;
 
@@ -24,20 +28,16 @@ export default class Mppd extends Component {
           <PreKompre />
         </TabPane>
         <TabPane tab="Mid Kompre" key="2">
-          <div className="tab-container">
-          </div>
+          <MidKompre />
         </TabPane>
         <TabPane tab="Final Kompre" key="3">
-          <div className="tab-container">
-          </div>
+          <FinalKompre />
         </TabPane>
         <TabPane tab="Try Out" key="4">
-          <div className="tab-container">
-          </div>
+          <TryOut />
         </TabPane>
         <TabPane tab="MPPD" key="5">
-          <div className="tab-container">
-          </div>
+          <FinalMppd />
         </TabPane>
       </Tabs>
     );
