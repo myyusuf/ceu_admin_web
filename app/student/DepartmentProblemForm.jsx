@@ -68,7 +68,7 @@ export default class DepartmentProblemForm extends Component {
         <Row>
           <Col span={24}>
             <Table
-              size="medium"
+              size="middle"
               pagination={false}
               rowKey="kode"
               rowSelection={rowSelection}

@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
 import Button from 'antd/lib/button';
 import Select from 'antd/lib/select';
 import Input from 'antd/lib/input';
 import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
-import HospitalList from './HospitalList';
-import HospitalDepartmentList from './HospitalDepartmentList';
-import HospitalStudentList from './HospitalStudentList';
 
 const Option = Select.Option;
 
-export default class Hospital extends Component {
+export default class ScorePreTest extends Component {
 
   constructor(props) {
     super(props);
@@ -30,7 +25,7 @@ export default class Hospital extends Component {
   }
 
   getStudents() {
-    axios.get('/students', {
+    axios.get('/score/pretest', {
       params: {
         pagesize: 10,
         pagenum: 0,
@@ -64,70 +59,45 @@ export default class Hospital extends Component {
   }
 
   render() {
-    const cardList = [];
-    const colsPerRow = 3;
-    let colList = [];
-    const students = this.state.students;
-
-    for (let i = 0; i < this.state.students.length; i += 1) {
-      const student = students[i];
-
-      colList.push(<Col key={i} span={8}>
-        <StudentCard key={i} student={student} onDetailsClick={this.showDetails} />
-      </Col>);
-
-      if (((i + 1) % colsPerRow) === 0) {
-        cardList.push(
-          <Row key={i} gutter={20}>
-            {colList}
-          </Row>,
-        );
-        colList = [];
-      }
-    }
-
-    if (colList.length > 0) {
-      cardList.push(
-        <Row key="lastRow" gutter={20}>
-          {colList}
-        </Row>,
-      );
-    }
-
-    const searchFilter = this.state.searchFilter;
-
-    const hospitalTypes = [];
-    hospitalTypes.push(<Option key="1">Rumah Sakit</Option>);
-    hospitalTypes.push(<Option key="2">Puskesmas</Option>);
+    const departments = [];
+    departments.push(<Option key="1">Anak</Option>);
+    departments.push(<Option key="2">Interna</Option>);
+    departments.push(<Option key="3">Radiologi</Option>);
+    departments.push(<Option key="4">Neurologi</Option>);
+    departments.push(<Option key="5">Kulit dan Kelamin</Option>);
+    departments.push(<Option key="6">Kardiologi TK 1</Option>);
 
     return (
-      <div className="hospital">
+      <div className="score">
         <div className="header">
           <div className="left">
             <ul>
-              <li>
+              <li className="the-li">
                 <Input
                   style={{ width: 200 }}
                   className="search-text"
                   placeholder="Kode atau Nama"
                 />
               </li>
-              <li>
+              <li className="the-li">
                 <Select
-                  mode="multiple"
+                  mode="single"
                   style={{ minWidth: 100 }}
-                  placeholder="Tipe Rumah Sakit"
+                  placeholder="Bagian"
                   defaultValue={['1']}
                   onChange={this.handleChange}
                 >
-                  {hospitalTypes}
+                  {departments}
                 </Select>
               </li>
-              <li>
+              <li className="the-li">
                 <Button shape="circle" icon="search" className="search-button" />
               </li>
-              <li>
+              <li className="the-li">
                 <Button shape="circle" type="primary" icon="download" />
+              </li>
+              <li className="the-li">
+                <Button shape="circle" type="primary" icon="upload" />
               </li>
             </ul>
           </div>
@@ -138,7 +108,7 @@ export default class Hospital extends Component {
               </li>
               <li className="the-li">
                 <Button type="primary" icon="plus" className="add-button">
-                  Rumah Sakit
+                  Nilai Pre Test
                 </Button>
               </li>
             </ul>
@@ -146,13 +116,10 @@ export default class Hospital extends Component {
         </div>
         <div className="content">
           <div className="left">
-            <HospitalList />
-          </div>
-          <div className="center">
-            <HospitalDepartmentList />
+
           </div>
           <div className="right">
-            <HospitalStudentList />
+
           </div>
         </div>
       </div>
@@ -160,6 +127,6 @@ export default class Hospital extends Component {
   }
 }
 
-Hospital.propTypes = {
+ScorePreTest.propTypes = {
   onShowDetails: React.PropTypes.any,
 };

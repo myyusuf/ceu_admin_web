@@ -9,7 +9,12 @@ const SubMenu = Menu.SubMenu;
 const SideMenu = () => {
   const handleClick = (e) => {
     // console.log(`click : ${e.key}`);
-    window.location.href = `#${e.key}`;
+    if(e.key === 'pretest') {
+      window.location.href = `#score/${e.key}`;
+    }else{
+      window.location.href = `#${e.key}`;
+    }
+
   };
 
   return (
@@ -25,6 +30,10 @@ const SideMenu = () => {
       <Menu.Item key="dashboard"><Icon type="dot-chart" />Dashboard</Menu.Item>
       <Menu.Item key="student"><Icon type="user" />Mahasiswa</Menu.Item>
       <Menu.Item key="hospital"><Icon type="home" />Rumah Sakit</Menu.Item>
+      <SubMenu key="nilai" title={<span><Icon type="file-text" /><span>Nilai</span></span>}>
+        <Menu.Item key="pretest">Pre Test</Menu.Item>
+        <Menu.Item key="posttest">Post Test</Menu.Item>
+      </SubMenu>
       <SubMenu key="jadwal" title={<span><Icon type="idcard" /><span>Jadwal</span></span>}>
         <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
         <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
