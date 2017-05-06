@@ -73,7 +73,7 @@ export default class HospitalDepartmentList extends Component {
                 </Radio.Group>
               </li>
               <li>
-                <Button shape="circle" icon="reload" className="search-button" />
+                <Button shape="circle" icon="search" className="search-button" />
               </li>
             </ul>
           </div>

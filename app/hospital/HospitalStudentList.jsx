@@ -3,6 +3,9 @@ import Table from 'antd/lib/table';
 import Button from 'antd/lib/button';
 import Radio from 'antd/lib/radio';
 import axios from 'axios';
+import DatePicker from 'antd/lib/date-picker';
+
+const { RangePicker } = DatePicker;
 
 export default class HospitalStudentList extends Component {
 
@@ -60,6 +63,10 @@ export default class HospitalStudentList extends Component {
 
     const searchFilter = this.state.searchFilter;
 
+    function onChange(date, dateString) {
+      console.log(date, dateString);
+    }
+
     return (
 
       <div className="hospital-student">
@@ -67,7 +74,10 @@ export default class HospitalStudentList extends Component {
           <div className="left">
             <ul>
               <li>
-                <Button shape="circle" icon="reload" className="search-button" />
+                <RangePicker onChange={onChange} style={{ width: 250 }}/>
+              </li>
+              <li>
+                <Button shape="circle" icon="search" className="search-button" />
               </li>
             </ul>
           </div>
