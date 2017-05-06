@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Button from 'antd/lib/button';
-import Radio from 'antd/lib/radio';
 import Select from 'antd/lib/select';
 import Input from 'antd/lib/input';
 import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
-import StudentCard from '../student/StudentCard';
+import HospitalList from './HospitalList';
+import HospitalDepartmentList from './HospitalDepartmentList';
+import HospitalStudentList from './HospitalStudentList';
 
 const Option = Select.Option;
 
@@ -102,7 +103,7 @@ export default class Hospital extends Component {
     return (
       <div className="hospital">
         <div className="header">
-          <div className="search">
+          <div className="left">
             <ul>
               <li>
                 <Input
@@ -145,13 +146,13 @@ export default class Hospital extends Component {
         </div>
         <div className="content">
           <div className="left">
-
+            <HospitalList />
           </div>
           <div className="center">
-
+            <HospitalDepartmentList />
           </div>
           <div className="right">
-
+            <HospitalStudentList />
           </div>
         </div>
       </div>

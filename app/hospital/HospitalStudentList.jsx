@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Table from 'antd/lib/table';
+import Button from 'antd/lib/button';
+import Radio from 'antd/lib/radio';
 import axios from 'axios';
 
-export default class HospitalList extends Component {
+export default class HospitalStudentList extends Component {
 
   constructor(props) {
     super(props);
@@ -10,9 +12,9 @@ export default class HospitalList extends Component {
       selectedRowKeys: ['MB1'],
       columns: [
         {
-          title: 'Kode',
-          dataIndex: 'kode',
-          key: 'kode',
+          title: 'Stambuk',
+          dataIndex: 'stambuk',
+          key: 'stambuk',
         }, {
           title: 'Nama',
           dataIndex: 'nama',
@@ -20,6 +22,7 @@ export default class HospitalList extends Component {
         },
       ],
       hospitals: [],
+      searchFilter: '1',
     };
   }
 
@@ -32,7 +35,7 @@ export default class HospitalList extends Component {
   }
 
   getTakenDepartmentProblems() {
-    axios.get('/hospitals', {})
+    axios.get('/hospitals/departments', {})
     .then((response) => {
       this.setState({
         hospitals: response.data,
@@ -55,15 +58,33 @@ export default class HospitalList extends Component {
       },
     };
 
+    const searchFilter = this.state.searchFilter;
+
     return (
-      <Table
-        size="medium"
-        pagination={false}
-        rowKey="kode"
-        rowSelection={rowSelection}
-        columns={this.state.columns}
-        dataSource={this.state.hospitals}
-      />
+
+      <div className="hospital-student">
+        <div className="header">
+          <div className="left">
+            <ul>
+              <li>
+                <Button shape="circle" icon="reload" className="search-button" />
+              </li>
+            </ul>
+          </div>
+          <div className="right">
+          </div>
+        </div>
+        <div className="content">
+          <Table
+            size="medium"
+            pagination={false}
+            rowKey="kode"
+            rowSelection={rowSelection}
+            columns={this.state.columns}
+            dataSource={this.state.hospitals}
+          />
+        </div>
+      </div>
     );
   }
 }
