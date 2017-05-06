@@ -19,6 +19,8 @@ const Workspace = ({ children }) => {
     pageTitle = 'Pre-Test';
   } else if (location.indexOf('posttest') > 0) {
     pageTitle = 'Post-Test';
+  }  else if (location.indexOf('mppd') > 0) {
+    pageTitle = 'MPPD';
   }
   return (
     <div>

@@ -5,11 +5,11 @@ import Input from 'antd/lib/input';
 import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
 import StudentList from '../student/StudentList';
-import ScoreList from './ScoreList';
+// import ScoreList from './ScoreList';
 
 const Option = Select.Option;
 
-export default class ScorePreTest extends Component {
+export default class ScheduleMppd extends Component {
 
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ export default class ScorePreTest extends Component {
   }
 
   getStudents() {
-    axios.get('/score/pretest', {
+    axios.get('/schedule/mppd', {
       params: {
         pagesize: 10,
         pagenum: 0,
@@ -70,7 +70,7 @@ export default class ScorePreTest extends Component {
     departments.push(<Option key="6">Kardiologi TK 1</Option>);
 
     return (
-      <div className="score">
+      <div className="schedule-mppd">
         <div className="header">
           <div className="left">
             <ul>
@@ -82,24 +82,10 @@ export default class ScorePreTest extends Component {
                 />
               </li>
               <li className="the-li">
-                <Select
-                  mode="single"
-                  style={{ minWidth: 100 }}
-                  placeholder="Bagian"
-                  defaultValue={['1']}
-                  onChange={this.handleChange}
-                >
-                  {departments}
-                </Select>
-              </li>
-              <li className="the-li">
                 <Button shape="circle" icon="search" className="search-button" />
               </li>
               <li className="the-li">
                 <Button shape="circle" type="primary" icon="download" />
-              </li>
-              <li className="the-li">
-                <Button shape="circle" type="primary" icon="upload" />
               </li>
             </ul>
           </div>
@@ -107,11 +93,6 @@ export default class ScorePreTest extends Component {
             <ul>
               <li className="the-li">
                 <Pagination simple defaultCurrent={1} total={50} />
-              </li>
-              <li className="the-li">
-                <Button type="primary" icon="plus" className="add-button">
-                  Nilai Pre Test
-                </Button>
               </li>
             </ul>
           </div>
@@ -121,7 +102,6 @@ export default class ScorePreTest extends Component {
             <StudentList />
           </div>
           <div className="right">
-            <ScoreList />
           </div>
         </div>
       </div>
@@ -129,6 +109,6 @@ export default class ScorePreTest extends Component {
   }
 }
 
-ScorePreTest.propTypes = {
+ScheduleMppd.propTypes = {
   onShowDetails: React.PropTypes.any,
 };

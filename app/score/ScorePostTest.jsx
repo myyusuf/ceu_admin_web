@@ -4,7 +4,7 @@ import Select from 'antd/lib/select';
 import Input from 'antd/lib/input';
 import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
-import StudentList from './StudentList';
+import StudentList from '../student/StudentList';
 import ScoreList from './ScoreList';
 
 const Option = Select.Option;

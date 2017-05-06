@@ -9,9 +9,11 @@ const SubMenu = Menu.SubMenu;
 const SideMenu = () => {
   const handleClick = (e) => {
     // console.log(`click : ${e.key}`);
-    if(e.key === 'pretest' || e.key === 'posttest') {
+    if (e.key === 'pretest' || e.key === 'posttest') {
       window.location.href = `#score/${e.key}`;
-    }else{
+    } else if (e.key === 'mppd') {
+      window.location.href = `#schedule/${e.key}`;
+    } else {
       window.location.href = `#${e.key}`;
     }
 
@@ -35,24 +37,16 @@ const SideMenu = () => {
         <Menu.Item key="posttest">Post Test</Menu.Item>
       </SubMenu>
       <SubMenu key="jadwal" title={<span><Icon type="idcard" /><span>Jadwal</span></span>}>
-        <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
-        <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
+        <Menu.Item key="mppd">Jadwal MPPD</Menu.Item>
       </SubMenu>
       <SubMenu key="laporan" title={<span><Icon type="contacts" /><span>Laporan</span></span>}>
-        <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
-        <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
+        <Menu.Item key="costunit">Cost Unit</Menu.Item>
       </SubMenu>
       <SubMenu key="settings" title={<span><Icon type="appstore" /><span>Settings</span></span>}>
-        <Menu.Item key="5">Option 5</Menu.Item>
-        <Menu.Item key="6">Option 6</Menu.Item>
-        <SubMenu key="sub3" title="Submenu">
-          <Menu.Item key="7">Option 7</Menu.Item>
-          <Menu.Item key="8">Option 8</Menu.Item>
-        </SubMenu>
+        <Menu.Item key="departments">Data Bagian</Menu.Item>
       </SubMenu>
       <SubMenu key="help" title={<span><Icon type="question-circle-o" /><span>Help</span></span>}>
-        <Menu.Item key="jadwalRs">Jadwal Rumah Sakit</Menu.Item>
-        <Menu.Item key="jadwalKlinik">Jadwal Klinik</Menu.Item>
+        <Menu.Item key="tutorial">Tutorial</Menu.Item>
       </SubMenu>
     </Menu>
   );

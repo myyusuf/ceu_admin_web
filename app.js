@@ -10,6 +10,7 @@ import Dashboard from './app/dashboard/Dashboard';
 import Hospital from './app/hospital/Hospital';
 import ScorePreTest from './app/score/ScorePreTest';
 import ScorePostTest from './app/score/ScorePostTest';
+import ScheduleMppd from './app/schedule/ScheduleMppd';
 
 import {
   HashRouter,
@@ -35,6 +36,7 @@ ReactDOM.render(
         <Route path="/hospital" component={Hospital} />
         <Route path="/score/pretest" component={ScorePreTest} />
         <Route path="/score/posttest" component={ScorePostTest} />
+        <Route path="/schedule/mppd" component={ScheduleMppd} />
       </Workspace>
     </LocaleProvider>
   </HashRouter>,
