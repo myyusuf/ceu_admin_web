@@ -9,7 +9,7 @@ const SubMenu = Menu.SubMenu;
 const SideMenu = () => {
   const handleClick = (e) => {
     // console.log(`click : ${e.key}`);
-    if(e.key === 'pretest') {
+    if(e.key === 'pretest' || e.key === 'posttest') {
       window.location.href = `#score/${e.key}`;
     }else{
       window.location.href = `#${e.key}`;

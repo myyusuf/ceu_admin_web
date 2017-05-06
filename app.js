@@ -9,6 +9,7 @@ import StudentDetail from './app/student/StudentDetail';
 import Dashboard from './app/dashboard/Dashboard';
 import Hospital from './app/hospital/Hospital';
 import ScorePreTest from './app/score/ScorePreTest';
+import ScorePostTest from './app/score/ScorePostTest';
 
 import {
   HashRouter,
@@ -33,6 +34,7 @@ ReactDOM.render(
         <Route path="/studentdetail/:studentId" component={StudentDetail} />
         <Route path="/hospital" component={Hospital} />
         <Route path="/score/pretest" component={ScorePreTest} />
+        <Route path="/score/posttest" component={ScorePostTest} />
       </Workspace>
     </LocaleProvider>
   </HashRouter>,

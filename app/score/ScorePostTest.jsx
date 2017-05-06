@@ -9,7 +9,7 @@ import ScoreList from './ScoreList';
 
 const Option = Select.Option;
 
-export default class ScorePreTest extends Component {
+export default class ScorePostTest extends Component {
 
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ export default class ScorePreTest extends Component {
   }
 
   getStudents() {
-    axios.get('/score/pretest', {
+    axios.get('/score/posttest', {
       params: {
         pagesize: 10,
         pagenum: 0,
@@ -110,7 +110,7 @@ export default class ScorePreTest extends Component {
               </li>
               <li className="the-li">
                 <Button type="primary" icon="plus" className="add-button">
-                  Nilai Pre Test
+                  Nilai Post Test
                 </Button>
               </li>
             </ul>
@@ -129,6 +129,6 @@ export default class ScorePreTest extends Component {
   }
 }
 
-ScorePreTest.propTypes = {
+ScorePostTest.propTypes = {
   onShowDetails: React.PropTypes.any,
 };
