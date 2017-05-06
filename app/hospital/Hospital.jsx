@@ -95,39 +95,32 @@ export default class Hospital extends Component {
 
     const searchFilter = this.state.searchFilter;
 
-    const statusArray = [];
-    statusArray.push(<Option key="1">Aktif</Option>);
-    statusArray.push(<Option key="2">Bermasalah</Option>);
-    statusArray.push(<Option key="3">Lulus</Option>);
+    const hospitalTypes = [];
+    hospitalTypes.push(<Option key="1">Rumah Sakit</Option>);
+    hospitalTypes.push(<Option key="2">Klinik</Option>);
 
     return (
-      <div className="student-card-list">
-        <div className="card-list-header">
+      <div className="hospital">
+        <div className="header">
           <div className="search">
             <ul>
               <li>
                 <Input
                   style={{ width: 200 }}
                   className="search-text"
-                  placeholder="Nama atau Stambuk"
+                  placeholder="Kode atau Nama"
                 />
               </li>
               <li>
                 <Select
                   mode="multiple"
                   style={{ minWidth: 100 }}
-                  placeholder="Status"
+                  placeholder="Tipe RUmah Sakit"
                   defaultValue={['1']}
                   onChange={this.handleChange}
                 >
-                  {statusArray}
+                  {hospitalTypes}
                 </Select>
-              </li>
-              <li>
-                <Radio.Group value={searchFilter} onChange={this.handleSizeChange}>
-                  <Radio.Button value="1" icon="plus"> 1 </Radio.Button>
-                  <Radio.Button value="2"> 2 </Radio.Button>
-                </Radio.Group>
               </li>
               <li>
                 <Button shape="circle" icon="search" className="search-button" />
@@ -137,17 +130,29 @@ export default class Hospital extends Component {
               </li>
             </ul>
           </div>
-          <div className="pagination">
-            <Pagination simple defaultCurrent={1} total={50} />
+          <div className="right">
+            <ul>
+              <li className="the-li">
+                <Pagination simple defaultCurrent={1} total={50} />
+              </li>
+              <li className="the-li">
+                <Button type="primary" icon="plus" className="add-button">
+                  Rumah Sakit
+                </Button>
+              </li>
+            </ul>
           </div>
-          <Button type="primary" icon="plus" className="add-button">
-            Tambah Siswa
-          </Button>
         </div>
-        <div className="card-list-content">
-          <Row gutter={20}>
-            {cardList}
-          </Row>
+        <div className="content">
+          <div className="left">
+
+          </div>
+          <div className="center">
+
+          </div>
+          <div className="right">
+
+          </div>
         </div>
       </div>
     );
