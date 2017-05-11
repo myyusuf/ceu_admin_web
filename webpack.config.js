@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './app.js',
@@ -18,6 +19,9 @@ module.exports = {
           presets: ['es2015']
         }
       }
-    ]
+    ],
   },
+  // plugins: [
+  //   new UglifyJSPlugin()
+  // ],
 };

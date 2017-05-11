@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Button from 'antd/lib/button';
+import Message from 'antd/lib/message';
 import Input from 'antd/lib/input';
 import Pagination from 'antd/lib/pagination';
+import Spin from 'antd/lib/spin';
 import axios from 'axios';
 import StudentCard from './StudentCard';
 import StudentStatusSelect from './components/StudentStatusSelect';
@@ -21,12 +23,16 @@ export default class StudentCardList extends Component {
     super(props);
     this.state = {
       students: [],
+      studentStatus: ['1'],
       studentLevel: '1',
       searchText: '',
-      currentPage: 1,
+      pageNum: 1,
+      totalRecords: 0,
+      loading: false,
     };
 
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
+    this.onStudentStatusSelect = this.onStudentStatusSelect.bind(this);
     this.onStudentLevelSelect = this.onStudentLevelSelect.bind(this);
     this.onPageChange = this.onPageChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -37,44 +43,58 @@ export default class StudentCardList extends Component {
   }
 
   onSearchTextChange(e) {
-    this.setState({ searchText: e.target.value }, () => {
-      this.getStudents();
-    });
+    this.setState({ searchText: e.target.value });
+  }
+
+  onStudentStatusSelect(value) {
+    this.setState({ studentStatus: value });
   }
 
   onStudentLevelSelect(e) {
-    this.setState({ studentLevel: e.target.value }, () => {
-      this.getStudents();
-    });
+    this.setState({ studentLevel: e.target.value });
   }
 
   onPageChange(page) {
-    this.setState({ currentPage: page }, () => {
+    this.setState({ pageNum: page }, () => {
       this.getStudents();
     });
   }
 
   onSearch() {
-    console.log('click');
-    this.getStudents();
+    this.setState({ students: [] }, () => {
+      this.getStudents();
+    });
   }
 
   getStudents() {
-    axios.get('/students', {
-      params: {
-        pagesize: PAGE_SIZE,
-        pagenum: this.state.currentPage,
-        studentLevel: this.state.studentLevel,
-        searchText: this.state.searchText,
-      },
-    })
-    .then((response) => {
-      this.setState({
-        students: response.data.data,
+    this.setState({ loading: true }, () => {
+      axios.get('/students', {
+        params: {
+          pagesize: PAGE_SIZE,
+          pagenum: this.state.pageNum,
+          studentLevel: this.state.studentLevel,
+          studentStatus: this.state.studentStatus,
+          searchText: this.state.searchText,
+        },
+      })
+      .then((response) => {
+        this.setState({
+          students: response.data.data,
+          totalRecords: response.data.totalRecords,
+          loading: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          loading: false,
+        });
+        console.dir(error);
+        let errorMessage = 'Error occured when doing server request.\n';
+        if (error.message) {
+          errorMessage += error.message;
+        }
+        Message.error(errorMessage);
       });
-    })
-    .catch((error) => {
-      console.log(error);
     });
   }
 
@@ -125,7 +145,10 @@ export default class StudentCardList extends Component {
                 />
               </li>
               <li className="the-li">
-                <StudentStatusSelect />
+                <StudentStatusSelect
+                  values={this.state.studentStatus}
+                  onChange={this.onStudentStatusSelect}
+                />
               </li>
               <li className="the-li">
                 <StudentLevelRadio value={studentLevel} onChange={this.onStudentLevelSelect} />
@@ -146,7 +169,11 @@ export default class StudentCardList extends Component {
           <div className="right">
             <ul className="the-ul">
               <li className="the-li">
-                <Pagination simple defaultCurrent={1} total={50} onChange={this.onPageChange} />
+                <Pagination
+                  simple defaultCurrent={1}
+                  total={this.state.totalRecords}
+                  onChange={this.onPageChange}
+                />
               </li>
               <li className="the-li">
                 <Button type="primary" icon="plus" className="add-button">
@@ -157,9 +184,11 @@ export default class StudentCardList extends Component {
           </div>
         </div>
         <div className="card-list-content">
-          <Row gutter={20}>
-            {cardList}
-          </Row>
+          <Spin spinning={this.state.loading}>
+            <Row gutter={20}>
+              {cardList}
+            </Row>
+          </Spin>
         </div>
       </div>
     );
