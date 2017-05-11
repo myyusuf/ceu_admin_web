@@ -9,6 +9,8 @@ import StudentCard from './StudentCard';
 import StudentStatusSelect from './components/StudentStatusSelect';
 import StudentLevelRadio from './components/StudentLevelRadio';
 
+const PAGE_SIZE = 10;
+
 export default class StudentCardList extends Component {
 
   static showDetails(student) {
@@ -20,25 +22,50 @@ export default class StudentCardList extends Component {
     this.state = {
       students: [],
       studentLevel: '1',
+      searchText: '',
+      currentPage: 1,
     };
 
+    this.onSearchTextChange = this.onSearchTextChange.bind(this);
     this.onStudentLevelSelect = this.onStudentLevelSelect.bind(this);
+    this.onPageChange = this.onPageChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentDidMount() {
     this.getStudents();
   }
 
+  onSearchTextChange(e) {
+    this.setState({ searchText: e.target.value }, () => {
+      this.getStudents();
+    });
+  }
+
   onStudentLevelSelect(e) {
-    this.setState({ studentLevel: e.target.value });
+    this.setState({ studentLevel: e.target.value }, () => {
+      this.getStudents();
+    });
+  }
+
+  onPageChange(page) {
+    this.setState({ currentPage: page }, () => {
+      this.getStudents();
+    });
+  }
+
+  onSearch() {
+    console.log('click');
+    this.getStudents();
   }
 
   getStudents() {
     axios.get('/students', {
       params: {
-        pagesize: 10,
-        pagenum: 0,
-        level: 1,
+        pagesize: PAGE_SIZE,
+        pagenum: this.state.currentPage,
+        studentLevel: this.state.studentLevel,
+        searchText: this.state.searchText,
       },
     })
     .then((response) => {
@@ -94,6 +121,7 @@ export default class StudentCardList extends Component {
                   style={{ width: 200 }}
                   className="search-text"
                   placeholder="Nama atau Stambuk"
+                  onChange={this.onSearchTextChange}
                 />
               </li>
               <li className="the-li">
@@ -103,7 +131,12 @@ export default class StudentCardList extends Component {
                 <StudentLevelRadio value={studentLevel} onChange={this.onStudentLevelSelect} />
               </li>
               <li className="the-li">
-                <Button shape="circle" icon="search" className="search-button" />
+                <Button
+                  shape="circle"
+                  icon="search"
+                  className="search-button"
+                  onClick={this.onSearch}
+                />
               </li>
               <li className="the-li">
                 <Button shape="circle" type="primary" icon="download" />
@@ -113,7 +146,7 @@ export default class StudentCardList extends Component {
           <div className="right">
             <ul className="the-ul">
               <li className="the-li">
-                <Pagination simple defaultCurrent={1} total={50} />
+                <Pagination simple defaultCurrent={1} total={50} onChange={this.onPageChange} />
               </li>
               <li className="the-li">
                 <Button type="primary" icon="plus" className="add-button">
