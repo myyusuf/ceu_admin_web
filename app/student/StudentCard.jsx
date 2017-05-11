@@ -7,6 +7,7 @@ import Col from 'antd/lib/col';
 import Button from 'antd/lib/button';
 import Progress from 'antd/lib/progress';
 import StudentStatusTag from './components/StudentStatusTag';
+import StudentDepartmentStatusTag from './components/StudentDepartmentStatusTag';
 
 const StudentCard = ({ student, onDetailsClick }) => {
   return (
@@ -41,13 +42,15 @@ const StudentCard = ({ student, onDetailsClick }) => {
       </Row>
       <Row>
         <Col span={12}><span className="field-caption">Status Bagian</span></Col>
-        <Col span={12}><Tag color="#FFB300">Approval</Tag></Col>
+        <Col span={12}><StudentDepartmentStatusTag value={student.status_bagian} /></Col>
       </Row>
       <Row>
         <Col span={24}><div className="row-delimiter" /></Col>
       </Row>
       <Row>
-        <Col span={24} style={{ paddingTop: 15 }}><Progress percent={60} /></Col>
+        <Col span={24} style={{ paddingTop: 15 }}>
+          <Progress percent={student.progres_keseluruhan} />
+        </Col>
       </Row>
     </Card>
   );
