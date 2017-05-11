@@ -1,14 +1,16 @@
 
 import React from 'react';
 import Select from 'antd/lib/select';
+import CEUConstant from '../../CEUConstant';
 
 const Option = Select.Option;
 
 const StudentStatusSelect = ({ values, onChange }) => {
   const statusArray = [];
-  statusArray.push(<Option key="1">Aktif</Option>);
-  statusArray.push(<Option key="2">Bermasalah</Option>);
-  statusArray.push(<Option key="3">Lulus</Option>);
+
+  CEUConstant.STUDENT_STATUS_ARRAY.forEach((studentStatus) => {
+    statusArray.push(<Option key={studentStatus.id}>{studentStatus.name}</Option>);
+  });
 
   return (
     <Select

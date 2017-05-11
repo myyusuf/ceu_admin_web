@@ -2,31 +2,35 @@ import React, { Component } from 'react';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Button from 'antd/lib/button';
-import Radio from 'antd/lib/radio';
-import Select from 'antd/lib/select';
 import Input from 'antd/lib/input';
 import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
 import StudentCard from './StudentCard';
 import StudentStatusSelect from './components/StudentStatusSelect';
-
-const Option = Select.Option;
+import StudentLevelRadio from './components/StudentLevelRadio';
 
 export default class StudentCardList extends Component {
+
+  static showDetails(student) {
+    window.location.href = `#/studentdetail/${student.id}/info`;
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       students: [],
-      levelFilter: '1',
+      studentLevel: '1',
     };
 
-    this.showDetails = this.showDetails.bind(this);
-    this.handleSizeChange = this.handleSizeChange.bind(this);
+    this.onStudentLevelSelect = this.onStudentLevelSelect.bind(this);
   }
 
   componentDidMount() {
     this.getStudents();
+  }
+
+  onStudentLevelSelect(e) {
+    this.setState({ studentLevel: e.target.value });
   }
 
   getStudents() {
@@ -47,18 +51,6 @@ export default class StudentCardList extends Component {
     });
   }
 
-  showDetails(student) {
-    // if (this.props.onShowDetails) {
-    //   this.onShowDetails(student);
-    // }
-
-    window.location.href = `#/studentdetail/${student.id}/info`;
-  }
-
-  handleSizeChange(e) {
-    this.setState({ levelFilter: e.target.value });
-  }
-
   render() {
     const cardList = [];
     const colsPerRow = 3;
@@ -69,7 +61,7 @@ export default class StudentCardList extends Component {
       const student = students[i];
 
       colList.push(<Col key={i} span={8}>
-        <StudentCard key={i} student={student} onDetailsClick={this.showDetails} />
+        <StudentCard key={i} student={student} onDetailsClick={StudentCardList.showDetails} />
       </Col>);
 
       if (((i + 1) % colsPerRow) === 0) {
@@ -90,7 +82,7 @@ export default class StudentCardList extends Component {
       );
     }
 
-    const levelFilter = this.state.levelFilter;
+    const studentLevel = this.state.studentLevel;
 
     return (
       <div className="student-card-list">
@@ -108,10 +100,7 @@ export default class StudentCardList extends Component {
                 <StudentStatusSelect />
               </li>
               <li className="the-li">
-                <Radio.Group value={levelFilter} onChange={this.handleSizeChange}>
-                  <Radio.Button value="1"> 1 </Radio.Button>
-                  <Radio.Button value="2"> 2 </Radio.Button>
-                </Radio.Group>
+                <StudentLevelRadio value={studentLevel} onChange={this.onStudentLevelSelect} />
               </li>
               <li className="the-li">
                 <Button shape="circle" icon="search" className="search-button" />
@@ -143,7 +132,3 @@ export default class StudentCardList extends Component {
     );
   }
 }
-
-StudentCardList.propTypes = {
-  onShowDetails: React.PropTypes.any,
-};
