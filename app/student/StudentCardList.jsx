@@ -8,6 +8,7 @@ import Input from 'antd/lib/input';
 import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
 import StudentCard from './StudentCard';
+import StudentStatusSelect from './components/StudentStatusSelect';
 
 const Option = Select.Option;
 
@@ -17,7 +18,7 @@ export default class StudentCardList extends Component {
     super(props);
     this.state = {
       students: [],
-      searchFilter: '1',
+      levelFilter: '1',
     };
 
     this.showDetails = this.showDetails.bind(this);
@@ -55,11 +56,7 @@ export default class StudentCardList extends Component {
   }
 
   handleSizeChange(e) {
-    this.setState({ searchFilter: e.target.value });
-  }
-
-  handleChange(value) {
-    console.log(value);
+    this.setState({ levelFilter: e.target.value });
   }
 
   render() {
@@ -93,56 +90,49 @@ export default class StudentCardList extends Component {
       );
     }
 
-    const searchFilter = this.state.searchFilter;
-
-    const statusArray = [];
-    statusArray.push(<Option key="1">Aktif</Option>);
-    statusArray.push(<Option key="2">Bermasalah</Option>);
-    statusArray.push(<Option key="3">Lulus</Option>);
+    const levelFilter = this.state.levelFilter;
 
     return (
       <div className="student-card-list">
-        <div className="card-list-header">
-          <div className="search">
-            <ul>
-              <li>
+        <div className="section-header">
+          <div className="left">
+            <ul className="the-ul">
+              <li className="the-li">
                 <Input
                   style={{ width: 200 }}
                   className="search-text"
                   placeholder="Nama atau Stambuk"
                 />
               </li>
-              <li>
-                <Select
-                  mode="multiple"
-                  style={{ minWidth: 100 }}
-                  placeholder="Status"
-                  defaultValue={['1']}
-                  onChange={this.handleChange}
-                >
-                  {statusArray}
-                </Select>
+              <li className="the-li">
+                <StudentStatusSelect />
               </li>
-              <li>
-                <Radio.Group value={searchFilter} onChange={this.handleSizeChange}>
-                  <Radio.Button value="1" icon="plus"> 1 </Radio.Button>
+              <li className="the-li">
+                <Radio.Group value={levelFilter} onChange={this.handleSizeChange}>
+                  <Radio.Button value="1"> 1 </Radio.Button>
                   <Radio.Button value="2"> 2 </Radio.Button>
                 </Radio.Group>
               </li>
-              <li>
+              <li className="the-li">
                 <Button shape="circle" icon="search" className="search-button" />
               </li>
-              <li>
+              <li className="the-li">
                 <Button shape="circle" type="primary" icon="download" />
               </li>
             </ul>
           </div>
-          <div className="pagination">
-            <Pagination simple defaultCurrent={1} total={50} />
+          <div className="right">
+            <ul className="the-ul">
+              <li className="the-li">
+                <Pagination simple defaultCurrent={1} total={50} />
+              </li>
+              <li className="the-li">
+                <Button type="primary" icon="plus" className="add-button">
+                  Siswa
+                </Button>
+              </li>
+            </ul>
           </div>
-          <Button type="primary" icon="plus" className="add-button">
-            Tambah Siswa
-          </Button>
         </div>
         <div className="card-list-content">
           <Row gutter={20}>
