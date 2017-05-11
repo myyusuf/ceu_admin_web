@@ -11,6 +11,7 @@ import Hospital from './app/hospital/Hospital';
 import ScorePreTest from './app/score/ScorePreTest';
 import ScorePostTest from './app/score/ScorePostTest';
 import ScheduleMppd from './app/schedule/ScheduleMppd';
+import DepartmentList from './app/department/DepartmentList';
 
 import {
   HashRouter,
@@ -37,6 +38,7 @@ ReactDOM.render(
         <Route path="/score/pretest" component={ScorePreTest} />
         <Route path="/score/posttest" component={ScorePostTest} />
         <Route path="/schedule/mppd" component={ScheduleMppd} />
+        <Route path="/departments" component={DepartmentList} />
       </Workspace>
     </LocaleProvider>
   </HashRouter>,

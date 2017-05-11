@@ -129,8 +129,6 @@ export default class StudentCardList extends Component {
       );
     }
 
-    const studentLevel = this.state.studentLevel;
-
     return (
       <div className="student-card-list">
         <div className="section-header">
@@ -151,7 +149,10 @@ export default class StudentCardList extends Component {
                 />
               </li>
               <li className="the-li">
-                <StudentLevelRadio value={studentLevel} onChange={this.onStudentLevelSelect} />
+                <StudentLevelRadio
+                  value={this.state.studentLevel}
+                  onChange={this.onStudentLevelSelect}
+                />
               </li>
               <li className="the-li">
                 <Button
