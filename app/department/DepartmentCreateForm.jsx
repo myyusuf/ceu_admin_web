@@ -2,7 +2,6 @@ import React from 'react';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import Modal from 'antd/lib/modal';
-import axios from 'axios';
 
 const FormItem = Form.Item;
 
@@ -39,10 +38,30 @@ const DepartmentCreateForm = Form.create()(
               <Input maxLength="10" />,
             )}
           </FormItem>
+          <FormItem label="Nama">
+            {getFieldDecorator('nama', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Nama bagian wajib diisi',
+                },
+                {
+                  min: 3,
+                  message: 'Panjang nama bagian minimum 3 karakter',
+                },
+                {
+                  max: 30,
+                  message: 'Panjang nama bagian maximum 30 karakter',
+                },
+              ],
+            })(
+              <Input maxLength="30" />,
+            )}
+          </FormItem>
         </Form>
       </Modal>
     );
-  }
+  },
 );
 
 export default DepartmentCreateForm;

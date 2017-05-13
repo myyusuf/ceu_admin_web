@@ -151,9 +151,6 @@ export default class DepartmentList extends Component {
           <div className="right">
             <ul className="the-ul">
               <li className="the-li">
-                <Pagination simple defaultCurrent={1} total={50} />
-              </li>
-              <li className="the-li">
                 <Button
                   type="primary"
                   icon="plus"
