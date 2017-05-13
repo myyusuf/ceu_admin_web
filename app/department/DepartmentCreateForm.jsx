@@ -21,9 +21,22 @@ const DepartmentCreateForm = Form.create()(
         <Form layout="vertical">
           <FormItem label="Kode">
             {getFieldDecorator('kode', {
-              rules: [{ required: true, message: 'Kode bagian wajib diisi' }],
+              rules: [
+                {
+                  required: true,
+                  message: 'Kode bagian wajib diisi',
+                },
+                {
+                  min: 3,
+                  message: 'Panjang kode bagian minimum 3 karakter',
+                },
+                {
+                  max: 10,
+                  message: 'Panjang kode bagian maximum 10 karakter',
+                },
+              ],
             })(
-              <Input />,
+              <Input maxLength="10" />,
             )}
           </FormItem>
         </Form>
