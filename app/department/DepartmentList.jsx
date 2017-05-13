@@ -6,6 +6,7 @@ import Message from 'antd/lib/message';
 import Table from 'antd/lib/table';
 import axios from 'axios';
 import StudentLevelRadio from '../student/components/StudentLevelRadio';
+import DepartmentCreateForm from './DepartmentCreateForm';
 
 export default class DepartmentList extends Component {
 
@@ -16,6 +17,7 @@ export default class DepartmentList extends Component {
       searchText: '',
       studentLevel: '1',
       loading: false,
+      createDepartmentFormVisible: false,
       columns: [
         {
           title: 'ID',
@@ -33,10 +35,14 @@ export default class DepartmentList extends Component {
       ],
     };
 
-    this.showDetails = this.showDetails.bind(this);
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onStudentLevelSelect = this.onStudentLevelSelect.bind(this);
+
+    this.onCreateDepartment = this.onCreateDepartment.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
+    this.saveFormRef = this.saveFormRef.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +61,10 @@ export default class DepartmentList extends Component {
     this.setState({ departments: [] }, () => {
       this.getDepartments();
     });
+  }
+
+  onCreateDepartment() {
+    this.setState({ createDepartmentFormVisible: true });
   }
 
   getDepartments() {
@@ -85,17 +95,32 @@ export default class DepartmentList extends Component {
     });
   }
 
-  showDetails(department) {
-    // if (this.props.onShowDetails) {
-    //   this.onShowDetails(student);
-    // }
+  handleCancel() {
+    const form = this.form;
+    form.resetFields();
+    this.setState({ createDepartmentFormVisible: false });
+  }
 
-    window.location.href = `#/studentdetail/${student.id}/info`;
+  handleCreate() {
+    const form = this.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+      form.resetFields();
+      this.setState({ createDepartmentFormVisible: false });
+    });
+  }
+
+  saveFormRef(form) {
+    this.form = form;
   }
 
   render() {
     return (
-      <div className="score">
+      <div className="department">
         <div className="section-header">
           <div className="left">
             <ul>
@@ -129,14 +154,19 @@ export default class DepartmentList extends Component {
                 <Pagination simple defaultCurrent={1} total={50} />
               </li>
               <li className="the-li">
-                <Button type="primary" icon="plus" className="add-button">
+                <Button
+                  type="primary"
+                  icon="plus"
+                  className="add-button"
+                  onClick={this.onCreateDepartment}
+                >
                   Bagian
                 </Button>
               </li>
             </ul>
           </div>
         </div>
-        <div className="content">
+        <div className="section-content">
           <Table
             size="middle"
             pagination={false}
@@ -146,6 +176,12 @@ export default class DepartmentList extends Component {
             dataSource={this.state.departments}
           />
         </div>
+        <DepartmentCreateForm
+          ref={this.saveFormRef}
+          visible={this.state.createDepartmentFormVisible}
+          onCancel={this.handleCancel}
+          onCreate={this.handleCreate}
+        />
       </div>
     );
   }
