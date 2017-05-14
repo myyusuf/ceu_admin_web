@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
+import InputNumber from 'antd/lib/input-number';
 import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
 
@@ -72,10 +73,26 @@ const DepartmentCreateForm = Form.create()(
               <Select
                 mode="single"
                 placeholder="Pilih tingkat"
+                style={{ width: '50%' }}
               >
                 <Option key="1">Tingkat 1</Option>
                 <Option key="2">Tingkat 2</Option>
               </Select>,
+            )}
+          </FormItem>
+          <FormItem label="Durasi Dalam Minggu">
+            {getFieldDecorator('durasi_minggu', {
+              initialValue: 4,
+              rules: [],
+            })(
+              <InputNumber min={4} max={10} />,
+            )}
+          </FormItem>
+          <FormItem label="Keterangan">
+            {getFieldDecorator('keterangan', {
+              rules: [],
+            })(
+              <Input type="textarea" />,
             )}
           </FormItem>
         </Form>

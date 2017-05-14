@@ -26,9 +26,15 @@ export default class DepartmentList extends Component {
       departmentToDelete: {},
       columns: [
         {
-          title: 'ID',
-          dataIndex: 'id',
+          title: 'No',
           key: 'id',
+          render: (text, record, index) => {
+            return (
+              <span>
+                {index + 1}
+              </span>
+            );
+          },
         }, {
           title: 'Kode',
           dataIndex: 'kode',
@@ -37,6 +43,10 @@ export default class DepartmentList extends Component {
           title: 'Nama',
           dataIndex: 'nama',
           key: 'nama',
+        }, {
+          title: 'Durasi Dalam Minggu',
+          dataIndex: 'durasi_minggu',
+          key: 'durasi_minggu',
         }, {
           title: 'Action',
           key: 'action',
@@ -50,8 +60,9 @@ export default class DepartmentList extends Component {
                   onClick={() => { this.onOpenUpdateDepartmentForm(record); }}
                 />
                 <Button
+                  ghost
                   icon="delete"
-                  type="dashed"
+                  type="danger"
                   onClick={() => { this.onOpenDeleteDepartmentDialog(record); }}
                 />
               </span>
