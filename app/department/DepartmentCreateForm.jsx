@@ -1,8 +1,10 @@
 import React from 'react';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
+import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
 
+const Option = Select.Option;
 const FormItem = Form.Item;
 
 const DepartmentCreateForm = Form.create()(
@@ -56,6 +58,24 @@ const DepartmentCreateForm = Form.create()(
               ],
             })(
               <Input maxLength="30" />,
+            )}
+          </FormItem>
+          <FormItem label="Tingkat">
+            {getFieldDecorator('tingkat', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Tingkat wajib diisi',
+                },
+              ],
+            })(
+              <Select
+                mode="single"
+                placeholder="Pilih tingkat"
+              >
+                <Option key="1">Tingkat 1</Option>
+                <Option key="2">Tingkat 2</Option>
+              </Select>,
             )}
           </FormItem>
         </Form>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
-import Pagination from 'antd/lib/pagination';
 import Message from 'antd/lib/message';
 import Table from 'antd/lib/table';
 import axios from 'axios';
@@ -39,9 +38,9 @@ export default class DepartmentList extends Component {
     this.onSearch = this.onSearch.bind(this);
     this.onStudentLevelSelect = this.onStudentLevelSelect.bind(this);
 
-    this.onCreateDepartment = this.onCreateDepartment.bind(this);
+    this.onOpenCreateDepartmentForm = this.onOpenCreateDepartmentForm.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
+    this.handlCreateDepartment = this.handlCreateDepartment.bind(this);
     this.saveFormRef = this.saveFormRef.bind(this);
   }
 
@@ -63,7 +62,7 @@ export default class DepartmentList extends Component {
     });
   }
 
-  onCreateDepartment() {
+  onOpenCreateDepartmentForm() {
     this.setState({ createDepartmentFormVisible: true });
   }
 
@@ -101,7 +100,7 @@ export default class DepartmentList extends Component {
     this.setState({ createDepartmentFormVisible: false });
   }
 
-  handleCreate() {
+  handlCreateDepartment() {
     const form = this.form;
     form.validateFields((err, values) => {
       if (err) {
@@ -109,8 +108,25 @@ export default class DepartmentList extends Component {
       }
 
       console.log('Received values of form: ', values);
-      form.resetFields();
-      this.setState({ createDepartmentFormVisible: false });
+
+      axios.post('/departments', values)
+      .then((response) => {
+        // console.dir(response);
+        Message.success('Department created successfully.');
+        form.resetFields();
+        this.setState({
+          createDepartmentFormVisible: false,
+        }, () => {
+          this.getDepartments();
+        });
+      })
+      .catch((error) => {
+        Message.error(
+          <span>
+            {error.message}<br />
+            {error.response.data}
+          </span>);
+      });
     });
   }
 
@@ -155,7 +171,7 @@ export default class DepartmentList extends Component {
                   type="primary"
                   icon="plus"
                   className="add-button"
-                  onClick={this.onCreateDepartment}
+                  onClick={this.onOpenCreateDepartmentForm}
                 >
                   Bagian
                 </Button>
@@ -177,13 +193,11 @@ export default class DepartmentList extends Component {
           ref={this.saveFormRef}
           visible={this.state.createDepartmentFormVisible}
           onCancel={this.handleCancel}
-          onCreate={this.handleCreate}
+          onCreate={this.handlCreateDepartment}
         />
       </div>
     );
   }
 }
 
-DepartmentList.propTypes = {
-  onShowDetails: React.PropTypes.any,
-};
+DepartmentList.propTypes = {};
