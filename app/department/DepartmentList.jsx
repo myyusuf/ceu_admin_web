@@ -6,6 +6,7 @@ import Table from 'antd/lib/table';
 import axios from 'axios';
 import StudentLevelRadio from '../student/components/StudentLevelRadio';
 import DepartmentCreateForm from './DepartmentCreateForm';
+import DepartmentUpdateForm from './DepartmentUpdateForm';
 
 export default class DepartmentList extends Component {
 
@@ -17,6 +18,8 @@ export default class DepartmentList extends Component {
       studentLevel: '1',
       loading: false,
       createDepartmentFormVisible: false,
+      updateDepartmentFormVisible: false,
+      departmentToUpdate: {},
       columns: [
         {
           title: 'ID',
@@ -30,6 +33,26 @@ export default class DepartmentList extends Component {
           title: 'Nama',
           dataIndex: 'nama',
           key: 'nama',
+        }, {
+          title: 'Action',
+          key: 'action',
+          render: (text, record) => {
+            return (
+              <span>
+                <Button
+                  icon="edit"
+                  type="dashed"
+                  style={{ marginRight: 15 }}
+                  onClick={() => { this.onOpenUpdateDepartmentForm(record); }}
+                />
+                <Button
+                  icon="delete"
+                  type="dashed"
+                  onClick={() => { this.onOpenUpdateDepartmentForm(record); }}
+                />
+              </span>
+            );
+          },
         },
       ],
     };
@@ -38,10 +61,15 @@ export default class DepartmentList extends Component {
     this.onSearch = this.onSearch.bind(this);
     this.onStudentLevelSelect = this.onStudentLevelSelect.bind(this);
 
+    this.saveCreateDepartmentFormRef = this.saveCreateDepartmentFormRef.bind(this);
     this.onOpenCreateDepartmentForm = this.onOpenCreateDepartmentForm.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handlCreateDepartment = this.handlCreateDepartment.bind(this);
-    this.saveFormRef = this.saveFormRef.bind(this);
+    this.handleCancelCreate = this.handleCancelCreate.bind(this);
+    this.handleCreateDepartment = this.handleCreateDepartment.bind(this);
+
+    this.saveUpdateDepartmentFormRef = this.saveUpdateDepartmentFormRef.bind(this);
+    this.onOpenUpdateDepartmentForm = this.onOpenUpdateDepartmentForm.bind(this);
+    this.handleCloseUpdate = this.handleCloseUpdate.bind(this);
+    this.handleUpdateDepartment = this.handleUpdateDepartment.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +92,34 @@ export default class DepartmentList extends Component {
 
   onOpenCreateDepartmentForm() {
     this.setState({ createDepartmentFormVisible: true });
+  }
+
+  onOpenUpdateDepartmentForm(record) {
+    console.dir(record);
+    this.setState({
+      departmentToUpdate: record,
+      updateDepartmentFormVisible: true,
+    });
+  }
+
+  handleCancelCreate() {
+    const form = this.createDepartmentForm;
+    form.resetFields();
+    this.setState({ createDepartmentFormVisible: false });
+  }
+
+  saveCreateDepartmentFormRef(form) {
+    this.createDepartmentForm = form;
+  }
+
+  handleCloseUpdate() {
+    const form = this.updateDepartmentForm;
+    form.resetFields();
+    this.setState({ updateDepartmentFormVisible: false });
+  }
+
+  saveUpdateDepartmentFormRef(form) {
+    this.updateDepartmentForm = form;
   }
 
   getDepartments() {
@@ -94,14 +150,8 @@ export default class DepartmentList extends Component {
     });
   }
 
-  handleCancel() {
-    const form = this.form;
-    form.resetFields();
-    this.setState({ createDepartmentFormVisible: false });
-  }
-
-  handlCreateDepartment() {
-    const form = this.form;
+  handleCreateDepartment() {
+    const form = this.createDepartmentForm;
     form.validateFields((err, values) => {
       if (err) {
         return;
@@ -130,8 +180,34 @@ export default class DepartmentList extends Component {
     });
   }
 
-  saveFormRef(form) {
-    this.form = form;
+  handleUpdateDepartment() {
+    const form = this.updateDepartmentForm;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+
+      axios.put(`/departments/${values.kode}`, values)
+      .then((response) => {
+        // console.dir(response);
+        Message.success('Department updated successfully.');
+        form.resetFields();
+        this.setState({
+          updateDepartmentFormVisible: false,
+        }, () => {
+          this.getDepartments();
+        });
+      })
+      .catch((error) => {
+        Message.error(
+          <span>
+            {error.message}<br />
+            {error.response.data}
+          </span>);
+      });
+    });
   }
 
   render() {
@@ -190,10 +266,17 @@ export default class DepartmentList extends Component {
           />
         </div>
         <DepartmentCreateForm
-          ref={this.saveFormRef}
+          ref={this.saveCreateDepartmentFormRef}
           visible={this.state.createDepartmentFormVisible}
-          onCancel={this.handleCancel}
-          onCreate={this.handlCreateDepartment}
+          onCancel={this.handleCancelCreate}
+          onCreate={this.handleCreateDepartment}
+        />
+        <DepartmentUpdateForm
+          ref={this.saveUpdateDepartmentFormRef}
+          visible={this.state.updateDepartmentFormVisible}
+          onClose={this.handleCloseUpdate}
+          onUpdate={this.handleUpdateDepartment}
+          department={this.state.departmentToUpdate}
         />
       </div>
     );
