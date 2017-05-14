@@ -3,10 +3,13 @@ import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 import Message from 'antd/lib/message';
 import Table from 'antd/lib/table';
+import Modal from 'antd/lib/modal';
 import axios from 'axios';
 import StudentLevelRadio from '../student/components/StudentLevelRadio';
 import DepartmentCreateForm from './DepartmentCreateForm';
 import DepartmentUpdateForm from './DepartmentUpdateForm';
+
+const confirm = Modal.confirm;
 
 export default class DepartmentList extends Component {
 
@@ -20,6 +23,7 @@ export default class DepartmentList extends Component {
       createDepartmentFormVisible: false,
       updateDepartmentFormVisible: false,
       departmentToUpdate: {},
+      departmentToDelete: {},
       columns: [
         {
           title: 'ID',
@@ -48,7 +52,7 @@ export default class DepartmentList extends Component {
                 <Button
                   icon="delete"
                   type="dashed"
-                  onClick={() => { this.onOpenUpdateDepartmentForm(record); }}
+                  onClick={() => { this.onOpenDeleteDepartmentDialog(record); }}
                 />
               </span>
             );
@@ -70,6 +74,8 @@ export default class DepartmentList extends Component {
     this.onOpenUpdateDepartmentForm = this.onOpenUpdateDepartmentForm.bind(this);
     this.handleCloseUpdate = this.handleCloseUpdate.bind(this);
     this.handleUpdateDepartment = this.handleUpdateDepartment.bind(this);
+
+    this.onOpenDeleteDepartmentDialog = this.onOpenDeleteDepartmentDialog.bind(this);
   }
 
   componentDidMount() {
@@ -99,6 +105,20 @@ export default class DepartmentList extends Component {
     this.setState({
       departmentToUpdate: record,
       updateDepartmentFormVisible: true,
+    });
+  }
+
+  onOpenDeleteDepartmentDialog(record) {
+    const departmentList = this;
+    confirm({
+      title: `Anda akan menghapus bagian : ${record.nama}`,
+      content: 'Tindakan ini tidak dapat dibatalkan.',
+      onOk() {
+        departmentList.handleDeleteDepartment(record);
+      },
+      onCancel() {
+        // console.log('Cancel');
+      },
     });
   }
 
@@ -207,6 +227,26 @@ export default class DepartmentList extends Component {
             {error.response.data}
           </span>);
       });
+    });
+  }
+
+  handleDeleteDepartment(departmentToDelete) {
+    axios.delete(`/departments/${departmentToDelete.kode}`, {})
+    .then((response) => {
+      // console.dir(response);
+      Message.success('Department deleted successfully.');
+      this.setState({
+        departmentToDelete: {},
+      }, () => {
+        this.getDepartments();
+      });
+    })
+    .catch((error) => {
+      Message.error(
+        <span>
+          {error.message}<br />
+          {error.response ? error.response.data : ''}
+        </span>);
     });
   }
 
