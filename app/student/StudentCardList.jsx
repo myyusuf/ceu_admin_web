@@ -10,6 +10,7 @@ import axios from 'axios';
 import StudentCard from './StudentCard';
 import StudentStatusSelect from './components/StudentStatusSelect';
 import StudentLevelRadio from './components/StudentLevelRadio';
+import StudentCreateForm from './StudentCreateForm';
 
 const PAGE_SIZE = 10;
 
@@ -29,6 +30,7 @@ export default class StudentCardList extends Component {
       pageNum: 1,
       totalRecords: 0,
       loading: false,
+      createStudentFormVisible: false,
     };
 
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
@@ -36,6 +38,11 @@ export default class StudentCardList extends Component {
     this.onStudentLevelSelect = this.onStudentLevelSelect.bind(this);
     this.onPageChange = this.onPageChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
+
+    this.saveCreateStudentFormRef = this.saveCreateStudentFormRef.bind(this);
+    this.onOpenCreateStudentForm = this.onOpenCreateStudentForm.bind(this);
+    this.handleCancelCreate = this.handleCancelCreate.bind(this);
+    this.handleCreateStudent = this.handleCreateStudent.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +73,20 @@ export default class StudentCardList extends Component {
     });
   }
 
+  onOpenCreateStudentForm() {
+    this.setState({ createStudentFormVisible: true });
+  }
+
+  handleCancelCreate() {
+    const form = this.createStudentForm;
+    form.resetFields();
+    this.setState({ createStudentFormVisible: false });
+  }
+
+  saveCreateStudentFormRef(form) {
+    this.createStudentForm = form;
+  }
+
   getStudents() {
     this.setState({ loading: true }, () => {
       axios.get('/students', {
@@ -94,6 +115,36 @@ export default class StudentCardList extends Component {
           errorMessage += error.message;
         }
         Message.error(errorMessage);
+      });
+    });
+  }
+
+  handleCreateStudent() {
+    const form = this.createStudentForm;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+
+      axios.post('/departments', values)
+      .then((response) => {
+        // console.dir(response);
+        Message.success('Student created successfully.');
+        form.resetFields();
+        this.setState({
+          createStudentFormVisible: false,
+        }, () => {
+          this.getStudents();
+        });
+      })
+      .catch((error) => {
+        Message.error(
+          <span>
+            {error.message}<br />
+            {error.response.data}
+          </span>);
       });
     });
   }
@@ -177,7 +228,12 @@ export default class StudentCardList extends Component {
                 />
               </li>
               <li className="the-li">
-                <Button type="primary" icon="plus" className="add-button">
+                <Button
+                  type="primary"
+                  icon="plus"
+                  className="add-button"
+                  onClick={this.onOpenCreateStudentForm}
+                >
                   Siswa
                 </Button>
               </li>
@@ -191,6 +247,13 @@ export default class StudentCardList extends Component {
             </Row>
           </Spin>
         </div>
+
+        <StudentCreateForm
+          ref={this.saveCreateStudentFormRef}
+          visible={this.state.createStudentFormVisible}
+          onCancel={this.handleCancelCreate}
+          onCreate={this.handleCreateStudent}
+        />
       </div>
     );
   }
