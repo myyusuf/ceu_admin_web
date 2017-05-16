@@ -49,7 +49,7 @@ const StudentCard = ({ student, onDetailsClick }) => {
       </Row>
       <Row>
         <Col span={24} style={{ paddingTop: 15 }}>
-          <Progress percent={student.progres_keseluruhan} />
+          <Progress percent={parseInt(student.progres_keseluruhan, 10)} />
         </Col>
       </Row>
     </Card>

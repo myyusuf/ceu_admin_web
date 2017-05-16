@@ -15,6 +15,7 @@ const DepartmentCreateForm = Form.create()(
     return (
       <Modal
         visible={visible}
+        wrapClassName="vertical-center-modal"
         title="Bagian Baru"
         okText="Create"
         onCancel={onCancel}

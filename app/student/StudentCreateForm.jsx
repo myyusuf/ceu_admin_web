@@ -1,12 +1,16 @@
 import React from 'react';
 import Form from 'antd/lib/form';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
 import Input from 'antd/lib/input';
 import InputNumber from 'antd/lib/input-number';
+import Radio from 'antd/lib/radio';
 import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
 
 const StudentCreateForm = Form.create()(
   (props) => {
@@ -15,46 +19,73 @@ const StudentCreateForm = Form.create()(
     return (
       <Modal
         visible={visible}
+        wrapClassName="vertical-center-modal"
         title="Siswa Baru"
         okText="Create"
         onCancel={onCancel}
         onOk={onCreate}
       >
         <Form layout="vertical">
-          <FormItem label="Kode">
-            {getFieldDecorator('kode', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Kode bagian wajib diisi',
-                },
-                {
-                  min: 3,
-                  message: 'Panjang kode bagian minimum 3 karakter',
-                },
-                {
-                  max: 10,
-                  message: 'Panjang kode bagian maximum 10 karakter',
-                },
-              ],
-            })(
-              <Input maxLength="10" />,
-            )}
-          </FormItem>
+          <Row gutter={10}>
+            <Col span={12}>
+              <FormItem label="Stambuk Lama">
+                {getFieldDecorator('stambuk_lama', {
+                  rules: [
+                    {
+                      required: true,
+                      message: 'Stambuk lama wajib diisi',
+                    },
+                    {
+                      min: 3,
+                      message: 'Panjang stambuk lama minimum 3 karakter',
+                    },
+                    {
+                      max: 10,
+                      message: 'Panjang stambuk lama bagian maximum 10 karakter',
+                    },
+                  ],
+                })(
+                  <Input maxLength="10" />,
+                )}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem label="Stambuk Baru">
+                {getFieldDecorator('stambuk_baru', {
+                  rules: [
+                    {
+                      required: true,
+                      message: 'Stambuk baru bagian wajib diisi',
+                    },
+                    {
+                      min: 3,
+                      message: 'Panjang stambuk baru minimum 3 karakter',
+                    },
+                    {
+                      max: 30,
+                      message: 'Panjang stambuk baru maximum 30 karakter',
+                    },
+                  ],
+                })(
+                  <Input maxLength="30" />,
+                )}
+              </FormItem>
+            </Col>
+          </Row>
           <FormItem label="Nama">
             {getFieldDecorator('nama', {
               rules: [
                 {
                   required: true,
-                  message: 'Nama bagian wajib diisi',
+                  message: 'Nama wajib diisi',
                 },
                 {
                   min: 3,
-                  message: 'Panjang nama bagian minimum 3 karakter',
+                  message: 'Panjang nama minimum 3 karakter',
                 },
                 {
                   max: 30,
-                  message: 'Panjang nama bagian maximum 30 karakter',
+                  message: 'Panjang nama maximum 30 karakter',
                 },
               ],
             })(
@@ -80,19 +111,19 @@ const StudentCreateForm = Form.create()(
               </Select>,
             )}
           </FormItem>
-          <FormItem label="Durasi Dalam Minggu">
-            {getFieldDecorator('durasi_minggu', {
-              initialValue: 4,
-              rules: [],
+          <FormItem label="Jenis Kelamin">
+            {getFieldDecorator('gender', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Jenis kelamin wajib diisi',
+                },
+              ],
             })(
-              <InputNumber min={4} max={10} />,
-            )}
-          </FormItem>
-          <FormItem label="Keterangan">
-            {getFieldDecorator('keterangan', {
-              rules: [],
-            })(
-              <Input type="textarea" />,
+              <RadioGroup>
+                <Radio value={'M'}>Laki-laki</Radio>
+                <Radio value={'F'}>Perempuan</Radio>
+              </RadioGroup>,
             )}
           </FormItem>
         </Form>

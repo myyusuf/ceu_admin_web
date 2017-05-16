@@ -16,6 +16,7 @@ const DepartmentUpdateForm = Form.create()(
     return (
       <Modal
         visible={visible}
+        wrapClassName="vertical-center-modal"
         title="Edit Bagian"
         okText="Update"
         cancelText="Close"

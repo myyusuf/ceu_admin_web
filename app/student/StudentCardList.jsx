@@ -128,7 +128,7 @@ export default class StudentCardList extends Component {
 
       console.log('Received values of form: ', values);
 
-      axios.post('/departments', values)
+      axios.post('/students', values)
       .then((response) => {
         // console.dir(response);
         Message.success('Student created successfully.');
@@ -140,10 +140,10 @@ export default class StudentCardList extends Component {
         });
       })
       .catch((error) => {
+        console.dir(error);
         Message.error(
           <span>
             {error.message}<br />
-            {error.response.data}
           </span>);
       });
     });
