@@ -10,6 +10,15 @@ import StudentStatusTag from './components/StudentStatusTag';
 import StudentDepartmentStatusTag from './components/StudentDepartmentStatusTag';
 
 const StudentCard = ({ student, onDetailsClick }) => {
+  let tagBagian = <Tag color="#A3A3A3">Belum ada bagian</Tag>;
+  if (student.nama_bagian !== undefined && student.nama_bagian !== null) {
+    let warnaBagian = '#A3A3A3';
+    if (student.warna_bagian !== undefined && student.warna_bagian !== null) {
+      warnaBagian = `#${student.warna_bagian}`;
+    }
+
+    tagBagian = <Tag color={warnaBagian}>{student.nama_bagian}</Tag>
+  }
   return (
     <Card className="student-card">
       <Row>
@@ -38,7 +47,7 @@ const StudentCard = ({ student, onDetailsClick }) => {
       </Row>
       <Row>
         <Col span={12}><span className="field-caption">Bagian</span></Col>
-        <Col span={12}><Tag color="#2db7f5">Interna</Tag></Col>
+        <Col span={12}>{tagBagian}</Col>
       </Row>
       <Row>
         <Col span={12}><span className="field-caption">Status Bagian</span></Col>

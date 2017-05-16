@@ -18,6 +18,11 @@ const STUDENT_STATUS_ARRAY = [
 
 const STUDENT_DEPARTMENT_STATUS_ARRAY = [
   {
+    id: 0,
+    name: 'Belum ada bagian',
+    colorCode: '#A3A3A3',
+  },
+  {
     id: 1,
     name: 'Berjalan',
     colorCode: '#2DB7F5',

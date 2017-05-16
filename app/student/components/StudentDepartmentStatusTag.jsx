@@ -11,7 +11,7 @@ const StudentDepartmentStatusTag = ({ value }) => {
   });
 
   return (
-    statusArray[value - 1]
+    statusArray[value]
   );
 };
 
