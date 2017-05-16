@@ -1,16 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import InputNumber from 'antd/lib/input-number';
 import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+
+import { SliderPicker } from 'react-color';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
 
-const DepartmentCreateForm = Form.create()(
-  (props) => {
-    const { visible, onCancel, onCreate, form } = props;
+export default class DepartmentCreateForm extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: '#a3a3a3',
+    };
+
+    this.onColorChange = this.onColorChange.bind(this);
+  }
+
+  onColorChange(color) {
+    this.setState({
+      color: color.hex,
+    });
+
+    this.props.form.setFieldsValue({
+      warna: color.hex,
+    });
+  }
+
+  render() {
+    const { visible, onCancel, onCreate, form } = this.props;
     const { getFieldDecorator } = form;
     return (
       <Modal
@@ -89,17 +113,30 @@ const DepartmentCreateForm = Form.create()(
               <InputNumber min={4} max={10} />,
             )}
           </FormItem>
-          <FormItem label="Keterangan">
-            {getFieldDecorator('keterangan', {
-              rules: [],
-            })(
-              <Input type="textarea" />,
-            )}
-          </FormItem>
+          <Row gutter={15}>
+            <Col span={12}>
+              <FormItem label="Keterangan">
+                {getFieldDecorator('keterangan', {
+                  rules: [],
+                })(
+                  <Input type="textarea" style={{ height: 70 }} />,
+                )}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem label="Warna">
+                {getFieldDecorator('warna', {
+                  initialValue: '#a3a3a3',
+                  rules: [],
+                })(
+                  <Input maxLength="6" style={{ backgroundColor: this.state.color }} />,
+                )}
+              </FormItem>
+              <SliderPicker color={this.state.color} onChangeComplete={this.onColorChange} />
+            </Col>
+          </Row>
         </Form>
       </Modal>
     );
-  },
-);
-
-export default DepartmentCreateForm;
+  }
+}

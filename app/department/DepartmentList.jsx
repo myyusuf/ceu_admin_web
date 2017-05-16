@@ -4,12 +4,15 @@ import Input from 'antd/lib/input';
 import Message from 'antd/lib/message';
 import Table from 'antd/lib/table';
 import Modal from 'antd/lib/modal';
+import Form from 'antd/lib/form';
 import axios from 'axios';
 import StudentLevelRadio from '../student/components/StudentLevelRadio';
 import DepartmentCreateForm from './DepartmentCreateForm';
 import DepartmentUpdateForm from './DepartmentUpdateForm';
 
 const confirm = Modal.confirm;
+
+const WrappedDepartmentCreateForm = Form.create()(DepartmentCreateForm);
 
 export default class DepartmentList extends Component {
 
@@ -316,7 +319,7 @@ export default class DepartmentList extends Component {
             dataSource={this.state.departments}
           />
         </div>
-        <DepartmentCreateForm
+        <WrappedDepartmentCreateForm
           ref={this.saveCreateDepartmentFormRef}
           visible={this.state.createDepartmentFormVisible}
           onCancel={this.handleCancelCreate}
