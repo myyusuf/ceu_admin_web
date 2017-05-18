@@ -11,13 +11,14 @@ import { SliderPicker } from 'react-color';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
+const INITIAL_COLOR = '#A3A3A3';
 
 export default class DepartmentCreateForm extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      color: '#a3a3a3',
+      color: INITIAL_COLOR,
     };
 
     this.onColorChange = this.onColorChange.bind(this);
@@ -29,7 +30,7 @@ export default class DepartmentCreateForm extends Component {
     });
 
     this.props.form.setFieldsValue({
-      warna: color.hex,
+      warna: color.hex.toUpperCase(),
     });
   }
 
@@ -126,10 +127,10 @@ export default class DepartmentCreateForm extends Component {
             <Col span={12}>
               <FormItem label="Warna">
                 {getFieldDecorator('warna', {
-                  initialValue: '#a3a3a3',
+                  initialValue: INITIAL_COLOR,
                   rules: [],
                 })(
-                  <Input maxLength="6" style={{ backgroundColor: this.state.color }} />,
+                  <Input maxLength="6" style={{ backgroundColor: this.state.color }} readOnly />,
                 )}
               </FormItem>
               <SliderPicker color={this.state.color} onChangeComplete={this.onColorChange} />

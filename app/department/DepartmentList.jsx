@@ -13,6 +13,7 @@ import DepartmentUpdateForm from './DepartmentUpdateForm';
 const confirm = Modal.confirm;
 
 const WrappedDepartmentCreateForm = Form.create()(DepartmentCreateForm);
+const WrappedDepartmentUpdateForm = Form.create()(DepartmentUpdateForm);
 
 export default class DepartmentList extends Component {
 
@@ -50,6 +51,14 @@ export default class DepartmentList extends Component {
           title: 'Durasi Dalam Minggu',
           dataIndex: 'durasi_minggu',
           key: 'durasi_minggu',
+        }, {
+          title: 'Warna',
+          key: 'warna',
+          render: (text, record) => {
+            return (
+              <div className="department-color-box" style={{ backgroundColor: record.warna }} />
+            );
+          },
         }, {
           title: 'Action',
           key: 'action',
@@ -325,7 +334,7 @@ export default class DepartmentList extends Component {
           onCancel={this.handleCancelCreate}
           onCreate={this.handleCreateDepartment}
         />
-        <DepartmentUpdateForm
+        <WrappedDepartmentUpdateForm
           ref={this.saveUpdateDepartmentFormRef}
           visible={this.state.updateDepartmentFormVisible}
           onClose={this.handleCloseUpdate}

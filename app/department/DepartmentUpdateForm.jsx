@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import InputNumber from 'antd/lib/input-number';
 import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+
+import { SliderPicker } from 'react-color';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
 
-const DepartmentUpdateForm = Form.create()(
-  (props) => {
-    const { visible, onClose, onUpdate, department, form } = props;
-    const { getFieldDecorator } = form;
+export default class DepartmentUpdateForm extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      departmentColor: '',
+    };
+
+    this.onColorChange = this.onColorChange.bind(this);
+  }
+
+  onColorChange(color) {
+    this.props.form.setFieldsValue({
+      warna: color.hex.toUpperCase(),
+    });
+  }
+
+  render() {
+    const { visible, onClose, onUpdate, department, form } = this.props;
+    const { getFieldDecorator } = form;
     return (
       <Modal
         visible={visible}
@@ -93,18 +113,38 @@ const DepartmentUpdateForm = Form.create()(
               <InputNumber min={4} max={10} />,
             )}
           </FormItem>
-          <FormItem label="Keterangan">
-            {getFieldDecorator('keterangan', {
-              initialValue: department.keterangan,
-              rules: [],
-            })(
-              <Input type="textarea" />,
-            )}
-          </FormItem>
+          <Row gutter={15}>
+            <Col span={12}>
+              <FormItem label="Keterangan">
+                {getFieldDecorator('keterangan', {
+                  initialValue: department.keterangan,
+                  rules: [],
+                })(
+                  <Input type="textarea" style={{ height: 70 }} />,
+                )}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem label="Warna">
+                {getFieldDecorator('warna', {
+                  initialValue: department.warna || '#FFF',
+                  rules: [],
+                })(
+                  <Input
+                    maxLength="6"
+                    style={{ backgroundColor: this.props.form.getFieldValue('warna') }}
+                    readOnly
+                  />,
+                )}
+              </FormItem>
+              <SliderPicker
+                color={this.props.form.getFieldValue('warna')}
+                onChangeComplete={this.onColorChange}
+              />
+            </Col>
+          </Row>
         </Form>
       </Modal>
     );
-  },
-);
-
-export default DepartmentUpdateForm;
+  }
+}
