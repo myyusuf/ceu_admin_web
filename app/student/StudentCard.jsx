@@ -14,7 +14,7 @@ const StudentCard = ({ student, onDetailsClick }) => {
   if (student.nama_bagian !== undefined && student.nama_bagian !== null) {
     let warnaBagian = '#A3A3A3';
     if (student.warna_bagian !== undefined && student.warna_bagian !== null) {
-      warnaBagian = `#${student.warna_bagian}`;
+      warnaBagian = student.warna_bagian;
     }
 
     tagBagian = <Tag color={warnaBagian}>{student.nama_bagian}</Tag>

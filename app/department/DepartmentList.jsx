@@ -48,7 +48,7 @@ export default class DepartmentList extends Component {
           dataIndex: 'nama',
           key: 'nama',
         }, {
-          title: 'Durasi Dalam Minggu',
+          title: 'Durasi (Minggu)',
           dataIndex: 'durasi_minggu',
           key: 'durasi_minggu',
         }, {
