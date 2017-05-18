@@ -127,13 +127,13 @@ export default class DepartmentUpdateForm extends Component {
             <Col span={12}>
               <FormItem label="Warna">
                 {getFieldDecorator('warna', {
-                  initialValue: department.warna || '#FFF',
+                  initialValue: department.warna || '#FFFFFF',
                   rules: [],
                 })(
                   <Input
-                    maxLength="6"
+                    maxLength="7"
                     style={{ backgroundColor: this.props.form.getFieldValue('warna') }}
-                    readOnly
+
                   />,
                 )}
               </FormItem>

@@ -17,18 +17,10 @@ export default class DepartmentCreateForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      color: INITIAL_COLOR,
-    };
-
     this.onColorChange = this.onColorChange.bind(this);
   }
 
   onColorChange(color) {
-    this.setState({
-      color: color.hex,
-    });
-
     this.props.form.setFieldsValue({
       warna: color.hex.toUpperCase(),
     });
@@ -127,13 +119,20 @@ export default class DepartmentCreateForm extends Component {
             <Col span={12}>
               <FormItem label="Warna">
                 {getFieldDecorator('warna', {
-                  initialValue: INITIAL_COLOR,
+                  initialValue: '#FFFFFF',
                   rules: [],
                 })(
-                  <Input maxLength="6" style={{ backgroundColor: this.state.color }} readOnly />,
+                  <Input
+                    maxLength="6"
+                    style={{ backgroundColor: this.props.form.getFieldValue('warna') }}
+                    readOnly
+                  />,
                 )}
               </FormItem>
-              <SliderPicker color={this.state.color} onChangeComplete={this.onColorChange} />
+              <SliderPicker
+                color={this.props.form.getFieldValue('warna')}
+                onChangeComplete={this.onColorChange}
+              />
             </Col>
           </Row>
         </Form>
