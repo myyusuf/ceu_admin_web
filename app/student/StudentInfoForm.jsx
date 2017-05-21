@@ -9,6 +9,7 @@ import axios from 'axios';
 import DatePicker from 'antd/lib/date-picker';
 import Radio from 'antd/lib/radio';
 import Tabs from 'antd/lib/tabs';
+import Message from 'antd/lib/message';
 
 import StudentMainInfoForm from './student/StudentMainInfoForm';
 import StudentEducationForm from './student/StudentEducationForm';
@@ -65,27 +66,24 @@ export default class StudentInfoForm extends Component {
       const studentInfo = values;
 
       studentInfo.tanggal_lahir = values.tanggal_lahir ? values.tanggal_lahir.format('YYYY-MM-DD') : '';
+      studentInfo.id = this.state.student.id;
 
       console.log('Received values of form: ', studentInfo);
 
-      // axios.put(`/students/${values.kode}`, values)
-      // .then((response) => {
-      //   // console.dir(response);
-      //   Message.success('Department updated successfully.');
-      //   form.resetFields();
-      //   this.setState({
-      //     updateDepartmentFormVisible: false,
-      //   }, () => {
-      //     this.getDepartments();
-      //   });
-      // })
-      // .catch((error) => {
-      //   Message.error(
-      //     <span>
-      //       {error.message}<br />
-      //       {error.response.data}
-      //     </span>);
-      // });
+      axios.put(`/students/${studentInfo.id}`, studentInfo)
+      .then((response) => {
+        // console.dir(response);
+        Message.success('Student updated successfully.');
+        // form.resetFields();
+        this.props.onStudentUpdated(studentInfo);
+      })
+      .catch((error) => {
+        Message.error(
+          <span>
+            {error.message}<br />
+            {error.response.data}
+          </span>);
+      });
     });
   }
 

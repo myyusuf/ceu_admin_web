@@ -8,6 +8,7 @@ import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Radio from 'antd/lib/radio';
 import DatePicker from 'antd/lib/date-picker';
+import moment from 'moment';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -22,6 +23,10 @@ export default class StudentMainInfoForm extends Component {
   render() {
     const { student, form } = this.props;
     const { getFieldDecorator } = form;
+    let tanggalLahir = null;
+    if (student.tanggal_lahir) {
+      tanggalLahir = moment(new Date(student.tanggal_lahir))
+    }
     return (
       <Form layout="vertical" style={{ paddingLeft: 25, width: '50%' }}>
         <Row gutter={15}>
@@ -117,6 +122,7 @@ export default class StudentMainInfoForm extends Component {
           <Col span={12}>
             <FormItem label="Tempat Lahir">
               {getFieldDecorator('tempat_lahir', {
+                initialValue: student.tempat_lahir,
                 rules: [],
               })(
                 <Input maxLength="10" />,
@@ -126,6 +132,7 @@ export default class StudentMainInfoForm extends Component {
           <Col span={12}>
             <FormItem label="Tanggal Lahir">
               {getFieldDecorator('tanggal_lahir', {
+                initialValue: tanggalLahir,
                 rules: [],
               })(
                 <DatePicker />,

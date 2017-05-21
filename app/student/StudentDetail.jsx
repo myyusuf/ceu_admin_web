@@ -32,6 +32,7 @@ export default class StudentDetail extends Component {
     };
 
     this.onSelectDetailChange = this.onSelectDetailChange.bind(this);
+    this.updateStudent = this.updateStudent.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +67,10 @@ export default class StudentDetail extends Component {
     });
   }
 
+  updateStudent(student) {
+    this.getStudent();
+  }
+
   render() {
     const student = this.state.student || {};
     let stambuk = '';
@@ -79,7 +84,7 @@ export default class StudentDetail extends Component {
       children = (
         <Switch>
           <Route path={`${this.props.match.url}/info`}>
-            <StudentInfoForm student={this.state.student} />
+            <StudentInfoForm student={this.state.student} onStudentUpdated={this.updateStudent} />
           </Route>
           <Route path={`${this.props.match.url}/departments`}>
             <TakenDepartment student={this.state.student} />
