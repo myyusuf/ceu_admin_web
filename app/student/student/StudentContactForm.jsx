@@ -23,104 +23,42 @@ export default class StudentContactForm extends Component {
     const { getFieldDecorator } = form;
     return (
       <Form layout="vertical" style={{ paddingLeft: 20, width: '50%' }}>
-        <Row gutter={10}>
+        <FormItem label="Alamat">
+          {getFieldDecorator('alamat', {
+            rules: [],
+          })(
+            <Input maxLength="100" />,
+          )}
+        </FormItem>
+        <Row gutter={15}>
           <Col span={12}>
-            <FormItem label="Stambuk Lama">
-              {getFieldDecorator('stambuk_lama', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Stambuk lama wajib diisi',
-                  },
-                  {
-                    min: 3,
-                    message: 'Panjang stambuk lama minimum 3 karakter',
-                  },
-                  {
-                    max: 10,
-                    message: 'Panjang stambuk lama bagian maximum 10 karakter',
-                  },
-                ],
+            <FormItem label="Telepon">
+              {getFieldDecorator('telepon', {
+                rules: [],
               })(
-                <Input maxLength="10" />,
+                <Input maxLength="15" />,
               )}
             </FormItem>
           </Col>
           <Col span={12}>
-            <FormItem label="Stambuk Baru">
-              {getFieldDecorator('stambuk_baru', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Stambuk baru bagian wajib diisi',
-                  },
-                  {
-                    min: 3,
-                    message: 'Panjang stambuk baru minimum 3 karakter',
-                  },
-                  {
-                    max: 30,
-                    message: 'Panjang stambuk baru maximum 30 karakter',
-                  },
-                ],
+            <FormItem label="Handphone">
+              {getFieldDecorator('handphone', {
+                rules: [],
               })(
-                <Input maxLength="30" />,
+                <Input maxLength="15" />,
               )}
             </FormItem>
           </Col>
         </Row>
-        <FormItem label="Nama">
-          {getFieldDecorator('nama', {
+        <FormItem label="Email">
+          {getFieldDecorator('email', {
             rules: [
               {
-                required: true,
-                message: 'Nama wajib diisi',
-              },
-              {
-                min: 3,
-                message: 'Panjang nama minimum 3 karakter',
-              },
-              {
-                max: 30,
-                message: 'Panjang nama maximum 30 karakter',
+                type: 'email', message: 'The input is not valid E-mail!',
               },
             ],
           })(
-            <Input maxLength="30" />,
-          )}
-        </FormItem>
-        <FormItem label="Tingkat">
-          {getFieldDecorator('tingkat', {
-            rules: [
-              {
-                required: true,
-                message: 'Tingkat wajib diisi',
-              },
-            ],
-          })(
-            <Select
-              mode="single"
-              placeholder="Pilih tingkat"
-              style={{ width: '50%' }}
-            >
-              <Option key="1">Tingkat 1</Option>
-              <Option key="2">Tingkat 2</Option>
-            </Select>,
-          )}
-        </FormItem>
-        <FormItem label="Jenis Kelamin">
-          {getFieldDecorator('gender', {
-            rules: [
-              {
-                required: true,
-                message: 'Jenis kelamin wajib diisi',
-              },
-            ],
-          })(
-            <RadioGroup>
-              <Radio value={'M'}>Laki-laki</Radio>
-              <Radio value={'F'}>Perempuan</Radio>
-            </RadioGroup>,
+            <Input maxLength="100" />,
           )}
         </FormItem>
       </Form>

@@ -12,6 +12,7 @@ import Tabs from 'antd/lib/tabs';
 
 import StudentMainInfoForm from './student/StudentMainInfoForm';
 import StudentEducationForm from './student/StudentEducationForm';
+import StudentContactForm from './student/StudentContactForm';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -19,17 +20,20 @@ const TabPane = Tabs.TabPane;
 
 const WrappedStudentMainInfoForm = Form.create()(StudentMainInfoForm);
 const WrappedStudentEducationForm = Form.create()(StudentEducationForm);
+const WrappedStudentContactForm = Form.create()(StudentContactForm);
 
 export default class StudentInfoForm extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      student: props.student,
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.saveStudentInfoMainFormRef = this.saveStudentInfoMainFormRef.bind(this);
     this.saveStudentEducationFormRef = this.saveStudentEducationFormRef.bind(this);
+    this.saveStudentContactFormRef = this.saveStudentContactFormRef.bind(this);
+    this.handleUpdateStudentInfo = this.handleUpdateStudentInfo.bind(this);
   }
 
   componentDidMount() {
@@ -47,19 +51,42 @@ export default class StudentInfoForm extends Component {
     this.studentEducationForm = form;
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    // this.props.form.validateFields((err, fieldsValue) => {
-    //   if (!err) {
-    //     const planRangeDate = fieldsValue.planRangeDate;
-    //     const hospitalPlanRangeDate1 = fieldsValue.hospitalPlanRangeDate1;
-    //     const values = {
-    //       planRangeDate: [planRangeDate[0].format('YYYY-MM-DD'), planRangeDate[1].format('YYYY-MM-DD')],
-    //       hospitalPlanRangeDate1: [hospitalPlanRangeDate1[0].format('YYYY-MM-DD'), hospitalPlanRangeDate1[1].format('YYYY-MM-DD')],
-    //     };
-    //     console.log('Received values of form: ', values);
-    //   }
-    // });
+  saveStudentContactFormRef(form) {
+    this.studentContactForm = form;
+  }
+
+  handleUpdateStudentInfo() {
+    const form = this.studentInfoMainForm;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      const studentInfo = values;
+
+      studentInfo.tanggal_lahir = values.tanggal_lahir ? values.tanggal_lahir.format('YYYY-MM-DD') : '';
+
+      console.log('Received values of form: ', studentInfo);
+
+      // axios.put(`/students/${values.kode}`, values)
+      // .then((response) => {
+      //   // console.dir(response);
+      //   Message.success('Department updated successfully.');
+      //   form.resetFields();
+      //   this.setState({
+      //     updateDepartmentFormVisible: false,
+      //   }, () => {
+      //     this.getDepartments();
+      //   });
+      // })
+      // .catch((error) => {
+      //   Message.error(
+      //     <span>
+      //       {error.message}<br />
+      //       {error.response.data}
+      //     </span>);
+      // });
+    });
   }
 
   render() {
@@ -77,7 +104,12 @@ export default class StudentInfoForm extends Component {
           <div className="right">
             <ul className="the-ul">
               <li className="the-li">
-                <Button type="primary" icon="plus" className="add-button">
+                <Button
+                  type="primary"
+                  icon="save"
+                  className="add-button"
+                  onClick={this.handleUpdateStudentInfo}
+                >
                   Simpan
                 </Button>
               </li>
@@ -87,13 +119,22 @@ export default class StudentInfoForm extends Component {
         <div className="sub-section-content">
           <Tabs defaultActiveKey="1">
             <TabPane tab="Main" key="1">
-              <WrappedStudentMainInfoForm ref={this.saveStudentInfoMainFormRef} />
+              <WrappedStudentMainInfoForm
+                ref={this.saveStudentInfoMainFormRef}
+                student={this.props.student}
+              />
             </TabPane>
-            <TabPane tab="Riwayat Pendidikan" key="2">
-              <WrappedStudentEducationForm ref={this.saveStudentEducationFormRef} />
+            <TabPane tab="Pendidikan" key="2">
+              <WrappedStudentEducationForm
+                ref={this.saveStudentEducationFormRef}
+                student={this.props.student}
+              />
             </TabPane>
             <TabPane tab="Kontak" key="3">
-
+              <WrappedStudentContactForm
+                ref={this.saveStudentContactFormRef}
+                student={this.props.student}
+              />
             </TabPane>
           </Tabs>
         </div>

@@ -20,7 +20,7 @@ export default class StudentMainInfoForm extends Component {
   }
 
   render() {
-    const { form } = this.props;
+    const { student, form } = this.props;
     const { getFieldDecorator } = form;
     return (
       <Form layout="vertical" style={{ paddingLeft: 25, width: '50%' }}>
@@ -28,6 +28,7 @@ export default class StudentMainInfoForm extends Component {
           <Col span={12}>
             <FormItem label="Stambuk Lama">
               {getFieldDecorator('stambuk_lama', {
+                initialValue: student.stambuk_lama,
                 rules: [
                   {
                     required: true,
@@ -50,6 +51,7 @@ export default class StudentMainInfoForm extends Component {
           <Col span={12}>
             <FormItem label="Stambuk Baru">
               {getFieldDecorator('stambuk_baru', {
+                initialValue: student.stambuk_baru,
                 rules: [
                   {
                     required: true,
@@ -72,6 +74,7 @@ export default class StudentMainInfoForm extends Component {
         </Row>
         <FormItem label="Nama">
           {getFieldDecorator('nama', {
+            initialValue: student.nama,
             rules: [
               {
                 required: true,
@@ -92,6 +95,7 @@ export default class StudentMainInfoForm extends Component {
         </FormItem>
         <FormItem label="Tingkat">
           {getFieldDecorator('tingkat', {
+            initialValue: student.tingkat,
             rules: [
               {
                 required: true,
@@ -131,6 +135,7 @@ export default class StudentMainInfoForm extends Component {
         </Row>
         <FormItem label="Jenis Kelamin">
           {getFieldDecorator('gender', {
+            initialValue: student.gender,
             rules: [
               {
                 required: true,
