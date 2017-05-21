@@ -8,9 +8,15 @@ import Button from 'antd/lib/button';
 import axios from 'axios';
 import DatePicker from 'antd/lib/date-picker';
 import Radio from 'antd/lib/radio';
+import Tabs from 'antd/lib/tabs';
+
+import StudentMainInfoForm from './student/StudentMainInfoForm';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
+const TabPane = Tabs.TabPane;
+
+const WrappedStudentMainInfoForm = Form.create()(StudentMainInfoForm);
 
 export default class StudentInfoForm extends Component {
 
@@ -20,6 +26,7 @@ export default class StudentInfoForm extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.saveStudentInfoMainFormRef = this.saveStudentInfoMainFormRef.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +34,10 @@ export default class StudentInfoForm extends Component {
     //   bagian: this.props.takenDepartment.nama,
     //   judul: this.props.takenDepartment.judul,
     // });
+  }
+
+  saveStudentInfoMainFormRef(form) {
+    this.studentInfoMainForm = form;
   }
 
   handleSubmit(e) {
@@ -45,245 +56,17 @@ export default class StudentInfoForm extends Component {
   }
 
   render() {
-    function onChange(date, dateString) {
-      console.log(date, dateString);
-    }
-
-    const student = this.props.student;
-
-    const formItemLayoutHorizontal = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-      },
-    };
-
-    const formItemLayoutHorizontal2 = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6, offset: 2 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-      },
-    };
-
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 4 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 20 },
-      },
-    };
-
-    const formItemLayout2 = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 0 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 22, offset: 2 },
-      },
-    };
-
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 16,
-          offset: 4,
-        },
-      },
-    };
-
     return (
-      <Form onSubmit={this.handleSubmit} className="student-info-form" layout="vertical">
-        <Row gutter={0}>
-          <Col span={12}>
-            <FormItem
-              {...formItemLayoutHorizontal}
-              required
-              label={(
-                <span>
-                  Stambuk Lama
-                </span>
-               )}
-            >
-              <Input value={student.stambuk_lama} />
-            </FormItem>
-          </Col>
-          <Col span={12}>
-            <FormItem
-              {...formItemLayoutHorizontal2}
-              required
-              label={(
-                <span>
-                  Stambuk Baru
-                </span>
-               )}
-            >
-              <Input value={student.stambuk_baru} />
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <FormItem
-              {...formItemLayout}
-              required
-              label={(
-                <span>
-                  Nama
-                </span>
-               )}
-            >
-              <Input value={student.nama} />
-            </FormItem>
-          </Col>
-        </Row>
-        <Row gutter={0}>
-          <Col span={12}>
-            <FormItem
-              {...formItemLayoutHorizontal}
-              label={(
-                <span>
-                  Tempat Tanggal Lahir
-                </span>
-               )}
-            >
-              <Input />
-            </FormItem>
-          </Col>
-          <Col span={12}>
-            <FormItem
-              {...formItemLayout2}
-            >
-              <DatePicker onChange={onChange} />
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <FormItem
-              {...formItemLayout}
-              required
-              label={(
-                <span>
-                  Jenis Kelamin
-                </span>
-               )}
-            >
-              <RadioGroup onChange={this.onChange} >
-                <Radio value={'M'}>Laki-laki</Radio>
-                <Radio value={'F'}>Perempuan</Radio>
-              </RadioGroup>
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                  Alamat
-                </span>
-               )}
-            >
-              <Input />
-            </FormItem>
-          </Col>
-        </Row>
 
-        <Row gutter={0}>
-          <Col span={12}>
-            <FormItem
-              {...formItemLayoutHorizontal}
-              label={(
-                <span>
-                  Telepon
-                </span>
-               )}
-            >
-              <Input />
-            </FormItem>
-          </Col>
-          <Col span={12}>
-            <FormItem
-              {...formItemLayoutHorizontal2}
-              label={(
-                <span>
-                  Handphone
-                </span>
-               )}
-            >
-              <Input />
-            </FormItem>
-          </Col>
-        </Row>
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="Main" key="1">
+            <WrappedStudentMainInfoForm ref={this.saveStudentInfoMainFormRef} />
+          </TabPane>
+          <TabPane tab="Kontak" key="2">
 
-        <Row>
-          <Col span={24}>
-            <FormItem
-              {...formItemLayout}
-              label={(
-                <span>
-                  Email
-                </span>
-               )}
-            >
-              <Input />
-            </FormItem>
-          </Col>
-        </Row>
+          </TabPane>
+        </Tabs>
 
-        <Row gutter={0}>
-          <Col span={12}>
-            <FormItem
-              {...formItemLayoutHorizontal}
-              label={(
-                <span>
-                  Tahun Masuk
-                </span>
-               )}
-            >
-              <Input />
-            </FormItem>
-          </Col>
-          <Col span={12}>
-            <FormItem
-              {...formItemLayoutHorizontal2}
-              label={(
-                <span>
-                  Tahun Keluar
-                </span>
-               )}
-            >
-              <Input />
-            </FormItem>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col span={24}>
-            <FormItem {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit" size="large">Save</Button>
-            </FormItem>
-          </Col>
-        </Row>
-      </Form>
     );
   }
 }
