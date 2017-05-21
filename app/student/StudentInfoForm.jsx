@@ -11,12 +11,14 @@ import Radio from 'antd/lib/radio';
 import Tabs from 'antd/lib/tabs';
 
 import StudentMainInfoForm from './student/StudentMainInfoForm';
+import StudentEducationForm from './student/StudentEducationForm';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const TabPane = Tabs.TabPane;
 
 const WrappedStudentMainInfoForm = Form.create()(StudentMainInfoForm);
+const WrappedStudentEducationForm = Form.create()(StudentEducationForm);
 
 export default class StudentInfoForm extends Component {
 
@@ -27,6 +29,7 @@ export default class StudentInfoForm extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.saveStudentInfoMainFormRef = this.saveStudentInfoMainFormRef.bind(this);
+    this.saveStudentEducationFormRef = this.saveStudentEducationFormRef.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +41,10 @@ export default class StudentInfoForm extends Component {
 
   saveStudentInfoMainFormRef(form) {
     this.studentInfoMainForm = form;
+  }
+
+  saveStudentEducationFormRef(form) {
+    this.studentEducationForm = form;
   }
 
   handleSubmit(e) {
@@ -58,14 +65,39 @@ export default class StudentInfoForm extends Component {
   render() {
     return (
 
-        <Tabs defaultActiveKey="1">
-          <TabPane tab="Main" key="1">
-            <WrappedStudentMainInfoForm ref={this.saveStudentInfoMainFormRef} />
-          </TabPane>
-          <TabPane tab="Kontak" key="2">
+      <div className="student-info">
+        <div className="sub-section-header">
+          <div className="left">
+            <ul className="the-ul">
+              <li className="the-li">
+                <Button shape="circle" icon="reload" />
+              </li>
+            </ul>
+          </div>
+          <div className="right">
+            <ul className="the-ul">
+              <li className="the-li">
+                <Button type="primary" icon="plus" className="add-button">
+                  Simpan
+                </Button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="sub-section-content">
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Main" key="1">
+              <WrappedStudentMainInfoForm ref={this.saveStudentInfoMainFormRef} />
+            </TabPane>
+            <TabPane tab="Riwayat Pendidikan" key="2">
+              <WrappedStudentEducationForm ref={this.saveStudentEducationFormRef} />
+            </TabPane>
+            <TabPane tab="Kontak" key="3">
 
-          </TabPane>
-        </Tabs>
+            </TabPane>
+          </Tabs>
+        </div>
+      </div>
 
     );
   }

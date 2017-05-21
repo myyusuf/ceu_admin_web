@@ -7,13 +7,12 @@ import Modal from 'antd/lib/modal';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Radio from 'antd/lib/radio';
-import DatePicker from 'antd/lib/date-picker';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
-export default class StudentMainInfoForm extends Component {
+export default class StudentContactForm extends Component {
 
   constructor(props) {
     super(props);
@@ -23,8 +22,8 @@ export default class StudentMainInfoForm extends Component {
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return (
-      <Form layout="vertical" style={{ paddingLeft: 25, width: '50%' }}>
-        <Row gutter={15}>
+      <Form layout="vertical" style={{ paddingLeft: 20, width: '50%' }}>
+        <Row gutter={10}>
           <Col span={12}>
             <FormItem label="Stambuk Lama">
               {getFieldDecorator('stambuk_lama', {
@@ -109,26 +108,6 @@ export default class StudentMainInfoForm extends Component {
             </Select>,
           )}
         </FormItem>
-        <Row gutter={15}>
-          <Col span={12}>
-            <FormItem label="Tempat Lahir">
-              {getFieldDecorator('tempat_lahir', {
-                rules: [],
-              })(
-                <Input maxLength="10" />,
-              )}
-            </FormItem>
-          </Col>
-          <Col span={12}>
-            <FormItem label="Tanggal Lahir">
-              {getFieldDecorator('tanggal_lahir', {
-                rules: [],
-              })(
-                <DatePicker />,
-              )}
-            </FormItem>
-          </Col>
-        </Row>
         <FormItem label="Jenis Kelamin">
           {getFieldDecorator('gender', {
             rules: [

@@ -26,7 +26,7 @@ const StudentCreateForm = Form.create()(
         onOk={onCreate}
       >
         <Form layout="vertical">
-          <Row gutter={10}>
+          <Row gutter={15}>
             <Col span={12}>
               <FormItem label="Stambuk Lama">
                 {getFieldDecorator('stambuk_lama', {
