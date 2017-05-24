@@ -102,40 +102,40 @@ export default class DepartmentCreateForm extends Component {
             <Col span={6}>
               <FormItem label="Durasi (Minggu)">
                 {getFieldDecorator('durasi_minggu', {
-                  initialValue: 4,
+                  initialValue: 1,
                   rules: [],
                 })(
-                  <InputNumber min={4} max={10} />,
+                  <InputNumber min={1} max={10} />,
                 )}
               </FormItem>
             </Col>
             <Col span={6}>
               <FormItem label="Durasi RS1">
                 {getFieldDecorator('durasi_minggu_rs1', {
-                  initialValue: 4,
+                  initialValue: 1,
                   rules: [],
                 })(
-                  <InputNumber min={4} max={10} />,
+                  <InputNumber min={1} max={10} />,
                 )}
               </FormItem>
             </Col>
             <Col span={6}>
               <FormItem label="Durasi RS2">
                 {getFieldDecorator('durasi_minggu_rs2', {
-                  initialValue: 4,
+                  initialValue: 1,
                   rules: [],
                 })(
-                  <InputNumber min={4} max={10} />,
+                  <InputNumber min={1} max={10} />,
                 )}
               </FormItem>
             </Col>
             <Col span={6}>
               <FormItem label="Durasi Puskesmas">
                 {getFieldDecorator('durasi_minggu_klinik', {
-                  initialValue: 4,
+                  initialValue: 1,
                   rules: [],
                 })(
-                  <InputNumber min={4} max={10} />,
+                  <InputNumber min={1} max={10} />,
                 )}
               </FormItem>
             </Col>

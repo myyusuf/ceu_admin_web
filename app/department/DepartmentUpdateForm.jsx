@@ -105,14 +105,48 @@ export default class DepartmentUpdateForm extends Component {
               </Select>,
             )}
           </FormItem>
-          <FormItem label="Durasi Dalam Minggu">
-            {getFieldDecorator('durasi_minggu', {
-              initialValue: department.durasi_minggu,
-              rules: [],
-            })(
-              <InputNumber min={4} max={10} />,
-            )}
-          </FormItem>
+          <Row gutter={0}>
+            <Col span={6}>
+              <FormItem label="Durasi (Minggu)">
+                {getFieldDecorator('durasi_minggu', {
+                  initialValue: department.durasi_minggu,
+                  rules: [],
+                })(
+                  <InputNumber min={1} max={10} />,
+                )}
+              </FormItem>
+            </Col>
+            <Col span={6}>
+              <FormItem label="Durasi RS1">
+                {getFieldDecorator('durasi_minggu_rs1', {
+                  initialValue: department.durasi_minggu_rs1,
+                  rules: [],
+                })(
+                  <InputNumber min={1} max={10} />,
+                )}
+              </FormItem>
+            </Col>
+            <Col span={6}>
+              <FormItem label="Durasi RS2">
+                {getFieldDecorator('durasi_minggu_rs2', {
+                  initialValue: department.durasi_minggu_rs2,
+                  rules: [],
+                })(
+                  <InputNumber min={1} max={10} />,
+                )}
+              </FormItem>
+            </Col>
+            <Col span={6}>
+              <FormItem label="Durasi Puskesmas">
+                {getFieldDecorator('durasi_minggu_klinik', {
+                  initialValue: department.durasi_minggu_klinik,
+                  rules: [],
+                })(
+                  <InputNumber min={1} max={10} />,
+                )}
+              </FormItem>
+            </Col>
+          </Row>
           <Row gutter={15}>
             <Col span={12}>
               <FormItem label="Keterangan">
