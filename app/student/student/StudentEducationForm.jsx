@@ -20,7 +20,7 @@ export default class StudentEducationForm extends Component {
   }
 
   render() {
-    const { form } = this.props;
+    const { student, form } = this.props;
     const { getFieldDecorator } = form;
     return (
       <Form layout="vertical" style={{ paddingLeft: 25, width: '50%' }}>
@@ -28,6 +28,7 @@ export default class StudentEducationForm extends Component {
           <Col span={12}>
             <FormItem label="Tahun Masuk">
               {getFieldDecorator('tahun_masuk', {
+                initialValue: student.tahun_masuk,
                 rules: [],
               })(
                 <InputNumber min={1980} max={2000} style={{ width: '100%' }} />,
@@ -37,6 +38,7 @@ export default class StudentEducationForm extends Component {
           <Col span={12}>
             <FormItem label="Tahun Lulus">
               {getFieldDecorator('tahun_lulus', {
+                initialValue: student.tahun_lulus,
                 rules: [],
               })(
                 <InputNumber min={2000} max={2070} style={{ width: '100%' }} />,
@@ -48,6 +50,7 @@ export default class StudentEducationForm extends Component {
           <Col span={12}>
             <FormItem label="Nomer Ijazah">
               {getFieldDecorator('nomer_ijazah', {
+                initialValue: student.nomer_ijazah,
                 rules: [],
               })(
                 <Input maxLength="20" />,
@@ -57,6 +60,7 @@ export default class StudentEducationForm extends Component {
           <Col span={12}>
             <FormItem label="IPK">
               {getFieldDecorator('ipk', {
+                initialValue: student.ipk,
                 rules: [],
               })(
                 <InputNumber step={0.1} min={0} />,

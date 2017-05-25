@@ -35,6 +35,7 @@ export default class StudentContactForm extends Component {
           <Col span={12}>
             <FormItem label="Telepon">
               {getFieldDecorator('telepon', {
+                initialValue: student.telepon,
                 rules: [],
               })(
                 <Input maxLength="15" />,
@@ -44,6 +45,7 @@ export default class StudentContactForm extends Component {
           <Col span={12}>
             <FormItem label="Handphone">
               {getFieldDecorator('handphone', {
+                initialValue: student.handphone,
                 rules: [],
               })(
                 <Input maxLength="15" />,
@@ -53,6 +55,7 @@ export default class StudentContactForm extends Component {
         </Row>
         <FormItem label="Email">
           {getFieldDecorator('email', {
+            initialValue: student.email,
             rules: [
               {
                 type: 'email', message: 'The input is not valid E-mail!',
