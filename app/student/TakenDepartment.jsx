@@ -88,29 +88,36 @@ export default class TakenDepartment extends Component {
 
     return (
       <div className="taken-department">
-        <div className="header">
-          <div className="search">
-            <ul>
-              <li>
+        <div className="sub-section-header">
+          <div className="left">
+            <ul className="the-ul">
+              <li className="the-li">
                 <Radio.Group value={selectedLevel} onChange={this.onSelectLevelChange}>
                   <Radio.Button value="1"> 1 </Radio.Button>
                   <Radio.Button value="2"> 2 </Radio.Button>
                 </Radio.Group>
               </li>
-              <li>
+              <li className="the-li">
                 <Button shape="circle" icon="reload" />
               </li>
-              <li>
+              <li className="the-li">
                 <Button shape="circle" type="primary" icon="download" />
               </li>
-              <li>
+              <li className="the-li">
                 <Button style={{ marginLeft: 20 }} icon="menu-unfold">Chart</Button>
               </li>
             </ul>
           </div>
-          <Button type="primary" icon="plus" className="add-button">
-            Tambah Bagian
-          </Button>
+          <div className="right">
+            <ul className="the-ul">
+              <li className="the-li">
+                <Button type="primary" icon="plus" className="add-button">
+                  Bagian
+                </Button>
+              </li>
+            </ul>
+          </div>
+
         </div>
         <div className="content">
           <div className="left">
