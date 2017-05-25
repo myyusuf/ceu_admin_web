@@ -36,7 +36,7 @@ export default class StudentEducationForm extends Component {
           </Col>
           <Col span={12}>
             <FormItem label="Tahun Lulus">
-              {getFieldDecorator('tahun lulus', {
+              {getFieldDecorator('tahun_lulus', {
                 rules: [],
               })(
                 <InputNumber min={2000} max={2070} style={{ width: '100%' }} />,
@@ -50,7 +50,7 @@ export default class StudentEducationForm extends Component {
               {getFieldDecorator('nomer_ijazah', {
                 rules: [],
               })(
-                <Input maxLength="10" />,
+                <Input maxLength="20" />,
               )}
             </FormItem>
           </Col>

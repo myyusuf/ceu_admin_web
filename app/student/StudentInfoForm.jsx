@@ -10,6 +10,7 @@ import DatePicker from 'antd/lib/date-picker';
 import Radio from 'antd/lib/radio';
 import Tabs from 'antd/lib/tabs';
 import Message from 'antd/lib/message';
+import flow from 'nimble';
 
 import StudentMainInfoForm from './student/StudentMainInfoForm';
 import StudentEducationForm from './student/StudentEducationForm';
@@ -57,15 +58,65 @@ export default class StudentInfoForm extends Component {
   }
 
   handleUpdateStudentInfo() {
-    const form = this.studentInfoMainForm;
-    form.validateFields((err, values) => {
-      if (err) {
+    const infoForm = this.studentInfoMainForm;
+    const educationForm = this.studentEducationForm;
+    const contactForm = this.studentContactForm;
+
+    const series = [];
+    const validatedValue = {};
+
+    const validateInfoForm = (callback) => {
+      infoForm.validateFields((err, values) => {
+        if (err) {
+          callback(err);
+        }
+        validatedValue.infoForm = values;
+        callback();
+      });
+    };
+
+    const validateEducationForm = (callback) => {
+      if (educationForm === undefined) {
+        callback();
         return;
       }
+      educationForm.validateFields((err, values) => {
+        if (err) {
+          callback(err);
+        }
+        validatedValue.educationForm = values;
+        callback();
+      });
+    };
 
-      const studentInfo = values;
+    const validateContactForm = (callback) => {
+      if (contactForm === undefined) {
+        callback();
+        return;
+      }
+      contactForm.validateFields((err, values) => {
+        if (err) {
+          callback(err);
+        }
+        validatedValue.contactForm = values;
+        callback();
+      });
+    };
 
-      studentInfo.tanggal_lahir = values.tanggal_lahir ? values.tanggal_lahir.format('YYYY-MM-DD') : '';
+    const seriesResult = (error) => {
+      if (error) {
+        Message.error(
+          <span>
+            Form validation error
+          </span>);
+        return;
+      }
+      const studentInfo = validatedValue;
+
+      studentInfo.infoForm.tanggal_lahir =
+      studentInfo.infoForm.tanggal_lahir ?
+      studentInfo.infoForm.tanggal_lahir.format('YYYY-MM-DD') : '';
+
       studentInfo.id = this.state.student.id;
 
       console.log('Received values of form: ', studentInfo);
@@ -84,7 +135,9 @@ export default class StudentInfoForm extends Component {
             {error.response.data}
           </span>);
       });
-    });
+    };
+    series.push(validateInfoForm, validateEducationForm, validateContactForm);
+    flow.series(series, seriesResult);
   }
 
   render() {
