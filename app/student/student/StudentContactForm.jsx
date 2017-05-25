@@ -19,12 +19,13 @@ export default class StudentContactForm extends Component {
   }
 
   render() {
-    const { form } = this.props;
+    const { student, form } = this.props;
     const { getFieldDecorator } = form;
     return (
       <Form layout="vertical" style={{ paddingLeft: 20, width: '50%' }}>
         <FormItem label="Alamat">
           {getFieldDecorator('alamat', {
+            initialValue: student.alamat,
             rules: [],
           })(
             <Input maxLength="100" />,
