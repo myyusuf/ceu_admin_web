@@ -5,9 +5,16 @@ import Dropdown from 'antd/lib/dropdown';
 import Icon from 'antd/lib/icon';
 import Radio from 'antd/lib/radio';
 import Table from 'antd/lib/table';
+import Modal from 'antd/lib/modal';
+import Form from 'antd/lib/form';
+import Message from 'antd/lib/message';
 import axios from 'axios';
 
 import TakenDepartmentDetail from './TakenDepartmentDetail';
+import AddTakenDepartmentForm from './taken_department/AddTakenDepartmentForm';
+
+const confirm = Modal.confirm;
+const WrappedAddTakenDepartmentForm = Form.create()(AddTakenDepartmentForm);
 
 export default class TakenDepartment extends Component {
 
@@ -41,11 +48,16 @@ export default class TakenDepartment extends Component {
         },
       ],
       rowSelection,
+      addTakenDepartmentFormVisible: false,
     };
 
     this.onSelectLevelChange = this.onSelectLevelChange.bind(this);
     this.onTakenDepartmentSelected = this.onTakenDepartmentSelected.bind(this);
     this.onAddButtonPressed = this.onAddButtonPressed.bind(this);
+
+    this.saveAddTakenDepartmentFormRef = this.saveAddTakenDepartmentFormRef.bind(this);
+    this.handleCancelAdd = this.handleCancelAdd.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
   }
 
   componentDidMount() {
@@ -63,7 +75,29 @@ export default class TakenDepartment extends Component {
   }
 
   onAddButtonPressed(e) {
-    console.log(e);
+    if (e.key === '1') {
+      confirm({
+        title: 'Tambah Bagian Tingkat 1',
+        content: 'Anda akan menambah semua bagian tingkat 1.',
+        onOk() {
+        },
+        onCancel() {
+          // console.log('Cancel');
+        },
+      });
+    } else if (e.key === '2') {
+      confirm({
+        title: 'Tambah Bagian Tingkat 2',
+        content: 'Anda akan menambah semua bagian tingkat 2.',
+        onOk() {
+        },
+        onCancel() {
+          // console.log('Cancel');
+        },
+      });
+    } else if (e.key === '3') {
+      this.setState({ addTakenDepartmentFormVisible: true });
+    }
   }
 
   getDepartments() {
@@ -78,6 +112,46 @@ export default class TakenDepartment extends Component {
     })
     .catch((error) => {
       console.log(error);
+    });
+  }
+
+  saveAddTakenDepartmentFormRef(form) {
+    this.addTakenDepartmentForm = form;
+  }
+
+  handleCancelAdd() {
+    const form = this.addTakenDepartmentForm;
+    form.resetFields();
+    this.setState({ addTakenDepartmentFormVisible: false });
+  }
+
+  handleCreate() {
+    const form = this.addTakenDepartmentForm;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+
+      axios.post('/takendepartments', values)
+      .then((response) => {
+        // console.dir(response);
+        Message.success('Taken department added successfully.');
+        form.resetFields();
+        this.setState({
+          createDepartmentFormVisible: false,
+        }, () => {
+          this.getDepartments();
+        });
+      })
+      .catch((error) => {
+        Message.error(
+          <span>
+            {error.message}<br />
+            {error.response.data}
+          </span>);
+      });
     });
   }
 
@@ -151,7 +225,12 @@ export default class TakenDepartment extends Component {
           <div className="right">
             {takenDepartmentDetail}
           </div>
-
+          <WrappedAddTakenDepartmentForm
+            ref={this.saveAddTakenDepartmentFormRef}
+            visible={this.state.addTakenDepartmentFormVisible}
+            onCancel={this.handleCancelAdd}
+            onCreate={this.handleCreate}
+          />
         </div>
       </div>
     );
