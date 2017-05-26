@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Button from 'antd/lib/button';
+import Menu from 'antd/lib/menu';
+import Dropdown from 'antd/lib/dropdown';
+import Icon from 'antd/lib/icon';
 import Radio from 'antd/lib/radio';
 import Table from 'antd/lib/table';
 import axios from 'axios';
@@ -42,6 +45,7 @@ export default class TakenDepartment extends Component {
 
     this.onSelectLevelChange = this.onSelectLevelChange.bind(this);
     this.onTakenDepartmentSelected = this.onTakenDepartmentSelected.bind(this);
+    this.onAddButtonPressed = this.onAddButtonPressed.bind(this);
   }
 
   componentDidMount() {
@@ -56,6 +60,10 @@ export default class TakenDepartment extends Component {
     this.setState({
       selectedTakenDepartment: record,
     });
+  }
+
+  onAddButtonPressed(e) {
+    console.log(e);
   }
 
   getDepartments() {
@@ -86,6 +94,14 @@ export default class TakenDepartment extends Component {
       );
     }
 
+    const menu = (
+      <Menu onClick={this.onAddButtonPressed}>
+        <Menu.Item key="1">+ Tingkat 1</Menu.Item>
+        <Menu.Item key="2">+ Tingkat 2</Menu.Item>
+        <Menu.Item key="3">+ Bagian</Menu.Item>
+      </Menu>
+    );
+
     return (
       <div className="taken-department">
         <div className="sub-section-header">
@@ -111,9 +127,11 @@ export default class TakenDepartment extends Component {
           <div className="right">
             <ul className="the-ul">
               <li className="the-li">
-                <Button type="primary" icon="plus" className="add-button">
-                  Bagian
-                </Button>
+                <Dropdown overlay={menu}>
+                  <Button>
+                    Tambah Bagian <Icon type="down" />
+                  </Button>
+                </Dropdown>
               </li>
             </ul>
           </div>
