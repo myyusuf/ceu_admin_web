@@ -5,16 +5,16 @@ import Dropdown from 'antd/lib/dropdown';
 import Icon from 'antd/lib/icon';
 import Radio from 'antd/lib/radio';
 import Table from 'antd/lib/table';
-import Modal from 'antd/lib/modal';
 import Form from 'antd/lib/form';
 import Message from 'antd/lib/message';
 import axios from 'axios';
 
 import TakenDepartmentDetail from './TakenDepartmentDetail';
 import AddTakenDepartmentForm from './taken_department/AddTakenDepartmentForm';
+import AddTakenDepartmentByLevelForm from './taken_department/AddTakenDepartmentByLevelForm';
 
-const confirm = Modal.confirm;
 const WrappedAddTakenDepartmentForm = Form.create()(AddTakenDepartmentForm);
+const WrappedAddTakenDepartmentByLevelForm = Form.create()(AddTakenDepartmentByLevelForm);
 
 export default class TakenDepartment extends Component {
 
@@ -49,6 +49,7 @@ export default class TakenDepartment extends Component {
       ],
       rowSelection,
       addTakenDepartmentFormVisible: false,
+      addTakenDepartmentByLevelFormVisible: false,
     };
 
     this.onSelectLevelChange = this.onSelectLevelChange.bind(this);
@@ -57,9 +58,12 @@ export default class TakenDepartment extends Component {
 
     this.saveAddTakenDepartmentFormRef = this.saveAddTakenDepartmentFormRef.bind(this);
     this.handleCancelAdd = this.handleCancelAdd.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
 
-    this.handleCreateByLevel = this.handleCreateByLevel.bind(this);
+    this.saveAddTakenDepartmentByLevelFormRef =
+    this.saveAddTakenDepartmentByLevelFormRef.bind(this);
+    this.handleCancelAddByLevel = this.handleCancelAddByLevel.bind(this);
+    this.handleAddByLevel = this.handleAddByLevel.bind(this);
   }
 
   componentDidMount() {
@@ -79,28 +83,8 @@ export default class TakenDepartment extends Component {
   onAddButtonPressed(e) {
     const theThis = this;
     if (e.key === '1') {
-      confirm({
-        title: 'Tambah Bagian Tingkat 1',
-        content: 'Anda akan menambah semua bagian tingkat 1.',
-        onOk() {
-          theThis.handleCreateByLevel('1');
-        },
-        onCancel() {
-          // console.log('Cancel');
-        },
-      });
+      theThis.setState({ addTakenDepartmentByLevelFormVisible: true });
     } else if (e.key === '2') {
-      confirm({
-        title: 'Tambah Bagian Tingkat 2',
-        content: 'Anda akan menambah semua bagian tingkat 2.',
-        onOk() {
-          theThis.handleCreateByLevel('2');
-        },
-        onCancel() {
-          // console.log('Cancel');
-        },
-      });
-    } else if (e.key === '3') {
       theThis.setState({ addTakenDepartmentFormVisible: true });
     }
   }
@@ -124,32 +108,46 @@ export default class TakenDepartment extends Component {
     this.addTakenDepartmentForm = form;
   }
 
+  saveAddTakenDepartmentByLevelFormRef(form) {
+    this.addTakenDepartmentByLevelForm = form;
+  }
+
   handleCancelAdd() {
     const form = this.addTakenDepartmentForm;
     form.resetFields();
     this.setState({ addTakenDepartmentFormVisible: false });
   }
 
-  handleCreateByLevel(level) {
-    const values = {
-      studentId: this.state.student.id,
-      level,
-    };
-    axios.post('/createtakendepartments_bylevel', values)
-    .then((response) => {
-      // console.dir(response);
-      Message.success('Taken department added successfully.');
-    })
-    .catch((error) => {
-      Message.error(
-        <span>
-          {error.message}<br />
-          {error.response.data}
-        </span>);
+  handleCancelAddByLevel() {
+    const form = this.addTakenDepartmentByLevelForm;
+    form.resetFields();
+    this.setState({ addTakenDepartmentByLevelFormVisible: false });
+  }
+
+  handleAddByLevel(level) {
+    const form = this.addTakenDepartmentForm;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+      const formData = values;
+      formData.studentId = this.state.student.id;
+      axios.post('/createtakendepartments_bylevel', formData)
+      .then((response) => {
+        // console.dir(response);
+        Message.success('Taken department added successfully.');
+      })
+      .catch((error) => {
+        Message.error(
+          <span>
+            {error.message}<br />
+            {error.response.data}
+          </span>);
+      });
     });
   }
 
-  handleCreate() {
+  handleAdd() {
     const form = this.addTakenDepartmentForm;
     form.validateFields((err, values) => {
       if (err) {
@@ -182,7 +180,7 @@ export default class TakenDepartment extends Component {
   render() {
     const selectedLevel = this.state.selectedLevel;
 
-    let takenDepartmentDetail = <div>Select Department</div>;
+    let takenDepartmentDetail = <div className="empty-taken-department">Select Department</div>;
 
     if (this.state.selectedTakenDepartment !== null) {
       takenDepartmentDetail = (
@@ -194,9 +192,8 @@ export default class TakenDepartment extends Component {
 
     const menu = (
       <Menu onClick={this.onAddButtonPressed}>
-        <Menu.Item key="1">+ Tingkat 1</Menu.Item>
-        <Menu.Item key="2">+ Tingkat 2</Menu.Item>
-        <Menu.Item key="3">+ Bagian</Menu.Item>
+        <Menu.Item key="1">+ Tingkat</Menu.Item>
+        <Menu.Item key="2">+ Bagian</Menu.Item>
       </Menu>
     );
 
@@ -254,7 +251,13 @@ export default class TakenDepartment extends Component {
             ref={this.saveAddTakenDepartmentFormRef}
             visible={this.state.addTakenDepartmentFormVisible}
             onCancel={this.handleCancelAdd}
-            onCreate={this.handleCreate}
+            onCreate={this.handleAdd}
+          />
+          <WrappedAddTakenDepartmentByLevelForm
+            ref={this.saveAddTakenDepartmentByLevelFormRef}
+            visible={this.state.addTakenDepartmentByLevelFormVisible}
+            onCancel={this.handleCancelAddByLevel}
+            onCreate={this.handleAddByLevel}
           />
         </div>
       </div>

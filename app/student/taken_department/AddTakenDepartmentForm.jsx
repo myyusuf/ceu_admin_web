@@ -16,7 +16,6 @@ export default class AddTakenDepartmentForm extends Component {
 
   constructor(props) {
     super(props);
-    this.onColorChange = this.onColorChange.bind(this);
     this.state = {
       departments: [],
     };
@@ -24,12 +23,6 @@ export default class AddTakenDepartmentForm extends Component {
 
   componentDidMount() {
     this.getDepartments();
-  }
-
-  onColorChange(color) {
-    this.props.form.setFieldsValue({
-      warna: color.hex.toUpperCase(),
-    });
   }
 
   getDepartments() {
