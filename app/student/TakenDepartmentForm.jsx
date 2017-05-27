@@ -5,6 +5,8 @@ import Checkbox from 'antd/lib/checkbox';
 import Button from 'antd/lib/button';
 import axios from 'axios';
 import DatePicker from 'antd/lib/date-picker';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
 
 const { RangePicker } = DatePicker;
 
@@ -43,101 +45,114 @@ export default class TakenDepartmentForm extends Component {
   }
 
   render() {
-    function onChange(date, dateString) {
-      console.log(date, dateString);
-    }
-
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 14 },
-      },
-    };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 14,
-          offset: 6,
-        },
-      },
-    };
-
+    const { takenDepartment, form } = this.props;
+    const { getFieldDecorator } = form;
     return (
-      <Form onSubmit={this.handleSubmit} className="taken-department-form">
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-              Bagian
-            </span>
-           )}
-        >
-          <Input disabled value={this.props.takenDepartment.nama} />
+      <Form
+        layout="vertical"
+        onSubmit={this.handleSubmit}
+        style={{ paddingLeft: 20, paddingRight: 20 }}
+      >
+        <Row gutter={15}>
+          <Col span={12}>
+            <FormItem label="Bagian">
+              {getFieldDecorator('bagian', {
+                initialValue: takenDepartment.nama,
+                rules: [],
+              })(
+                <Input maxLength="10" disabled />,
+              )}
+            </FormItem>
+          </Col>
+          <Col span={12}>
+            <FormItem label="Judul">
+              {getFieldDecorator('judul', {
+                initialValue: takenDepartment.judul,
+                rules: [
+                  {
+                    required: true,
+                    message: 'Judul wajib diisi',
+                  },
+                  {
+                    min: 3,
+                    message: 'Panjang judul minimum 3 karakter',
+                  },
+                  {
+                    max: 30,
+                    message: 'Panjang judul maximum 30 karakter',
+                  },
+                ],
+              })(
+                <Input maxLength="30" />,
+              )}
+            </FormItem>
+          </Col>
+        </Row>
+
+        <FormItem label="Tanggal Rencana">
+          {getFieldDecorator('tanggal_rencana', {
+            rules: [],
+          })(
+            <RangePicker style={{ width: '48%' }} />
+          )}
         </FormItem>
 
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-              Judul
-            </span>
-           )}
-        >
-          <Input value={this.props.takenDepartment.judul} />
+        <Row gutter={15}>
+          <Col span={6}>
+            <FormItem label="Tanggal Mulai">
+              {getFieldDecorator('tanggal_mulai', {
+                initialValue: takenDepartment.tanggal_mulai,
+                rules: [],
+              })(
+                <DatePicker />,
+              )}
+            </FormItem>
+          </Col>
+          <Col span={6}>
+            <FormItem label="Tanggal Selesai">
+              {getFieldDecorator('tanggal_selesai', {
+                initialValue: takenDepartment.tanggal_selesai,
+                rules: [],
+              })(
+                <DatePicker />,
+              )}
+            </FormItem>
+          </Col>
+        </Row>
+        <FormItem>
+          {getFieldDecorator('rotasi_akhir', {
+            rules: [],
+          })(
+            <Checkbox>Rotasi Akhir</Checkbox>
+          )}
         </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-              Tanggal Rencana
-            </span>
-           )}
-        >
-          <RangePicker onChange={onChange} />
+        <FormItem>
+          {getFieldDecorator('selesai', {
+            rules: [],
+          })(
+            <Checkbox>Selesai</Checkbox>
+          )}
         </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-              Tanggal Mulai
-            </span>
-           )}
-        >
-          <DatePicker onChange={onChange} />
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          style={{ marginBottom: 8 }}
-          label={(
-            <span>
-              Tanggal Selesai
-            </span>
-           )}
-        >
-          <DatePicker onChange={onChange} />
-        </FormItem>
-
-        <FormItem {...tailFormItemLayout} style={{ marginBottom: 5 }}>
-          <Checkbox>Rotasi Akhir</Checkbox>
-        </FormItem>
-        <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
-          <Checkbox>Selesai</Checkbox>
-        </FormItem>
-
-        <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" size="large">Save</Button>
-        </FormItem>
+        <Row gutter={10}>
+          <Col span={3}>
+            <FormItem>
+              <Button type="primary" htmlType="submit" size="large">Save</Button>
+            </FormItem>
+          </Col>
+          <Col span={3}>
+            <FormItem>
+              <Button
+                type="danger"
+                ghost
+                icon="delete"
+                htmlType="submit"
+                size="large"
+              >
+                Delete
+              </Button>
+            </FormItem>
+          </Col>
+        </Row>
       </Form>
     );
   }

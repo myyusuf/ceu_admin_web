@@ -58,6 +58,8 @@ export default class TakenDepartment extends Component {
     this.saveAddTakenDepartmentFormRef = this.saveAddTakenDepartmentFormRef.bind(this);
     this.handleCancelAdd = this.handleCancelAdd.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
+
+    this.handleCreateByLevel = this.handleCreateByLevel.bind(this);
   }
 
   componentDidMount() {
@@ -75,11 +77,13 @@ export default class TakenDepartment extends Component {
   }
 
   onAddButtonPressed(e) {
+    const theThis = this;
     if (e.key === '1') {
       confirm({
         title: 'Tambah Bagian Tingkat 1',
         content: 'Anda akan menambah semua bagian tingkat 1.',
         onOk() {
+          theThis.handleCreateByLevel('1');
         },
         onCancel() {
           // console.log('Cancel');
@@ -90,13 +94,14 @@ export default class TakenDepartment extends Component {
         title: 'Tambah Bagian Tingkat 2',
         content: 'Anda akan menambah semua bagian tingkat 2.',
         onOk() {
+          theThis.handleCreateByLevel('2');
         },
         onCancel() {
           // console.log('Cancel');
         },
       });
     } else if (e.key === '3') {
-      this.setState({ addTakenDepartmentFormVisible: true });
+      theThis.setState({ addTakenDepartmentFormVisible: true });
     }
   }
 
@@ -123,6 +128,25 @@ export default class TakenDepartment extends Component {
     const form = this.addTakenDepartmentForm;
     form.resetFields();
     this.setState({ addTakenDepartmentFormVisible: false });
+  }
+
+  handleCreateByLevel(level) {
+    const values = {
+      studentId: this.state.student.id,
+      level,
+    };
+    axios.post('/createtakendepartments_bylevel', values)
+    .then((response) => {
+      // console.dir(response);
+      Message.success('Taken department added successfully.');
+    })
+    .catch((error) => {
+      Message.error(
+        <span>
+          {error.message}<br />
+          {error.response.data}
+        </span>);
+    });
   }
 
   handleCreate() {
@@ -214,7 +238,8 @@ export default class TakenDepartment extends Component {
         <div className="content">
           <div className="left">
             <Table
-              size="medium"
+              size="middle"
+              style={{ height: 100 }}
               pagination={false}
               rowKey="judul"
               columns={this.state.columns}
