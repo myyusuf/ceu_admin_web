@@ -7,6 +7,7 @@ import axios from 'axios';
 import DatePicker from 'antd/lib/date-picker';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
+import moment from 'moment';
 
 const { RangePicker } = DatePicker;
 
@@ -47,6 +48,15 @@ export default class TakenDepartmentForm extends Component {
   render() {
     const { takenDepartment, form } = this.props;
     const { getFieldDecorator } = form;
+    let planStartDate = null;
+    let planEndDate = null;
+    if (takenDepartment.plan_start_date) {
+      planStartDate = moment(new Date(takenDepartment.plan_start_date));
+    }
+    if (takenDepartment.plan_end_date) {
+      planEndDate = moment(new Date(takenDepartment.plan_end_date));
+    }
+
     return (
       <Form
         layout="vertical"
@@ -91,6 +101,7 @@ export default class TakenDepartmentForm extends Component {
 
         <FormItem label="Tanggal Rencana">
           {getFieldDecorator('tanggal_rencana', {
+            initialValue: [planStartDate, planEndDate],
             rules: [],
           })(
             <RangePicker style={{ width: '48%' }} />
