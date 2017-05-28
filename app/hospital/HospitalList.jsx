@@ -24,15 +24,19 @@ export default class HospitalList extends Component {
   }
 
   componentDidMount() {
-    this.getTakenDepartmentProblems();
+    this.getHospitals();
   }
 
   onSelectLevelChange(e) {
     this.setState({ selectedLevel: e.target.value });
   }
 
-  getTakenDepartmentProblems() {
-    axios.get('/hospitals', {})
+  getHospitals() {
+    axios.get('/hospitals', {
+      params: {
+        tipe: 1,
+      },
+    })
     .then((response) => {
       this.setState({
         hospitals: response.data,
@@ -63,6 +67,7 @@ export default class HospitalList extends Component {
         rowSelection={rowSelection}
         columns={this.state.columns}
         dataSource={this.state.hospitals}
+        scroll={{ y: 400 }}
       />
     );
   }

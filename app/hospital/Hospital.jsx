@@ -26,7 +26,7 @@ export default class Hospital extends Component {
   }
 
   componentDidMount() {
-    this.getStudents();
+    // this.getStudents();
   }
 
   getStudents() {

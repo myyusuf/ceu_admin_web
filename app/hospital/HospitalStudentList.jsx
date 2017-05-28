@@ -30,7 +30,7 @@ export default class HospitalStudentList extends Component {
   }
 
   componentDidMount() {
-    this.getTakenDepartmentProblems();
+    // this.getTakenDepartmentProblems();
   }
 
   onSelectLevelChange(e) {
