@@ -7,6 +7,8 @@ import Message from 'antd/lib/message';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import axios from 'axios';
+import DatePicker from 'antd/lib/date-picker';
+import moment from 'moment';
 
 const Option = Select.Option;
 const OptGroup = Select.OptGroup;
@@ -57,6 +59,8 @@ export default class AddTakenDepartmentForm extends Component {
     const { visible, onCancel, onCreate, form } = this.props;
     const { getFieldDecorator } = form;
 
+    const tanggalMulai = moment(new Date());
+
     const level1Departments = this.state.departments.filter((department) => {
       return department.tingkat === 1;
     });
@@ -75,7 +79,7 @@ export default class AddTakenDepartmentForm extends Component {
       <Modal
         visible={visible}
         wrapClassName="vertical-center-modal"
-        width={450}
+        width={480}
         title="Tambah Bagian"
         okText="Create"
         onCancel={onCancel}
@@ -83,7 +87,7 @@ export default class AddTakenDepartmentForm extends Component {
       >
         <Form layout="vertical">
           <Row gutter={15}>
-            <Col span={10}>
+            <Col span={8}>
               <FormItem label="Bagian">
                 {getFieldDecorator('bagian', {
                   rules: [
@@ -108,7 +112,7 @@ export default class AddTakenDepartmentForm extends Component {
                 )}
               </FormItem>
             </Col>
-            <Col span={14}>
+            <Col span={8}>
               <FormItem label="Nama">
                 {getFieldDecorator('nama', {
                   rules: [
@@ -127,6 +131,16 @@ export default class AddTakenDepartmentForm extends Component {
                   ],
                 })(
                   <Input maxLength="30" />,
+                )}
+              </FormItem>
+            </Col>
+            <Col span={8}>
+              <FormItem label="Rencana Mulai">
+                {getFieldDecorator('tanggal_mulai', {
+                  initialValue: tanggalMulai,
+                  rules: [],
+                })(
+                  <DatePicker />,
                 )}
               </FormItem>
             </Col>

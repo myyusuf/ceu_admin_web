@@ -125,7 +125,7 @@ export default class TakenDepartment extends Component {
   }
 
   handleAddByLevel(level) {
-    const form = this.addTakenDepartmentForm;
+    const form = this.addTakenDepartmentByLevelForm;
     form.validateFields((err, values) => {
       if (err) {
         return;
@@ -180,7 +180,14 @@ export default class TakenDepartment extends Component {
   render() {
     const selectedLevel = this.state.selectedLevel;
 
-    let takenDepartmentDetail = <div className="empty-taken-department">Select Department</div>;
+    let takenDepartmentDetail = (
+      <div className="empty-taken-department">
+        <div>
+          <span>Select Department</span>
+          <img src="assets/images/icons/about.png" alt="Info" />
+        </div>
+      </div>
+      );
 
     if (this.state.selectedTakenDepartment !== null) {
       takenDepartmentDetail = (
@@ -191,7 +198,7 @@ export default class TakenDepartment extends Component {
     }
 
     const menu = (
-      <Menu onClick={this.onAddButtonPressed}>
+      <Menu onClick={this.onAddButtonPressed} value={1}>
         <Menu.Item key="1">+ Tingkat</Menu.Item>
         <Menu.Item key="2">+ Bagian</Menu.Item>
       </Menu>

@@ -44,7 +44,7 @@ export default class AddTakenDepartmentByLevelForm extends Component {
                   rules: [
                     {
                       required: true,
-                      message: 'Bagian wajib diisi',
+                      message: 'Tingkat wajib diisi',
                     },
                   ],
                 })(
@@ -62,7 +62,7 @@ export default class AddTakenDepartmentByLevelForm extends Component {
             <Col span={8}>
               <FormItem label="Sufix">
                 {getFieldDecorator('sufix', {
-                  initialValue: 1,
+                  initialValue: '1',
                   rules: [
                     {
                       required: true,
@@ -83,7 +83,7 @@ export default class AddTakenDepartmentByLevelForm extends Component {
               </FormItem>
             </Col>
             <Col span={9}>
-              <FormItem label="Tanggal Mulai">
+              <FormItem label="Rencana Mulai">
                 {getFieldDecorator('tanggal_mulai', {
                   initialValue: tanggalMulai,
                   rules: [],
