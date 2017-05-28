@@ -5,12 +5,15 @@ import Icon from 'antd/lib/icon';
 import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
 import axios from 'axios';
-import Col from 'antd/lib/col';
 import DatePicker from 'antd/lib/date-picker';
+import Tabs from 'antd/lib/tabs';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import moment from 'moment';
 
 const { RangePicker } = DatePicker;
-
 const FormItem = Form.Item;
+const TabPane = Tabs.TabPane;
 
 export default class TakenDivisionForm extends Component {
 
@@ -49,212 +52,184 @@ export default class TakenDivisionForm extends Component {
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
-
-    function onChange(date, dateString) {
-      console.log(date, dateString);
-    }
-
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 14 },
-      },
-    };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 14,
-          offset: 6,
-        },
-      },
-    };
+    const { takenDepartment, form } = this.props;
+    const { getFieldDecorator } = form;
 
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form">
-
-        <FormItem
-         {...formItemLayout}
-           label={(
-             <span>
-               Rumah Sakit&nbsp;
-               <Tooltip title="Isi rumah sakit dengan memilih.">
-                 <Icon type="question-circle-o" />
-               </Tooltip>
-             </span>
-           )}
-          hasFeedback
-        >
-             {getFieldDecorator('rumahSakit', {})(
-              <div>
-                <Col span={18}><Input /></Col>
-                <Col span={6}>
-                  <Button
-                    type="dashed"
-                    size="large"
-                    onClick={this.handlePick} style={{ marginLeft: 10 }}
-                  >
-                  Pilih
-                 </Button>
-                </Col>
-              </div>,
-           )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Rencana RS 1
-            </span>
-           )}
-        >
-          {getFieldDecorator('hospitalPlanRangeDate1', {})(
-            <RangePicker onChange={onChange} />,
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Mulai RS 1
-            </span>
-           )}
-        >
-          {getFieldDecorator('hospitalRealStartDate1', {})(
-            <DatePicker onChange={onChange} />,
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Selesai RS 1
-            </span>
-           )}
-        >
-          {getFieldDecorator('hospitalRealEndDate1', {})(
-            <DatePicker onChange={onChange} />,
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Rencana RS 2
-            </span>
-           )}
-        >
-          {getFieldDecorator('hospitalPlanRangeDate2', {})(
-            <RangePicker onChange={onChange} />
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Mulai RS 2
-            </span>
-           )}
-        >
-          {getFieldDecorator('hospitalRealStartDate2', {})(
-            <DatePicker onChange={onChange} />,
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Selesai RS 2
-            </span>
-           )}
-        >
-          {getFieldDecorator('hospitalRealEndDate2', {})(
-            <DatePicker onChange={onChange} />,
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-               Klinik&nbsp;
-               <Tooltip title="Isi klinik dengan memilih.">
-                 <Icon type="question-circle-o" />
-               </Tooltip>
-            </span>
-           )}
-          hasFeedback
-        >
-          {getFieldDecorator('klinik', {})(
-            <div>
-              <Col span={18}><Input /></Col>
-              <Col span={6}>
+      <Form
+        onSubmit={this.handleSubmit}
+        className="login-form"
+        style={{ paddingLeft: 20, paddingRight: 20 }}
+      >
+        <Tabs defaultActiveKey="1" type="card">
+          <TabPane tab="Jadwal RS 1" key="1">
+            <Row gutter={15}>
+              <Col span={12}>
+                <FormItem
+                  label={(
+                    <span>
+                      Rumah Sakit&nbsp;
+                      <Tooltip title="Isi rumah sakit dengan memilih.">
+                        <Icon type="question-circle-o" />
+                      </Tooltip>
+                    </span>
+                  )}
+                >
+                  {getFieldDecorator('kode_rs', {
+                    // initialValue: takenDepartment.kode_rs,
+                    rules: [],
+                  })(
+                    <Input maxLength="10" disabled />,
+                  )}
+                </FormItem>
+              </Col>
+              <Col span={12}>
                 <Button
                   type="dashed"
+                  icon="search"
                   size="large"
-                  onClick={this.handlePick} style={{ marginLeft: 10 }}
+                  style={{ marginTop: 31, borderColor: '#33CC33', color: '#33CC33' }}
                 >
-                  Pilih
+                Pilih
                 </Button>
               </Col>
-            </div>,
-           )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Rencana Klinik
-            </span>
-           )}
-        >
-          {getFieldDecorator('klinikPlanRangeDate', {})(
-            <RangePicker onChange={onChange} />,
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Mulai Klinik
-            </span>
-           )}
-        >
-          {getFieldDecorator('clinicRealStartDate', {})(
-            <DatePicker onChange={onChange} />,
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label={(
-            <span>
-             Tanggal Selesai Klinik
-            </span>
-           )}
-        >
-          {getFieldDecorator('clinicRealEndDate', {})(
-            <DatePicker onChange={onChange} />,
-          )}
-        </FormItem>
-        <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" size="large">Save</Button>
+            </Row>
+            <FormItem label="Tanggal Rencana">
+              {getFieldDecorator('tanggal_rencana_rs1', {
+                // initialValue: [planStartDate, planEndDate],
+                rules: [],
+              })(
+                <RangePicker style={{ width: '48%' }} />
+              )}
+            </FormItem>
+            <Row gutter={15}>
+              <Col span={6}>
+                <FormItem label="Tanggal Mulai">
+                  {getFieldDecorator('tanggal_mulai_rs1', {
+                    // initialValue: takenDepartment.tanggal_mulai,
+                    rules: [],
+                  })(
+                    <DatePicker />,
+                  )}
+                </FormItem>
+              </Col>
+              <Col span={6}>
+                <FormItem label="Tanggal Selesai">
+                  {getFieldDecorator('tanggal_selesai_rs1', {
+                    // initialValue: takenDepartment.tanggal_selesai,
+                    rules: [],
+                  })(
+                    <DatePicker />,
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+          </TabPane>
+          <TabPane tab="Jadwal RS 2" key="2">
+            <FormItem label="Tanggal Rencana">
+              {getFieldDecorator('tanggal_rencana_rs2', {
+                // initialValue: [planStartDate, planEndDate],
+                rules: [],
+              })(
+                <RangePicker style={{ width: '48%' }} />
+              )}
+            </FormItem>
+            <Row gutter={15}>
+              <Col span={6}>
+                <FormItem label="Tanggal Mulai">
+                  {getFieldDecorator('tanggal_mulai_rs2', {
+                    // initialValue: takenDepartment.tanggal_mulai,
+                    rules: [],
+                  })(
+                    <DatePicker />,
+                  )}
+                </FormItem>
+              </Col>
+              <Col span={6}>
+                <FormItem label="Tanggal Selesai">
+                  {getFieldDecorator('tanggal_selesai_rs2', {
+                    // initialValue: takenDepartment.tanggal_selesai,
+                    rules: [],
+                  })(
+                    <DatePicker />,
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+          </TabPane>
+          <TabPane tab="Jadwal Puskesmas" key="3">
+            <Row gutter={15}>
+              <Col span={12}>
+                <FormItem
+                  label={(
+                    <span>
+                      Puskesmas&nbsp;
+                      <Tooltip title="Isi puskesmas dengan memilih.">
+                        <Icon type="question-circle-o" />
+                      </Tooltip>
+                    </span>
+                  )}
+                >
+                  {getFieldDecorator('kode_puskesmas', {
+                    // initialValue: takenDepartment.kode_rs,
+                    rules: [],
+                  })(
+                    <Input maxLength="10" disabled />,
+                  )}
+                </FormItem>
+              </Col>
+              <Col span={12}>
+                <Button
+                  type="dashed"
+                  icon="search"
+                  size="large"
+                  style={{ marginTop: 31, borderColor: '#33CC33', color: '#33CC33' }}
+                >
+                Pilih
+                </Button>
+              </Col>
+            </Row>
+            <FormItem label="Tanggal Rencana">
+              {getFieldDecorator('tanggal_rencana_puskesmas', {
+                // initialValue: [planStartDate, planEndDate],
+                rules: [],
+              })(
+                <RangePicker style={{ width: '48%' }} />
+              )}
+            </FormItem>
+            <Row gutter={15}>
+              <Col span={6}>
+                <FormItem label="Tanggal Mulai">
+                  {getFieldDecorator('tanggal_mulai_puskesmas', {
+                    // initialValue: takenDepartment.tanggal_mulai,
+                    rules: [],
+                  })(
+                    <DatePicker />,
+                  )}
+                </FormItem>
+              </Col>
+              <Col span={6}>
+                <FormItem label="Tanggal Selesai">
+                  {getFieldDecorator('tanggal_selesai_puskesmas', {
+                    // initialValue: takenDepartment.tanggal_selesai,
+                    rules: [],
+                  })(
+                    <DatePicker />,
+                  )}
+                </FormItem>
+              </Col>
+            </Row>
+          </TabPane>
+        </Tabs>
+        <FormItem>
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            style={{ marginTop: 10 }}
+          >
+            Save
+          </Button>
         </FormItem>
       </Form>
     );
