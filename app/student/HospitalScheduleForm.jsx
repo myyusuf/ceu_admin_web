@@ -55,6 +55,33 @@ export default class TakenDivisionForm extends Component {
     const { takenDepartment, form } = this.props;
     const { getFieldDecorator } = form;
 
+    let hospital1PlanStartDate = null;
+    let hospital1PlanEndDate = null;
+    if (takenDepartment.hospital1_plan_start_date) {
+      hospital1PlanStartDate = moment(new Date(takenDepartment.hospital1_plan_start_date));
+    }
+    if (takenDepartment.hospital1_plan_end_date) {
+      hospital1PlanEndDate = moment(new Date(takenDepartment.hospital1_plan_end_date));
+    }
+
+    let hospital2PlanStartDate = null;
+    let hospital2PlanEndDate = null;
+    if (takenDepartment.hospital2_plan_start_date) {
+      hospital2PlanStartDate = moment(new Date(takenDepartment.hospital2_plan_start_date));
+    }
+    if (takenDepartment.hospital2_plan_end_date) {
+      hospital2PlanEndDate = moment(new Date(takenDepartment.hospital2_plan_end_date));
+    }
+
+    let clinicPlanStartDate = null;
+    let clinicPlanEndDate = null;
+    if (takenDepartment.clinic_plan_start_date) {
+      clinicPlanStartDate = moment(new Date(takenDepartment.clinic_plan_start_date));
+    }
+    if (takenDepartment.clinic_plan_end_date) {
+      clinicPlanEndDate = moment(new Date(takenDepartment.clinic_plan_end_date));
+    }
+
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -96,7 +123,7 @@ export default class TakenDivisionForm extends Component {
             </Row>
             <FormItem label="Tanggal Rencana">
               {getFieldDecorator('tanggal_rencana_rs1', {
-                // initialValue: [planStartDate, planEndDate],
+                initialValue: [hospital1PlanStartDate, hospital1PlanEndDate],
                 rules: [],
               })(
                 <RangePicker style={{ width: '48%' }} />
@@ -128,7 +155,7 @@ export default class TakenDivisionForm extends Component {
           <TabPane tab="Jadwal RS 2" key="2">
             <FormItem label="Tanggal Rencana">
               {getFieldDecorator('tanggal_rencana_rs2', {
-                // initialValue: [planStartDate, planEndDate],
+                initialValue: [hospital2PlanStartDate, hospital2PlanEndDate],
                 rules: [],
               })(
                 <RangePicker style={{ width: '48%' }} />
@@ -191,7 +218,7 @@ export default class TakenDivisionForm extends Component {
             </Row>
             <FormItem label="Tanggal Rencana">
               {getFieldDecorator('tanggal_rencana_puskesmas', {
-                // initialValue: [planStartDate, planEndDate],
+                initialValue: [clinicPlanStartDate, clinicPlanEndDate],
                 rules: [],
               })(
                 <RangePicker style={{ width: '48%' }} />

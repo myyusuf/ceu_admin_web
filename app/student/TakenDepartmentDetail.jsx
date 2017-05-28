@@ -37,7 +37,9 @@ export default class TakenDepartmentDetail extends Component {
         </TabPane>
         <TabPane tab="Jadwal Rumah Sakit" key="2">
           <div className="tab-container">
-            <WrappedHospitalScheduleForm />
+            <WrappedHospitalScheduleForm
+              takenDepartment={this.props.takenDepartment}
+            />
           </div>
         </TabPane>
         <TabPane tab="Data Nilai" key="3">
