@@ -40,7 +40,18 @@ const STUDENT_DEPARTMENT_STATUS_ARRAY = [
 ];
 
 const STUDENT_LEVEL_ARRAY = ['1', '2'];
+const HOSPITAL_TYPES = [
+  {
+    id: 1,
+    type: 'Rumah Sakit',
+  },
+  {
+    id: 2,
+    type: 'Puskesmas',
+  },
+];
 
 module.exports.STUDENT_STATUS_ARRAY = STUDENT_STATUS_ARRAY;
 module.exports.STUDENT_LEVEL_ARRAY = STUDENT_LEVEL_ARRAY;
 module.exports.STUDENT_DEPARTMENT_STATUS_ARRAY = STUDENT_DEPARTMENT_STATUS_ARRAY;
+module.exports.HOSPITAL_TYPES = HOSPITAL_TYPES;

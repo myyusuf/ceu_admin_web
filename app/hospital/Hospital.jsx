@@ -19,32 +19,16 @@ export default class Hospital extends Component {
     this.state = {
       students: [],
       searchFilter: '1',
+      showCreateForm: false,
     };
 
     this.showDetails = this.showDetails.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
+    this.onOpenCreateHospitalForm = this.onOpenCreateHospitalForm.bind(this);
   }
 
   componentDidMount() {
     // this.getStudents();
-  }
-
-  getStudents() {
-    axios.get('/students', {
-      params: {
-        pagesize: 10,
-        pagenum: 0,
-        level: 1,
-      },
-    })
-    .then((response) => {
-      this.setState({
-        students: response.data.data,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
   }
 
   showDetails(student) {
@@ -61,6 +45,10 @@ export default class Hospital extends Component {
 
   handleChange(value) {
     console.log(value);
+  }
+
+  onOpenCreateHospitalForm() {
+    this.setState({ showCreateForm: true });
   }
 
   render() {
@@ -137,7 +125,12 @@ export default class Hospital extends Component {
                 <Pagination simple defaultCurrent={1} total={50} />
               </li>
               <li className="the-li">
-                <Button type="primary" icon="plus" className="add-button">
+                <Button
+                  type="primary"
+                  icon="plus"
+                  className="add-button"
+                  onClick={this.onOpenCreateHospitalForm}
+                >
                   Rumah Sakit
                 </Button>
               </li>
@@ -146,7 +139,7 @@ export default class Hospital extends Component {
         </div>
         <div className="content">
           <div className="left">
-            <HospitalList />
+            <HospitalList showCreateForm={this.state.showCreateForm} />
           </div>
           <div className="center">
             <HospitalDepartmentList />
