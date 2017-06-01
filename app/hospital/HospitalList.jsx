@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import Button from 'antd/lib/button';
 import Table from 'antd/lib/table';
 import axios from 'axios';
 import Form from 'antd/lib/form';
+import Modal from 'antd/lib/modal';
+import Message from 'antd/lib/message';
 import HospitalCreateForm from './HospitalCreateForm';
+
+const confirm = Modal.confirm;
 
 const WrappedHospitalCreateForm = Form.create()(HospitalCreateForm);
 
@@ -14,17 +19,36 @@ export default class HospitalList extends Component {
       selectedRowKeys: ['MB1'],
       columns: [
         {
-          title: 'Kode',
-          dataIndex: 'kode',
-          key: 'kode',
-        }, {
           title: 'Nama',
           dataIndex: 'nama',
           key: 'nama',
+          // width: 300,
+        }, {
+          title: 'Action',
+          key: 'action',
+          // fixed: 'right',
+          width: 100,
+          render: (text, record) => {
+            return (
+              <span>
+                <Button
+                  icon="edit"
+                  type="dashed"
+                  style={{ marginRight: 5 }}
+                  onClick={() => { this.onOpenUpdateHospitalForm(record); }}
+                />
+                <Button
+                  ghost
+                  icon="delete"
+                  type="danger"
+                  onClick={() => { this.onOpenDeleteHospitalDialog(record); }}
+                />
+              </span>
+            );
+          },
         },
       ],
       hospitals: [],
-      createHospitalFormVisible: props.showCreateForm,
     };
 
     this.saveCreateHospitalFormRef = this.saveCreateHospitalFormRef.bind(this);
@@ -46,22 +70,6 @@ export default class HospitalList extends Component {
 
   onSelectLevelChange(e) {
     this.setState({ selectedLevel: e.target.value });
-  }
-
-  getHospitals() {
-    axios.get('/hospitals', {
-      params: {
-        tipe: 1,
-      },
-    })
-    .then((response) => {
-      this.setState({
-        hospitals: response.data,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
   }
 
   onOpenCreateHospitalForm() {
@@ -108,6 +116,22 @@ export default class HospitalList extends Component {
 
   saveUpdateHospitalFormRef(form) {
     this.updateHospitalForm = form;
+  }
+
+  getHospitals() {
+    axios.get('/hospitals', {
+      params: {
+        tipe: 1,
+      },
+    })
+    .then((response) => {
+      this.setState({
+        hospitals: response.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   // getHospitals() {
@@ -243,7 +267,7 @@ export default class HospitalList extends Component {
         />
         <WrappedHospitalCreateForm
           ref={this.saveCreateHospitalFormRef}
-          visible={this.props.showCreateForm}
+          visible={this.state.createHospitalFormVisible}
           onCancel={this.handleCancelCreate}
           onCreate={this.handleCreateHospital}
         />

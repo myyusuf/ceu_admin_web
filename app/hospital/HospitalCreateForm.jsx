@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import InputNumber from 'antd/lib/input-number';
 import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
-
-import HospitalTypeSelect from './components/HospitalTypeSelect';
-
-import { SliderPicker } from 'react-color';
+import CEUConstant from '../CEUConstant';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -21,6 +15,13 @@ export default class HospitalCreateForm extends Component {
   }
 
   render() {
+    const hospitalTypes = [];
+    CEUConstant.HOSPITAL_TYPES.forEach((hospitalType) => {
+      hospitalTypes.push(
+        <Option key={hospitalType.id}>{hospitalType.type}</Option>,
+      );
+    });
+
     const { visible, onCancel, onCreate, form } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -82,7 +83,13 @@ export default class HospitalCreateForm extends Component {
                 },
               ],
             })(
-              <HospitalTypeSelect />,
+              <Select
+                mode="single"
+                placeholder="Pilih tingkat"
+                style={{ width: '50%' }}
+              >
+                {hospitalTypes}
+              </Select>,
             )}
           </FormItem>
         </Form>

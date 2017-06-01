@@ -24,6 +24,8 @@ export default class Hospital extends Component {
 
     this.showDetails = this.showDetails.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
+
+    this.saveHospitalListRef = this.saveHospitalListRef.bind(this);
     this.onOpenCreateHospitalForm = this.onOpenCreateHospitalForm.bind(this);
   }
 
@@ -47,8 +49,12 @@ export default class Hospital extends Component {
     console.log(value);
   }
 
+  saveHospitalListRef(hospitalList) {
+    this.hospitalList = hospitalList;
+  }
+
   onOpenCreateHospitalForm() {
-    this.setState({ showCreateForm: true });
+    this.hospitalList.onOpenCreateHospitalForm();
   }
 
   render() {
@@ -139,7 +145,7 @@ export default class Hospital extends Component {
         </div>
         <div className="content">
           <div className="left">
-            <HospitalList showCreateForm={this.state.showCreateForm} />
+            <HospitalList ref={this.saveHospitalListRef} />
           </div>
           <div className="center">
             <HospitalDepartmentList />
