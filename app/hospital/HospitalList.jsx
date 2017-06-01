@@ -22,6 +22,7 @@ export default class HospitalList extends Component {
       updateHospitalFormVisible: false,
       hospitalToUpdate: {},
       hospitalToDelete: {},
+      loading: false,
       columns: [
         {
           title: 'Nama',
@@ -250,6 +251,7 @@ export default class HospitalList extends Component {
           pagination={false}
           rowKey="kode"
           rowSelection={rowSelection}
+          loading={this.state.loading}
           columns={this.state.columns}
           dataSource={this.state.hospitals}
           scroll={{ y: 400 }}
