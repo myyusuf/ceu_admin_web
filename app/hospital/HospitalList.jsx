@@ -73,10 +73,6 @@ export default class HospitalList extends Component {
     this.getHospitals();
   }
 
-  onSelectLevelChange(e) {
-    this.setState({ selectedLevel: e.target.value });
-  }
-
   onOpenCreateHospitalForm() {
     this.setState({ createHospitalFormVisible: true });
   }
@@ -123,50 +119,37 @@ export default class HospitalList extends Component {
     this.updateHospitalForm = form;
   }
 
-  getHospitals() {
-    axios.get('/hospitals', {
-      params: {
-        tipe: 1,
-        searchText: this.state.searchText,
-      },
-    })
-    .then((response) => {
-      this.setState({
-        hospitals: response.data,
+  getHospitals(searchText = '', hospitalTypes = ['1']) {
+    this.setState({ loading: true }, () => {
+      axios.get('/hospitals', {
+        params: {
+          searchText,
+          hospitalTypes,
+        },
+      })
+      .then((response) => {
+        this.setState({
+          hospitals: response.data,
+          loading: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          loading: false,
+        });
+        console.dir(error);
+        let errorMessage = 'Error occured when doing server request.\n';
+        if (error.message) {
+          errorMessage += error.message;
+        }
+        Message.error(errorMessage);
       });
-    })
-    .catch((error) => {
-      console.log(error);
     });
   }
 
-  // getHospitals() {
-  //   this.setState({ loading: true }, () => {
-  //     axios.get('/hospitals', {
-  //       params: {
-  //         searchText: this.state.searchText,
-  //         studentLevel: this.state.studentLevel,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       this.setState({
-  //         hospitals: response.data,
-  //         loading: false,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       this.setState({
-  //         loading: false,
-  //       });
-  //       console.dir(error);
-  //       let errorMessage = 'Error occured when doing server request.\n';
-  //       if (error.message) {
-  //         errorMessage += error.message;
-  //       }
-  //       Message.error(errorMessage);
-  //     });
-  //   });
-  // }
+  search(searchText, hospitalTypes) {
+    this.getHospitals(searchText, hospitalTypes);
+  }
 
   handleCreateHospital() {
     const form = this.createHospitalForm;

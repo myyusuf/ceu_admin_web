@@ -6,6 +6,7 @@ import Select from 'antd/lib/select';
 import Input from 'antd/lib/input';
 import Pagination from 'antd/lib/pagination';
 import axios from 'axios';
+import CEUConstant from '../CEUConstant';
 import HospitalList from './HospitalList';
 import HospitalDepartmentList from './HospitalDepartmentList';
 import HospitalStudentList from './HospitalStudentList';
@@ -17,36 +18,28 @@ export default class Hospital extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: [],
-      searchFilter: '1',
-      showCreateForm: false,
+      searchText: '',
+      hospitalTypes: ['1'],
     };
 
-    this.showDetails = this.showDetails.bind(this);
-    this.handleSizeChange = this.handleSizeChange.bind(this);
+    this.onSearchTextChange = this.onSearchTextChange.bind(this);
+    this.onHospitalTypeSelect = this.onHospitalTypeSelect.bind(this);
+    this.onSearch = this.onSearch.bind(this);
 
     this.saveHospitalListRef = this.saveHospitalListRef.bind(this);
     this.onOpenCreateHospitalForm = this.onOpenCreateHospitalForm.bind(this);
   }
 
-  componentDidMount() {
-    // this.getStudents();
+  onSearchTextChange(e) {
+    this.setState({ searchText: e.target.value });
   }
 
-  showDetails(student) {
-    // if (this.props.onShowDetails) {
-    //   this.onShowDetails(student);
-    // }
-
-    window.location.href = `#/studentdetail/${student.id}/info`;
+  onHospitalTypeSelect(values) {
+    this.setState({ hospitalTypes: values });
   }
 
-  handleSizeChange(e) {
-    this.setState({ searchFilter: e.target.value });
-  }
-
-  handleChange(value) {
-    console.log(value);
+  onSearch() {
+    this.hospitalList.search(this.state.searchText, this.state.hospitalTypes);
   }
 
   saveHospitalListRef(hospitalList) {
@@ -58,75 +51,51 @@ export default class Hospital extends Component {
   }
 
   render() {
-    const cardList = [];
-    const colsPerRow = 3;
-    let colList = [];
-    const students = this.state.students;
-
-    for (let i = 0; i < this.state.students.length; i += 1) {
-      const student = students[i];
-
-      colList.push(<Col key={i} span={8}>
-        <StudentCard key={i} student={student} onDetailsClick={this.showDetails} />
-      </Col>);
-
-      if (((i + 1) % colsPerRow) === 0) {
-        cardList.push(
-          <Row key={i} gutter={20}>
-            {colList}
-          </Row>,
-        );
-        colList = [];
-      }
-    }
-
-    if (colList.length > 0) {
-      cardList.push(
-        <Row key="lastRow" gutter={20}>
-          {colList}
-        </Row>,
-      );
-    }
-
-    const searchFilter = this.state.searchFilter;
-
     const hospitalTypes = [];
-    hospitalTypes.push(<Option key="1">Rumah Sakit</Option>);
-    hospitalTypes.push(<Option key="2">Puskesmas</Option>);
+    CEUConstant.HOSPITAL_TYPES.forEach((hospitalType) => {
+      hospitalTypes.push(
+        <Option key={hospitalType.id}>{hospitalType.type}</Option>,
+      );
+    });
 
     return (
       <div className="hospital">
-        <div className="header">
+        <div className="section-header">
           <div className="left">
             <ul>
-              <li>
+              <li className="the-li">
                 <Input
                   style={{ width: 200 }}
                   className="search-text"
                   placeholder="Kode atau Nama"
+                  onChange={this.onSearchTextChange}
                 />
               </li>
-              <li>
+              <li className="the-li">
                 <Select
                   mode="multiple"
                   style={{ minWidth: 100 }}
                   placeholder="Tipe Rumah Sakit"
                   defaultValue={['1']}
-                  onChange={this.handleChange}
+                  onChange={this.onHospitalTypeSelect}
                 >
                   {hospitalTypes}
                 </Select>
               </li>
-              <li>
-                <Button shape="circle" icon="search" className="search-button" />
+              <li className="the-li">
+                <Button
+                  shape="circle"
+                  icon="search" className="search-button"
+                  onClick={this.onSearch}
+                />
               </li>
-              <li>
+              <li className="the-li">
                 <Button shape="circle" type="primary" icon="download" />
               </li>
             </ul>
           </div>
           <div className="right">
-            <ul>
+            <ul className="the-ul">
               <li className="the-li">
                 <Pagination simple defaultCurrent={1} total={50} />
               </li>
