@@ -6,17 +6,22 @@ import Form from 'antd/lib/form';
 import Modal from 'antd/lib/modal';
 import Message from 'antd/lib/message';
 import HospitalCreateForm from './HospitalCreateForm';
+import HospitalUpdateForm from './HospitalUpdateForm';
 
 const confirm = Modal.confirm;
 
 const WrappedHospitalCreateForm = Form.create()(HospitalCreateForm);
+const WrappedHospitalUpdateForm = Form.create()(HospitalUpdateForm);
 
 export default class HospitalList extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedRowKeys: ['MB1'],
+      createHospitalFormVisible: false,
+      updateHospitalFormVisible: false,
+      hospitalToUpdate: {},
+      hospitalToDelete: {},
       columns: [
         {
           title: 'Nama',
@@ -122,6 +127,7 @@ export default class HospitalList extends Component {
     axios.get('/hospitals', {
       params: {
         tipe: 1,
+        searchText: this.state.searchText,
       },
     })
     .then((response) => {
@@ -270,6 +276,13 @@ export default class HospitalList extends Component {
           visible={this.state.createHospitalFormVisible}
           onCancel={this.handleCancelCreate}
           onCreate={this.handleCreateHospital}
+        />
+        <WrappedHospitalUpdateForm
+          ref={this.saveUpdateHospitalFormRef}
+          visible={this.state.updateHospitalFormVisible}
+          onClose={this.handleCloseUpdate}
+          onUpdate={this.handleUpdateHospital}
+          hospital={this.state.hospitalToUpdate}
         />
       </div>
     );
