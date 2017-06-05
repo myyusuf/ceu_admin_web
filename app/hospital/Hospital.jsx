@@ -20,6 +20,7 @@ export default class Hospital extends Component {
     this.state = {
       searchText: '',
       hospitalTypes: ['1'],
+      selectedHospital: null,
     };
 
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
@@ -57,6 +58,21 @@ export default class Hospital extends Component {
         <Option key={hospitalType.id}>{hospitalType.type}</Option>,
       );
     });
+
+    let hospitalDepartmentList = (
+      <div className="empty-hospital-department">
+        <div>
+          <span>Pilih Rumah Sakit</span>
+          <img src="assets/images/icons/about.png" alt="Info" />
+        </div>
+      </div>
+      );
+
+    if (this.state.selectedHospital !== null) {
+      hospitalDepartmentList = (
+        <HospitalDepartmentList />
+      );
+    }
 
     return (
       <div className="hospital">
@@ -114,7 +130,7 @@ export default class Hospital extends Component {
             <HospitalList ref={this.saveHospitalListRef} />
           </div>
           <div className="center">
-            <HospitalDepartmentList />
+            {hospitalDepartmentList}
           </div>
           <div className="right">
             <HospitalStudentList />
